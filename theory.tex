@@ -1,0 +1,120 @@
+
+\subsection{Wave Theory}
+
+Parameters describing surface gravity waves include the wavenumber $k$ and direction $\theta$, and the frequency $\omega$. The first two describe the wave vector $\mathbf{k}$, which has magnitude $k$ and direction $\theta$. $\omega$ here denotes the absolute frequency measured in a fixed frame of reference. If the medium is subject to currents, this will differ from the relative frequency $\sigma$ measured in a frame of reference moving with the mean current, due to the doppler effect. This difference is quantified by the equation
+
+\begin{equation}
+    \omega = \sigma + \mathbf{k} \cdot \mathbf{U}
+    \label{eqn:doppler}
+\end{equation}
+
+and $\sigma$ and $k$ are related by the dispersion relation
+
+\begin{equation}
+    \sigma^2 = gk\tanh{kD}
+    \label{eqn:disprel}
+\end{equation}
+
+The dispersion relation has two limiting forms:
+
+\begin{itemize}
+    \item Deep water waves, where $kD \gg 1$, so $\tanh{kD} \approx 1$ and $\sigma^2 \approx gk$.
+    \item Shallow water waves, where $kD \ll 1$, so $\tanh{kD} \approx kD$ and $\sigma^2 \approx gk^2D$
+\end{itemize}
+
+The phase speed is then given by
+
+\begin{equation}
+c = \frac{\sigma}{k} \approx \begin{cases}
+            \sqrt{\frac{g}{k}} & \text{in deep water} \\
+            \sqrt{gD} & \text{in shallow water}
+\end{cases}
+\end{equation}
+
+and the group speed may be expressed as
+
+\begin{equation}
+c_g = \frac{\partial\sigma}{\partial k} = \frac{1}{2}c \left(1 + \frac{2kD}{\sinh{2kD}} \right) \approx \begin{cases}
+    \frac{1}{2} c & \text{in deep water} \\
+    c & \text{in shallow water}
+\end{cases}
+\end{equation}
+
+We can now use scale analysis to see that $\omega$ and $\sigma$ generally have similar values. The ratio between $\mathbf{k}\cdot\mathbf{U}$ and $\sigma$ in equation \ref{eqn:doppler} is
+
+\[
+\frac{\mathbf{k}\cdot\mathbf{U}}{\sigma} \sim \frac{kU}{\sigma} = \frac U c
+\]
+
+Where $U = |\mathbf{U}|$ is the mean current speed. Since $c \gg U$ in general, this ratio is small and so $\omega \approx \sigma$.
+
+Surface waves are represented using a wave spectrum $F = F(\sigma,\theta)$, which is also a function of position and time. $F$ represents the wave energy associated with a particular frequency $\sigma$ and direction $\theta$, so the total wave energy at any point in space and time is 
+
+\[
+E = \iint F d\sigma d\theta
+\]
+
+The quantity $N = \frac F \sigma$ is called the wave action and is conserved in the absence of sources and sinks, making it the spectrum of choice for wave models.
+
+\subsection{Model Description}
+
+Waves are modelled using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. This is related to the frequency-direction spectrum by the Jacobian transform
+
+\[
+F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
+\]
+
+Wave propagation is then described by the equation
+
+\begin{equation}
+    \frac{D}{Dt}N(k,\theta) = \frac S \sigma
+\end{equation}
+
+Where $S$ described the net effect of sources and sinks for the spectrum $F(k,\theta)$. In deep water, $S$ consists of three main parts: an atmospheric interaction term $S_{in}$, which is usually a positive energy input, a nonlinear wave-wave interaction term $S_{nl}$ and a dissipation term $S_{ds}$. In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
+
+\subsection{Data Assimilation}
+
+We take a vector $\x$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,B)$. We take a vector $\y$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}$:
+
+\[
+\y = \mathcal{H}(\x) + \epsilon
+\]
+
+where the error term $\epsilon$ is assumed to be normally distributed with mean zero and covariance $R$: $\epsilon \sim N(0,R)$. In our case $\mathcal{H}$ is linear i.e. there is a matrix $\mathbf{H}$ such that $\mathcal{H}(\x) = \mathbf{H}\x$, and so $\prob(\y|\x) = N(\mathbf{H}\x,R)$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
+
+\begin{equation}
+    \prob(\x|\y) = \prob(\y|\x) \frac{\prob(\x)}{\prob(\y)}
+\end{equation}
+
+This allows $\prob(\x|\y)$ to be determined since $\prob(\y|\x)$ and $\prob(\x)$ are known, and $\prob(\y)$ is independent of $\x$ so it acts as a normalisation constant. Since all the distributions involved are normal, $\prob(\x|\y)$ will be normally distributed also:
+
+\begin{equation}
+    \prob(\x|\y) \sim e^{-\frac 1 2 \left( \norm[B^{-1}]{\x - \x_b}^2 + \norm[R^{-1}]{\y - \mathbf{H}\x}^2\right)}
+\end{equation}
+
+adopting the notation $\norm[\mathbf{M}]{\mathbf{a}}^2 = \mathbf{a}^\top \mathbf{M} \mathbf{a}$. Finding the most likely value of $\x$ given this distribution is equivalent to minimising a cost function
+
+\begin{equation}
+    J(\x) = \frac 1 2 \norm[B^{-1}]{\x - \x_b}^2 + \frac 1 2 \norm[R^{-1}]{\y - \mathbf{H}\x}^2
+\end{equation}
+
+The state that minimises this cost function is called the analysis $\x_a$ and may be expressed as
+
+\[
+    \x_a = \x_b + K\mathbf{d}
+\]
+
+where $\mathbf{d} = \y - \mathbf{H}\x$ is the innovation and
+
+\[
+K = B\mathbf{H}^\top\left(\mathbf{H}B\mathbf{H}^\top + R\right)^{-1}
+\]
+
+is the Kalman gain. We will use the 4DEnVar method, where the background state and background error covariance matrix is dervied from the ensemble:
+
+\begin{align*}
+    \x_b &= \frac 1 N \sum_{n=1}^N \x_b^{(n)} \\
+    B &= \frac{1}{N - 1} \sum_{n=1}^N \left(\x_b^{(n)} - \x_b\right)\left(\x_b^{(n)} - \x_b\right)^\top
+\end{align*}
+
+Here $\x_b^{(n)}$ represents the background state from ensembele member $n$, and $N$ is the ensemble size.
