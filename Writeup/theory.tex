@@ -1,5 +1,6 @@
+\subsection{Linear Wave Theory}
 
-\subsection{Wave Theory}
+Ocean waves are a distinctive visual feature of the ocean surface, and very important to offshore operations such as wind farms. They are an instance of surface gravity waves. This section will outline the linear wave theory relevant to this project, as derived in \cite{vallis_atmospheric_2017}, page 253.
 
 Parameters describing surface gravity waves include the wavenumber $k$ and direction $\theta$, and the frequency $\omega$. The first two describe the wave vector $\mathbf{k}$, which has magnitude $k$ and direction $\theta$. $\omega$ here denotes the absolute frequency measured in a fixed frame of reference. If the medium is subject to currents, this will differ from the relative frequency $\sigma$ measured in a frame of reference moving with the mean current, due to the doppler effect. This difference is quantified by the equation
 
@@ -29,6 +30,7 @@ c = \frac{\sigma}{k} \approx \begin{cases}
             \sqrt{\frac{g}{k}} & \text{in deep water} \\
             \sqrt{gD} & \text{in shallow water}
 \end{cases}
+\label{eqn:pspeed}
 \end{equation}
 
 and the group speed may be expressed as
@@ -38,6 +40,7 @@ c_g = \frac{\partial\sigma}{\partial k} = \frac{1}{2}c \left(1 + \frac{2kD}{\sin
     \frac{1}{2} c & \text{in deep water} \\
     c & \text{in shallow water}
 \end{cases}
+\label{eqn:gspeed}
 \end{equation}
 
 We can now use scale analysis to see that $\omega$ and $\sigma$ generally have similar values. The ratio between $\mathbf{k}\cdot\mathbf{U}$ and $\sigma$ in equation \ref{eqn:doppler} is
@@ -48,13 +51,21 @@ We can now use scale analysis to see that $\omega$ and $\sigma$ generally have s
 
 Where $U = |\mathbf{U}|$ is the mean current speed. Since $c \gg U$ in general, this ratio is small and so $\omega \approx \sigma$.
 
-Surface waves are represented using a wave spectrum $F = F(\sigma,\theta)$, which is also a function of position and time. $F$ represents the wave energy associated with a particular frequency $\sigma$ and direction $\theta$, so the total wave energy at any point in space and time is 
+Note that equations \ref{eqn:doppler} - \ref{eqn:gspeed} are valid for linear waves of a single frequency and direction. Real ocean waves are more complicated than this, containing multiple frequencies propagating in multiple directions. The WAVEWATCH III model used in this project models ocean waves as a superposition of these simple linear waves.
+
+Surface waves with multiple frequencies and directions are represented using a wave spectrum $F = F(\sigma,\theta)$, which is also a function of position and time. $F$ represents the wave energy associated with a particular frequency $\sigma$ and direction $\theta$, so the total wave energy at any point in space and time is 
 
 \[
 E = \iint F d\sigma d\theta
 \]
 
-The quantity $N = \frac F \sigma$ is called the wave action and is conserved in the absence of sources and sinks, making it the spectrum of choice for wave models.
+Finally we define the wave action
+
+\[
+N(\sigma,\theta) = \frac {F(\sigma,\theta)} {\sigma}
+\]
+
+$N$ is conserved in the absence of sources and sinks, making it the spectrum of choice for wave models.
 
 \subsection{Model Description}
 
@@ -70,17 +81,29 @@ Wave propagation is then described by the equation
     \frac{D}{Dt}N(k,\theta) = \frac S \sigma
 \end{equation}
 
-Where $S$ described the net effect of sources and sinks for the spectrum $F(k,\theta)$. In deep water, $S$ consists of three main parts: an atmospheric interaction term $S_{in}$, which is usually a positive energy input, a nonlinear wave-wave interaction term $S_{nl}$ and a dissipation term $S_{ds}$. In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
+Where $N(k,\theta) = F(k,\theta)/\sigma$ as before and $S$ describes the net effect of sources and sinks for the spectrum $F(k,\theta)$.
+
+In deep water, $S$ consists of three main parts: an atmospheric interaction term $S_{in}$, a nonlinear wave-wave interaction term $S_{nl}$ and a dissipation term $S_{ds}$.
+
+$S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is equal to some coefficient multiplied by $\sigma N(k,\theta)$. This leads to a feedback which is usually positive but can be negative in the case of swell, and reprensents the main source of wave energy.
+
+$S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
+
+$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{janssen_interaction_2004})
+
+In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
 \subsection{Data Assimilation}
 
-We take a vector $\x$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,B)$. We take a vector $\y$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}$:
+As well as the model, we also have some direct observations of the waves which we would like to make use of to improve our predictions. We use techniques of data assimilation to achieve this.
+
+We take a vector $\x$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,\mathbf{B})$. We take a vector $\y$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}$:
 
 \[
-\y = \mathcal{H}(\x) + \epsilon
+\y = \mathcal{H}(\x) + \varepsilon
 \]
 
-where the error term $\epsilon$ is assumed to be normally distributed with mean zero and covariance $R$: $\epsilon \sim N(0,R)$. In our case $\mathcal{H}$ is linear i.e. there is a matrix $\mathbf{H}$ such that $\mathcal{H}(\x) = \mathbf{H}\x$, and so $\prob(\y|\x) = N(\mathbf{H}\x,R)$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
+where the error term $\varepsilon$ is assumed to be normally distributed with mean zero and covariance $\mathbf{R}$: $\varepsilon \sim N(0,\mathbf{R})$. In our case $\mathcal{H}$ is linear i.e. there is a matrix $\mathbf{H}$ such that $\mathcal{H}(\x) = \mathbf{H}\x$, and so $\prob(\y|\x) = N(\mathbf{H}\x,\mathbf{R})$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
 
 \begin{equation}
     \prob(\x|\y) = \prob(\y|\x) \frac{\prob(\x)}{\prob(\y)}
@@ -89,32 +112,39 @@ where the error term $\epsilon$ is assumed to be normally distributed with mean 
 This allows $\prob(\x|\y)$ to be determined since $\prob(\y|\x)$ and $\prob(\x)$ are known, and $\prob(\y)$ is independent of $\x$ so it acts as a normalisation constant. Since all the distributions involved are normal, $\prob(\x|\y)$ will be normally distributed also:
 
 \begin{equation}
-    \prob(\x|\y) \sim e^{-\frac 1 2 \left( \norm[B^{-1}]{\x - \x_b}^2 + \norm[R^{-1}]{\y - \mathbf{H}\x}^2\right)}
+    \prob(\x|\y) \sim e^{-\frac 1 2 \left( \norm[\mathbf{B}^{-1}]{\x - \x_b}^2 + \norm[\mathbf{R}^{-1}]{\y - \mathbf{H}\x}^2\right)}
 \end{equation}
 
 adopting the notation $\norm[\mathbf{M}]{\mathbf{a}}^2 = \mathbf{a}^\top \mathbf{M} \mathbf{a}$. Finding the most likely value of $\x$ given this distribution is equivalent to minimising a cost function
 
 \begin{equation}
-    J(\x) = \frac 1 2 \norm[B^{-1}]{\x - \x_b}^2 + \frac 1 2 \norm[R^{-1}]{\y - \mathbf{H}\x}^2
+    J(\x) = \frac 1 2 \norm[\mathbf{B}^{-1}]{\x - \x_b}^2 + \frac 1 2 \norm[\mathbf{R}^{-1}]{\y - \mathbf{H}\x}^2
+    \label{eqn:cost3d}
 \end{equation}
 
 The state that minimises this cost function is called the analysis $\x_a$ and may be expressed as
 
-\[
-    \x_a = \x_b + K\mathbf{d}
-\]
+\begin{equation}
+    \x_a = \x_b + \mathbf{K}\mathbf{d}
+\end{equation}
 
-where $\mathbf{d} = \y - \mathbf{H}\x$ is the innovation and
+where $\mathbf{d} = \y - \mathbf{H}\x$ is the innovation and $\mathbf{K} = \mathbf{B}\mathbf{H}^\top\left(\mathbf{H}\mathbf{B}\mathbf{H}^\top + \mathbf{R}\right)^{-1}$
 
-\[
-K = B\mathbf{H}^\top\left(\mathbf{H}B\mathbf{H}^\top + R\right)^{-1}
-\]
+is the Kalman gain.
 
-is the Kalman gain. We will use the 4DEnVar method, where the background state and background error covariance matrix is dervied from the ensemble:
+In our case, we have observations from multiple times $t = 0,1,\dots,T$ spread out over some time window, and we expect the state $\x$ to evolve over this time window. This evolution may be predicted using the model as follows: let $\x_0$ represent the state of the system at $t=0$, then we define the model operator $\mathcal{M}_t$ for each $t$ such that $\x_{t+1} = \mathcal{M}_t\left(\x_t\right)$ as predicted by the model. The cost function then becomes
+
+\begin{equation}
+    J\left(\x_0\right) = \frac 1 2 \norm[\mathbf{B}_0^{-1}]{\x_0 - \x_b}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{H}_t\x_t}^2
+\end{equation}
+
+where the observations $\y_t$ and matrices $\mathbf{H}_t,\mathbf{R}_t$ are valid at time $t$.
+
+We will use the 4DEnVar method, where the background state and background error covariance matrix is dervied from the ensemble:
 
 \begin{align*}
     \x_b &= \frac 1 N \sum_{n=1}^N \x_b^{(n)} \\
-    B &= \frac{1}{N - 1} \sum_{n=1}^N \left(\x_b^{(n)} - \x_b\right)\left(\x_b^{(n)} - \x_b\right)^\top
+    \mathbf{B} &= \frac{1}{N - 1} \sum_{n=1}^N \left(\x_b^{(n)} - \x_b\right)\left(\x_b^{(n)} - \x_b\right)^\top
 \end{align*}
 
-Here $\x_b^{(n)}$ represents the background state from ensembele member $n$, and $N$ is the ensemble size.
+Here $\x_b^{(n)}$ represents the background state from ensemble member $n$, and $N$ is the ensemble size.
