@@ -55,9 +55,10 @@ Note that equations \ref{eqn:doppler} - \ref{eqn:gspeed} are valid for linear wa
 
 Surface waves with multiple frequencies and directions are represented using a wave spectrum $F = F(\sigma,\theta)$, which is also a function of position and time. $F$ represents the wave energy associated with a particular frequency $\sigma$ and direction $\theta$, so the total wave energy at any point in space and time is 
 
-\[
+\begin{equation}
 E = \iint F d\sigma d\theta
-\]
+\label{eqn:waveenergy}
+\end{equation}
 
 Finally we define the wave action
 
@@ -66,6 +67,19 @@ N(\sigma,\theta) = \frac {F(\sigma,\theta)} {\sigma}
 \]
 
 $N$ is conserved in the absence of sources and sinks, making it the spectrum of choice for wave models.
+
+Our observations come from acoustic doppler current profiler (ACDP) buoys, which estimate the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{vallis_atmospheric_2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+
+\begin{align*}
+	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
+	v &= a \frac {k_y} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
+	w &= -i a \frac k \sigma g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \sinh k(z + D) \\
+	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
+\end{align*}
+
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ (how is directional distribution estimated?)
+
+(Include ADCP locations if possible)
 
 \subsection{Model Description}
 
