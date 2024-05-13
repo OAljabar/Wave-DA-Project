@@ -9,7 +9,7 @@ Parameters describing surface gravity waves include the wavenumber $k$ and direc
     \label{eqn:doppler}
 \end{equation}
 
-and $\sigma$ and $k$ are related by the dispersion relation 
+and $\sigma$ and $k$ are related by the dispersion relation
 
 \begin{equation}
     \sigma^2 = gk\tanh{kD}
@@ -69,7 +69,7 @@ $N$ is conserved in the absence of sources and sinks, making it the spectrum of 
 
 \subsection{Model Description}
 
-Waves are modelled using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. This is related to the frequency-direction spectrum by the Jacobian transform
+Waves are modelled using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
 \[
 F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
@@ -92,6 +92,8 @@ $S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wa
 $S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{janssen_interaction_2004})
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
+
+As forcing, WAVEWATCH III uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?) The model is run on a rectangular grid at $0.5\degrees$ globally. There are then two higher resolution nested grids covering the region of interest in the gulf of Mexico: a $0.1\degrees$ resolution grid covering the whole gulf, and a $0.05\degrees$ grid covering the specific region of interest. Since the main sources of dangerous waves in the region are hurricanes from the East and cold fronts from the North, the first nested grid is positioned so that the smaller nested grid lies in its southwest region. (Include figure - ask Irina)
 
 \subsection{Data Assimilation}
 
@@ -134,17 +136,37 @@ is the Kalman gain.
 
 In our case, we have observations from multiple times $t = 0,1,\dots,T$ spread out over some time window, and we expect the state $\x$ to evolve over this time window. This evolution may be predicted using the model as follows: let $\x_0$ represent the state of the system at $t=0$, then we define the model operator $\mathcal{M}_t$ for each $t$ such that $\x_{t+1} = \mathcal{M}_t\left(\x_t\right)$ as predicted by the model. The cost function then becomes
 
-\begin{equation}
-    J\left(\x_0\right) = \frac 1 2 \norm[\mathbf{B}_0^{-1}]{\x_0 - \x_b}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{H}_t\x_t}^2
-\end{equation}
+\begin{align}
+	J\left(\x_0\right) &= \frac 1 2 \norm[\mathbf{B}_0^{-1}]{\x_0 - \x_b}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{H}_t\x_t}^2 \\
+	&= \frac 1 2 \norm[\mathbf{B}_0^{-1}]{\x_0 - \x_b}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{\hat{h}}_t\x_0}^2
+\end{align}
 
-where the observations $\y_t$ and matrices $\mathbf{H}_t,\mathbf{R}_t$ are valid at time $t$.
+where the observations $\y_t$ and matrices $\mathbf{H}_t,\mathbf{R}_t$ are valid at time $t$, and $\mathbf{\hat{h}}_t = \mathbf{H}_t\mathcal{M}_{t-1}\mathcal{M}_{t-2}\dots\mathcal{M}_0$.
 
-We will use the 4DEnVar method, where the background state and background error covariance matrix is dervied from the ensemble:
+We will use the 4DEnVar method, where a control variable transform is used to write $\x_0$ as a linear combination of the ensemble perturbations:
 
 \begin{align*}
-    \x_b &= \frac 1 N \sum_{n=1}^N \x_b^{(n)} \\
-    \mathbf{B} &= \frac{1}{N - 1} \sum_{n=1}^N \left(\x_b^{(n)} - \x_b\right)\left(\x_b^{(n)} - \x_b\right)^\top
+	\overline{\x}_b &= \frac 1 N \sum_{n=1}^N \x_b^{(n)} \\
+	\mathbf{X}'_b &= \frac{1}{\sqrt{N- 1}} \left( \x_b^{(1)} - \overline{\x}_b, \x_b^{(2)} - \overline{\x}_b, \dots, \x_b^{(N)} - \overline{\x}_b \right) \\
+	\x_0 &= \overline{\x}_b + \mathbf{X}'_b \mathbf{\chi}
 \end{align*}
 
-Here $\x_b^{(n)}$ represents the background state from ensemble member $n$, and $N$ is the ensemble size.
+Here $\x_b^{(n)}$ represents the background state from ensemble member $n$, and $N$ is the ensemble size. The cost function can then be rewritten in terms of $\mathbf{\chi}$ and simplified by linearising $\mathbf{\hat{h}}_t$ around $\overline{\x}_b$:
+
+\begin{equation}
+J(\mathbf{\chi}) = \frac 1 2 \norm{\mathbf{\chi}}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{\hat{h}}_t\overline{\x}_b - \mathbf{\hat{H}}_t \mathbf{X}'_b \mathbf{\chi}}^2
+\end{equation}
+
+where $\mathbf{\hat{H}}_t = \mathbf{H}_t\mathbf{M}_{t-1}\dots\mathbf{M_0}$ is the linearisation of $\mathbf{\hat{h}}_t$. Note that this cost function is further simplified since we have taken a background error covariance matrix of the form $\mathbf{B} = \mathbf{X}'_b\mathbf{X}_b^{\prime\top}$. This cost function has gradient
+
+\[
+\nabla J(\mathbf{\chi}) = \mathbf{\chi} + \sum_{t=0}^T\left(\mathbf{\hat{H}}_t \mathbf{X}'_b\right)^\top \mathbf{R}_t^{-1} \left(\mathbf{\hat{h}}_t \mathbf{X}'_b \chi + \mathbf{\hat{H}}_t \overline{\x}_b - \y_t\right)
+\]
+
+A major advantage of this formulation is that we can make the approximation
+
+\[
+\mathbf{\hat{H}}_t \mathbf{X}'_b \approx \_\_\_\_\_
+\]
+
+This eliminates the need to compute a tangent linear and adjoint model, which is a computationally expensive aspect of most variational data assimilation schemes \cite{Bannister2017}.
