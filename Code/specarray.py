@@ -60,18 +60,18 @@ class specarray:
         self.lat = [float(datalist[i+1][10:15]) for i in range(npts)]
         self.lon = [float(datalist[i+1][16:22]) for i in range(npts)]
         
-        # current speed and direction
-        cspd = np.zeros([nt,npts])
-        cdir = np.zeros([nt,npts])
-        for t in range(nt):
-            for i in range(npts):
-                cspd[t,i] = float(datalist[t*npts+i+1][48:52])
-                cdir[t,i] = float(datalist[t*npts+i+1][53:58])
+        # # current speed and direction
+        # cspd = np.zeros([nt,npts])
+        # cdir = np.zeros([nt,npts])
+        # for t in range(nt):
+        #     for i in range(npts):
+        #         cspd[t,i] = float(datalist[t*npts+i+1][48:52])
+        #         cdir[t,i] = float(datalist[t*npts+i+1][53:58])
                 
-        self.cdir = xr.DataArray(cdir,dims = ('time','gridpt'),\
-                        coords = {'time':times,'gridpt':range(1,npts+1)})
-        self.cspd = xr.DataArray(cspd,dims = ('time','gridpt'),\
-                        coords = {'time':times,'gridpt':range(1,npts+1)})
+        # self.cdir = xr.DataArray(cdir,dims = ('time','gridpt'),\
+        #                 coords = {'time':times,'gridpt':range(1,npts+1)})
+        # self.cspd = xr.DataArray(cspd,dims = ('time','gridpt'),\
+        #                 coords = {'time':times,'gridpt':range(1,npts+1)})
         
         
         # set flag to show whether spectrum is a function of k or sigma
@@ -174,9 +174,12 @@ class specarray:
         
         for i in range(tmin,tmax,tstep):
             
-            fig,[uax,dax] = plt.subplots(1,2,figsize = (12,4))
+            fig = plt.figure(figsize = (12,4))
+            uax = fig.add_subplot(121)
+            dax = fig.add_subplot(122,projection = 'polar')
             specud.isel(gridpt = gridpt-1,time = i).plot(ax = uax)
             specdir.isel(gridpt = gridpt-1,time = i).plot(ax = dax)
+            dax.set_xticks([0,np.pi/2,np.pi,3*np.pi/2],['E','N','W','S'])
     
     def surfplots(self,gridpt,tmin = 0,tmax = None,tstep = 1):
         
