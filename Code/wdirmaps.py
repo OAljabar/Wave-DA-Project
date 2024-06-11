@@ -42,10 +42,10 @@ def wdirmaps(run,time = None,member = 0,finedomain = False,thinfactor = 5):
     ds = ds.thin(thinfactor)
     
     # convert meteorological convention directions to u and v
-    ds['udir'] = np.sin(np.deg2rad(ds['dir']))
-    ds['vdir'] = np.cos(np.deg2rad(ds['dir']))
-    ds['udp'] = np.sin(np.deg2rad(ds['dp']))
-    ds['vdp'] = np.cos(np.deg2rad(ds['dp']))
+    ds['udir'] = -np.sin(np.deg2rad(ds['dir']))
+    ds['vdir'] = -np.cos(np.deg2rad(ds['dir']))
+    ds['udp'] = -np.sin(np.deg2rad(ds['dp']))
+    ds['vdp'] = -np.cos(np.deg2rad(ds['dp']))
     
     # make plots
     fig = plt.figure(figsize = (8,7))
