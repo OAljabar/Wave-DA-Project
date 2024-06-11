@@ -228,9 +228,6 @@ class heightensrun:
         [a,loc,scale] = stats.gamma.fit(data)
         ax.plot(x,stats.gamma.pdf(x,a,loc,scale)*len(data)*binwidth,'k--',\
                 label = 'Gamma Distribution')
-        # might need a different version to calculate fits
-        #gfit = stats.goodness_of_fit(stats.gamma,data,\
-                                     #fit_params = {'a':a,'loc':loc,'scale':scale})
         
         # fit and plot normal distribution
         [loc,scale] = stats.norm.fit(data)
