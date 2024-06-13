@@ -116,8 +116,8 @@ class Model(ABC):
 
 class FugroModel(Model):
     
-    def __init__(self,run,member,starttime = 0,\
-                 filefmt = '/storage/silver/metstudent/msc/users_2024/mg838076/data/{:02d}/netcdf/ww3.sgom.202203{:02}12.nc'):
+    def __init__(self,run,member,starttime = 0,finedomain = False,\
+                 filedir = '/storage/silver/metstudent/msc/users_2024/mg838076/data/'):
         
         """
         Creates model object storing fields to be corrected from a given model
@@ -152,6 +152,10 @@ class FugroModel(Model):
         state : xarray DataSet
             Tracks model state at current timestep
         """
+        if finedomain:
+            filefmt = filedir + '/{:02d}/netcdf/ww3.sgom.202203{:02}12.nc'
+        else:
+            filefmt = filedir + '/{:02d}/netcdf/ww3.gom.202203{:02}12.nc'
         
         self.filepath = filefmt.format(member,run)
         self.run = run
@@ -160,6 +164,8 @@ class FugroModel(Model):
         self.time = starttime
         self.fields = xr.open_dataset(self.filepath)[['hs','t01','t02']].\
             astype('float16')
+        self.dsattrs = {variable:self.fields[variable].attrs\
+                        for variable in list(self.fields.variables)}
         
     def init_fields(self):
         
@@ -211,9 +217,9 @@ class FugroModel(Model):
     
     """
         
-        hs = np.reshape(self.state['hs'].data,dim_p,order = 'F')
-        tm01 = np.reshape(self.state['t01'].data,dim_p,order = 'F')
-        tm02 = np.reshape(self.state['t02'].data,dim_p,order = 'F')
+        hs = np.reshape(self.state['hs'].data,int(dim_p/3),order = 'F')
+        tm01 = np.reshape(self.state['t01'].data,int(dim_p/3),order = 'F')
+        tm02 = np.reshape(self.state['t02'].data,int(dim_p/3),order = 'F')
         state_p = np.concatenate((hs,tm01,tm02))
         
         return state_p
@@ -227,9 +233,9 @@ class FugroModel(Model):
         tm01 = np.reshape(state_p[int(dim_p/3):int(2*dim_p/3)],[nlat,nlon],order = 'F')
         tm02 = np.reshape(state_p[int(2*dim_p/3):],[nlat,nlon],order = 'F')
         
-        state_p = xr.Dataset(data_vars = {'hs':(['latitude','longitude'],hs),\
-                                          't01':(['latitude','longitude'],tm01),\
-                                          't02':(['latitude','longitude'],tm02)},\
+        state_p = xr.Dataset(data_vars = {'hs':(['latitude','longitude'],hs,self.dsattrs['hs']),\
+                                          't01':(['latitude','longitude'],tm01,self.dsattrs['t01']),\
+                                          't02':(['latitude','longitude'],tm02,self.dsattrs['t02'])},\
                              coords = {'latitude':self.fields.latitude,\
                                        'longitude':self.fields.longitude})
         
