@@ -291,12 +291,12 @@ class heightensrun:
         return heights,times
     
     def corrvec(self,lat,lon,time = None,plot = False,\
-                split = 'rows',var1 = 'hs',var2 = 'hs'):
+                split = 'rows',var1 = 'hs',var2 = 'hs',quantity = 'correlation'):
         
         '''
         Calculates the vector of correlation coefficients with a specified point.
         Returns correlation in a 1d vector, along with vectors containing lat and
-        lon for each corresponding point. Order specifies whether to split spatial
+        lon for each corresponding point. split specifies whether to split spatial
         data into rows or columns when flattening.
         '''
         
@@ -304,6 +304,8 @@ class heightensrun:
         # lats,lons = np.meshgrid(data.latitude,data.longitude,indexing = 'ij')
         # lats = lats.flatten()
         # lons = lons.flatten()
+        
+        functions = {'correlation':np.corrcoef,'covariance':np.cov}
         
         title = 'Variables (' + var1 + ',' + var2 + '), '
         
@@ -335,16 +337,22 @@ class heightensrun:
                 if np.isnan(h2[0]):
                     corrs[i,j] = np.nan
                 else:
-                    corrs[i,j] = np.corrcoef(h1,h2,rowvar = False)[0,1]
+                    corrs[i,j] = functions[quantity](h1,h2,rowvar = False)[0,1]
         
         if plot:
             fig = plt.figure()
             ax = fig.add_subplot(projection = ccrs.PlateCarree())
             ax.coastlines()
-            CS = ax.pcolormesh(lons,lats,corrs,\
-                             norm = colors.CenteredNorm(),cmap = 'RdBu_r')
-            cbar = plt.colorbar(CS)
-            cbar.set_label('Correlation with marked point')
+            if quantity == 'correlation':
+                CS = ax.pcolormesh(lons,lats,corrs,cmap = 'RdBu_r',\
+                               vmin = -1,vmax = 1)
+                cbar = plt.colorbar(CS)
+                cbar.set_label('Correlation with marked point')
+            else:
+                CS = ax.pcolormesh(lons,lats,corrs,cmap = 'RdBu_r',\
+                               norm = colors.CenteredNorm())
+                cbar = plt.colorbar(CS)
+                cbar.set_label('Covariance with marked point')
             ax.plot(lon,lat,'wx')
             ax.set_title(title)
             
