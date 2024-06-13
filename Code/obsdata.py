@@ -35,6 +35,8 @@ class obsdata:
         self.data = data
         self.lat = 18.41364
         self.lon = -93.7704
+        self.variable = variable
+        self.varnames = {'hm0':'hs'}
     
     def std(self,nbins = 10,plot = True,evenbins = False,reldif = False):
         
@@ -107,8 +109,15 @@ class obsdata:
         
         return magnitude,std
     
-    def ensdiff(self,run,nmembers = 30,finedomain = False,variable = 'hs',\
+    def getensdata(self,run = None,nmembers = None,finedomain = None,variable = 'hs',\
                 interp = 'nearest'):
+        
+        if run is None:
+            run = int(input('Select model run: \n'))
+        if nmembers is None:
+            nmembers = int(input('Select number of ensemble members: \n'))
+        if finedomain is None:
+            finedomain = bool(input('Use data from inner domain? (True/False): \n'))
         
         if finedomain:
             filefmt = '..//..//data//{{:02d}}//netcdf//ww3.sgom.202203{:02d}12.nc'\
@@ -146,15 +155,68 @@ class obsdata:
         # assign coordinates to ensemble members
         ens = ens.assign_coords(member = range(1,nmembers+1))
         
+        self.ensdata = ens
+        return ens
+    
+    def ensdiff(self,plot = None):
+        
+        # get ensemble forecast data if not already saved (RESTRUCTURE THIS)
+        try:
+            ens = self.ensdata
+        except:
+            variable = self.varnames[self.variable]
+            
+            ens = self.getensdata(variable = variable,interp = 'nearest')
+        
         ensmean = ens.mean(dim = 'member')
         diff = self.data - ensmean
+        ensmean = ensmean.sel(time = slice(min(diff.time),max(diff.time)))
+        time = (diff.time.data - diff.time.data[0]).astype('float')/3.6e12
         
-        fig,ax = plt.subplots()
-        ax.scatter(ensmean.sel(time = slice(min(diff.time),max(diff.time))).data,\
-                    diff.data,marker = 'x')
-        ax.axhline(color = 'k',linestyle = '--')
-        ax.set_title(variable + ' (m)')
-        ax.set_xlabel('Ensemble mean')
-        ax.set_ylabel('Observation - ensemble mean')
+        if plot == 'scatter' or plot == 'both':
+            fig,ax = plt.subplots()
+            scatter = ax.scatter(ensmean.data,diff.data,marker = 'x',\
+                       c = time,cmap = 'spring')
+            cbar = plt.colorbar(scatter)
+            cbar.set_label('Time since start of run (h)')
+            ax.axhline(color = 'k',linestyle = '--')
+            ax.set_title(self.varnames[self.variable] + ' (m)')
+            ax.set_xlabel('Ensemble mean')
+            ax.set_ylabel('Observation - ensemble mean')
+        if plot == 'hist' or plot == 'both':
+            fig,ax = plt.subplots()
+            ax.hist(diff)
+            ax.axvline(color = 'k',linestyle = '--')
+            ax.set_title(self.varnames[self.variable] + ' (m)')
+            ax.set_xlabel('Observation - ensemble mean')
+            ax.set_ylabel('Frequency')
         
-        return diff
+        return diff,ensmean
+    
+    def peakerror(self):
+        
+        # get ensemble forecast data if not already saved (RESTRUCTURE THIS)
+        try:
+            ens = self.ensdata
+        except:
+            run = int(input('Select model run: \n'))
+            nmembers = int(input('Select number of ensemble members: \n'))
+            finedomain = bool(input('Use data from inner domain? (True/False): \n'))
+            variable = self.varnames[self.variable]
+            
+            ens = self.getensdata(run,nmembers,finedomain,variable,'nearest')
+        
+        obspeakindex = np.argmax(self.data.data)
+        obspeaktime = self.data.time.data[obspeakindex]
+        
+        enspeakindices = [np.argmax(ens.sel(member = i).data) for i in ens.member]
+        enspeaktimes = np.array([ens.time.data[i] for i in enspeakindices])
+        
+        peakerrors = ((enspeaktimes - obspeaktime)/3.6e12).astype('int')
+        
+        plt.hist(peakerrors,bins = range(min(peakerrors),max(peakerrors)+2),\
+                 align = 'left')
+        
+        return peakerrors
+        return obspeaktime,enspeaktimes
+        
