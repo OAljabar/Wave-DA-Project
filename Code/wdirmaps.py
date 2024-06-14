@@ -25,7 +25,7 @@ def wdirmaps(run,time = None,member = 0,finedomain = False,thinfactor = 5):
     filepath = filefmt.format(member,run)
     
     # open file as dataset
-    ds = xr.open_dataset(filepath)[['uwnd','vwnd','dir','dp']]
+    ds = xr.open_dataset(filepath)[['uwnd','vwnd','dir','dp','fp','dpt']]
     
     # select specified time and thin data for plotting
     if time is None:
@@ -40,6 +40,9 @@ def wdirmaps(run,time = None,member = 0,finedomain = False,thinfactor = 5):
         timestr = 'time = ' + time.strftime('%Y-%m-%dT%H:%M')
     
     ds = ds.thin(thinfactor)
+    
+    g = 9.81
+    ds['cgp'] = g/(4*np.pi*ds['fp'])
     
     # convert meteorological convention directions to u and v
     ds['udir'] = -np.sin(np.deg2rad(ds['dir']))
@@ -62,7 +65,9 @@ def wdirmaps(run,time = None,member = 0,finedomain = False,thinfactor = 5):
     
     fig = plt.figure(figsize = (8,7))
     ax = fig.add_subplot(projection = ccrs.PlateCarree())
-    ds.plot.quiver(x = 'longitude',y = 'latitude',u = 'udp',v = 'vdp',ax = ax)
+    ds.plot.quiver(x = 'longitude',y = 'latitude',u = 'udp',v = 'vdp',hue = 'cgp',ax = ax)
     ax.coastlines()
     ax.set_title('Wave peak direction, ' + timestr)
     
+    plt.figure()
+    ds['dpt'].plot()
