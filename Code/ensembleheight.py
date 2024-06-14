@@ -16,7 +16,8 @@ import matplotlib.colors as colors
 
 class heightensrun:
     
-    def __init__(self,run = None,nmembers = 30,finedomain = False,data = None):
+    def __init__(self,run = None,nmembers = 30,finedomain = False,data = None,\
+                 variables = ['hs','t01','t02']):
         
         '''
         Creates an ensemble of significant wave height from a given model
@@ -46,11 +47,11 @@ class heightensrun:
                     .format(run)
             
             # get data for first ensemble member
-            ens = xr.open_dataset(filefmt.format(1))[['hs','t01','t02']]
+            ens = xr.open_dataset(filefmt.format(1))[variables]
             
             for member in range(2,nmembers+1):
                 # get data from next member and add to array
-                nextmember = xr.open_dataset(filefmt.format(member))[['hs','t01','t02']]
+                nextmember = xr.open_dataset(filefmt.format(member))[variables]
                 ens = xr.concat([ens,nextmember],dim = 'member')
             
             # assign coordinates to ensemble members
