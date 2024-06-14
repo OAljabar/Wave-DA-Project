@@ -10,10 +10,11 @@ import xarray as xr
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
+import re
 
 class obsdata:
     
-    def __init__(self,filepath,variable = 'hm0'):
+    def __init__(self,filepath,variables = ['HM0']):
         
         '''
         Create a data array containing a timeseries of observations
@@ -22,21 +23,47 @@ class obsdata:
         # read data and split into entries
         datalist = open(filepath).read().splitlines()
         
+        # get indices for each variable and store in dictionary
+        indices = {}
+        index = 0
+        varlist= re.split(r'(\W+)',datalist[0])
+        for i in range(len(varlist)-1):
+            if varlist[i][0] != ' ':
+                entry = varlist[i]
+                length = len(varlist[i]) + len(varlist[i+1])
+                indices[entry] = slice(index,index+length)
+                index += length
+        
         # get timestamps
         timefmt = '%Y-%m-%dT%H:%M:%SZ'
-        times = [dt.datetime.strptime(entry[:20],timefmt) for entry in datalist[1:]]
+        times = [dt.datetime.strptime(entry[indices['TIMESTAMP']],timefmt) for entry in datalist[1:]]
         
-        # dictionary containing indices for different variables (maybe automate)
-        indices = {'hm0':slice(22,29)}
+        ds = xr.Dataset()
+        for variable in variables:
+            var = [float(entry[indices[variable]]) for entry in datalist[1:]]
+            data = xr.DataArray(var,coords = {'time':times})
+            
+            # select range to exclude missing values
+            endi = next(i for i in reversed(range(len(data))) if data[i].data != data[0].data)
+            starti = next(i for i in reversed(range(endi)) if data[i].data == data[0].data) + 1
+            data = data[starti:endi]
+            
+            ds[variable] = data
         
-        var = [float(entry[indices[variable]]) for entry in datalist[1:]]
-        data = xr.DataArray(var,coords = {'time':times})
-        
-        self.data = data
+        self.data = ds
         self.lat = 18.41364
         self.lon = -93.7704
-        self.variable = variable
-        self.varnames = {'hm0':'hs'}
+        self.variables = variables
+        self.varnames = {'HM0':'hs'}
+    
+    def plotvars(self,variables,units,varname,ax = None):
+        
+        if ax is None:
+            fig,ax = plt.subplots()
+        for variable in variables:
+            self.data[variable].plot(ax = ax,label = variable)
+        ax.set_ylabel(varname + ' (' + units + ')')
+        ax.legend()
     
     def std(self,nbins = 10,plot = True,evenbins = False,reldif = False):
         
@@ -97,6 +124,7 @@ class obsdata:
             ax.set_xlabel('Wave Height (m)')
             ax.set_ylabel('Standard deviation')
             ax.set_xlim([min(mdata),max(mdata)])
+            
             # plot line of best fit if difference is not normalised
             if not reldif:
                 ax.set_ylabel('Standard deviation (m)')
