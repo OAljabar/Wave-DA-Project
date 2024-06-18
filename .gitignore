@@ -136,3 +136,6 @@ dmypy.json
 *.c
 *.txt
 .vscode/settings.json
+*.pyc
+*.gz
+*.png
