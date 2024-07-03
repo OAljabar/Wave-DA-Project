@@ -1,0 +1,140 @@
+% Chapter Template
+
+\chapter{Experimental Setup} % Main chapter title
+
+\label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Model Description}
+
+Waves are modelled using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
+
+\[
+F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
+\]
+
+Wave propagation is then described by the equation
+
+\begin{equation}
+    \frac{D}{Dt}N(k,\theta) = \frac S \sigma
+\end{equation}
+
+Where $N(k,\theta) = F(k,\theta)/\sigma$ as before and $S$ describes the net effect of sources and sinks for the spectrum $F(k,\theta)$.
+
+In deep water, $S$ consists of three main parts: an atmospheric interaction term $S_{in}$, a nonlinear wave-wave interaction term $S_{nl}$ and a dissipation term $S_{ds}$.
+
+$S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is equal to some coefficient multiplied by $\sigma N(k,\theta)$. This leads to a feedback which is usually positive but can be negative in the case of swell, and represents the main source of wave energy.
+
+$S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
+
+$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{janssen_interaction_2004})
+
+In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
+
+From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height Hs, and two measures of the dominant wave period Tm01 and Tm02. These are related to the spectrum via the spectral moments defined in \ref{eqn:moments} as follows:
+
+\begin{align}
+\text{Hs} &= 4\sqrt{m_0} \\
+\text{Tm01} &= \frac{m_0}{m_1} \\
+\text{Tm02} &= \sqrt{\frac{m_0}{m_2}}
+\label{eqn:mainvars}
+\end{align}
+
+As forcing, WAVEWATCH III uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?) The model is run on a rectangular grid at $0.5\degrees$ globally. There are then two higher resolution nested grids covering the region of interest in the gulf of Mexico: a $0.1\degrees$ resolution grid covering the whole gulf, and a $0.05\degrees$ grid covering the specific region of interest. Since the main sources of dangerous waves in the region are hurricanes from the East and cold fronts from the North, the first nested grid is positioned so that the smaller nested grid lies in its southwest region. (Include figure - ask Irina)
+
+\begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/modelDomain}
+\caption{Model domain shown on map}
+\label{fig:domain}
+\end{figure}
+
+Forecasts are produced at 12Z each day, and run up to seven days ahead. We have seven of these daily runs available, with start dates spanning from 06/03/2022 to 12/03/2022.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{ADCP Observations}
+\label{sec:observations}
+
+Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{vallis_atmospheric_2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+
+\begin{align*}
+	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
+	v &= a \frac {k_y} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
+	w &= -i a \frac k \sigma g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \sinh k(z + D) \\
+	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
+\end{align*}
+
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ (how is directional distribution estimated?)
+
+Other variables are then deduced from this spectrum, including Hs, Tm01 and Tm02 as described above.
+
+We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
+
+\begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/obshsseries}
+\caption{Observed timeseries of significant wave height from ADCP buoy}
+\label{fig:obshsseries}
+\end{figure}
+
+To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard of observational errors in significant wave height may be estimated to be approximately 50cm.
+
+\begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/hsominusb}
+\caption{Observation - background histogram for significant wave height.}
+\label{fig:hsominusb}
+\end{figure}
+
+This approach may be quantified more precisely following \cite{Desroziers2006}...
+
+Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of of differences from each bin was computed. They found a strong dependence of error on wave height.
+
+In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height. Repeating this process with the periods Tm01 and Tm02 yields the plots shown in figure \ref{fig:periodobsstd}.
+
+\begin{figure}
+\centering
+\includegraphics[width = .5\textwidth]{figures/hsobsstd}
+\caption{A plot of Hs error standard deviation against Hs.}
+\label{fig:hsobsstd}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/periodobsstd}
+\caption{Plots of Tm01 and Tm02 error standard deviation against Tm01 and Tm02 respectively.}
+\label{fig:periodobsstd}
+\end{figure}
+
+The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. (maybe bump up - why?)
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Twin Experiment}
+
+In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the 'truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations:
+
+\begin{itemize}
+\item The 'truth' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated
+\end{itemize}
+
+The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 4
+%----------------------------------------------------------------------------------------
+
+\section{Data Assimilation Setup}
+
+To perform the data assimiliation we use pyPDAF, the python interface for the fortran-based parallel data assimilation framework (PDAF). (cite Yumeng?)
+
+We perform the assimilation on a 7-day forecast all at once, using observations from the first three days of the window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.

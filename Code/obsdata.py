@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import re
 
-class obsdata:
+class getobs:
     
     def __init__(self,filepath,variables = ['HM0']):
         
@@ -38,34 +38,45 @@ class obsdata:
         timefmt = '%Y-%m-%dT%H:%M:%SZ'
         times = [dt.datetime.strptime(entry[indices['TIMESTAMP']],timefmt) for entry in datalist[1:]]
         
+        starti = 0
+        endi = len(times)
+        
         ds = xr.Dataset()
         for variable in variables:
             var = [float(entry[indices[variable]]) for entry in datalist[1:]]
             data = xr.DataArray(var,coords = {'time':times})
             
             # select range to exclude missing values
-            endi = next(i for i in reversed(range(len(data))) if data[i].data != data[0].data)
-            starti = next(i for i in reversed(range(endi)) if data[i].data == data[0].data) + 1
-            data = data[starti:endi]
+            endi = min(endi,next(i for i in reversed(range(len(data))) if data[i].data != data[0].data))
+            starti = max(starti,next(i for i in reversed(range(endi)) if data[i].data == data[0].data) + 1)
             
             ds[variable] = data
+        
+        ds = ds.sel(time = slice(times[starti],times[endi]))
         
         self.data = ds
         self.lat = 18.41364
         self.lon = -93.7704
         self.variables = variables
         self.varnames = {'HM0':'hs'}
-    
-    def plotvars(self,variables,units,varname,ax = None):
+
+class obsplots(getobs):
+
+    def plotvars(self,variables,units,varname,ax = None,times = None):
         
         if ax is None:
             fig,ax = plt.subplots()
         for variable in variables:
-            self.data[variable].plot(ax = ax,label = variable)
+            ax.plot(self.data.time.sel(time = times),\
+                    self.data[variable].sel(time = times),'k',label = variable)
+            #self.data[variable].sel(time = times).plot(ax = ax,label = variable)
         ax.set_ylabel(varname + ' (' + units + ')')
-        ax.legend()
+        ax.set_xlabel('Time')
+        if len(variables) > 1:
+            ax.legend()
     
-    def std(self,nbins = 10,plot = True,evenbins = False,reldif = False):
+    def std(self,nbins = 10,plot = True,evenbins = False,reldif = False,\
+            xvar = 'HM0',yvar = 'HM0',fitline = True,ax = None):
         
         '''
         Sorts the timeseries into bins based on magnitude and calculates the
@@ -73,42 +84,62 @@ class obsdata:
         includes a bar chart to show the size of each bin
         '''
         
-        data = self.data.data
+        # mean and difference of consecutive observations for x and y axes
+        xdata = (self.data[xvar].data[1:] + self.data[xvar].data[:-1])/2
+        ydata = self.data[yvar].data[1:] - self.data[yvar].data[:-1]
         
-        # difference and mean of consecutive observations
-        ddata = data[1:] - data[:-1]
-        mdata = (data[1:] + data[:-1])/2
         if reldif:
-            ddata = ddata/mdata
+            ydata = ydata/xdata
         
         # generate bin edges
         if evenbins:
-            indices = np.linspace(0,len(ddata),nbins+1)
+            indices = np.linspace(0,len(ydata),nbins+1)
             remainders = indices - np.floor(indices)
             indices = (indices - remainders).astype('int')
             
             bins = np.zeros(nbins+1)
-            bins[nbins] = max(mdata)
-            mdsort = np.sort(mdata)
+            bins[nbins] = max(xdata)
+            xdsort = np.sort(xdata)
             for i in range(nbins):
                 bins[i] = np.interp(remainders[i],[0,1],\
-                                    [mdsort[indices[i]],mdsort[indices[i]+1]])
+                                    [xdsort[indices[i]],xdsort[indices[i]+1]])
         else:
-            bins = np.linspace(min(mdata),max(mdata),nbins+1)
+            bins = np.linspace(min(xdata),max(xdata),nbins+1)
         
         magnitude = np.zeros(nbins)
+        lintervals = np.zeros(nbins)
+        hintervals = np.zeros(nbins)
         std = np.zeros(nbins)
         binsize = np.zeros(nbins,dtype = 'int')
         
         for i in range(nbins):
-            magnitude[i] = np.mean(mdata[(mdata > bins[i]) & (mdata < bins[i+1])])
-            std[i] = np.std(ddata[(mdata > bins[i]) & (mdata < bins[i+1])])
-            binsize[i] = len(mdata[(mdata > bins[i]) & (mdata < bins[i+1])])
+            # select data from appropriate bin
+            binindices = (xdata > bins[i]) & (xdata < bins[i+1])
+            binsize[i] = len(xdata[binindices])
+            if binsize[i] > 1:
+                
+                # calculate statistics from bin data
+                magnitude[i] = np.mean(xdata[binindices]) # mean
+                res = stats.bootstrap((xdata[binindices],),np.mean)
+                lintervals[i] = res.confidence_interval[0]
+                hintervals[i] = res.confidence_interval[1]
+                std[i] = np.std(ydata[binindices])
+                
+        # remove data from empty bins
+        magnitude = magnitude[binsize > 1]
+        lintervals = lintervals[binsize > 1]
+        hintervals = hintervals[binsize > 1]
+        std = std[binsize > 1]
+        bins = bins[np.concatenate((binsize > 1,[True]))]
+        binsize = binsize[binsize > 1]
+        
+        xerr = [magnitude - lintervals,hintervals - magnitude]
         
         if plot:
             # initialise axes
             if evenbins:
-                fig,ax = plt.subplots(figsize = (6,4))
+                if ax is None:
+                    fig,ax = plt.subplots(figsize = (6,4))
                 ax.set_title('Bin size = ' + str(binsize[0]))
             else:
                 fig,[bax,ax] = plt.subplots(nrows = 2,figsize = (6,8))
@@ -117,17 +148,16 @@ class obsdata:
                 barwidth = min(bins[1:] - bins[:-1])
                 bax.bar(bins[:-1],binsize,align = 'edge',width = barwidth)
                 bax.set_ylabel('Frequency')
-                bax.set_xlim([min(mdata),max(mdata)])
+                bax.set_xlim([min(xdata),max(xdata)])
             
             # line plot of standard deviation
-            ax.plot(magnitude,std,'-o')
-            ax.set_xlabel('Wave Height (m)')
-            ax.set_ylabel('Standard deviation')
-            ax.set_xlim([min(mdata),max(mdata)])
+            ax.errorbar(magnitude,std,xerr = xerr,fmt = '-o')
+            ax.set_xlabel(xvar)
+            ax.set_ylabel(yvar + ' standard deviation')
+            ax.set_xlim([min(xdata),max(xdata)])
             
             # plot line of best fit if difference is not normalised
-            if not reldif:
-                ax.set_ylabel('Standard deviation (m)')
+            if fitline:
                 lmodel = stats.linregress(magnitude,std)
                 slope = lmodel[0]
                 intercept = lmodel[1]
@@ -186,55 +216,95 @@ class obsdata:
         self.ensdata = ens
         return ens
     
-    def ensdiff(self,plot = None):
+    def ensmeandiff(self,plot = None,variable = 'HM0',plotsettings = {}):
         
         # get ensemble forecast data if not already saved (RESTRUCTURE THIS)
         try:
             ens = self.ensdata
         except:
-            variable = self.varnames[self.variable]
+            ensvariable = self.varnames[variable]
             
-            ens = self.getensdata(variable = variable,interp = 'nearest')
+            ens = self.getensdata(variable = ensvariable,interp = 'nearest')
         
         ensmean = ens.mean(dim = 'member')
-        diff = self.data - ensmean
+        diff = self.data[variable] - ensmean
         ensmean = ensmean.sel(time = slice(min(diff.time),max(diff.time)))
         time = (diff.time.data - diff.time.data[0]).astype('float')/3.6e12
         
-        if plot == 'scatter' or plot == 'both':
-            fig,ax = plt.subplots()
-            scatter = ax.scatter(ensmean.data,diff.data,marker = 'x',\
-                       c = time,cmap = 'spring')
-            cbar = plt.colorbar(scatter)
-            cbar.set_label('Time since start of run (h)')
-            ax.axhline(color = 'k',linestyle = '--')
-            ax.set_title(self.varnames[self.variable] + ' (m)')
-            ax.set_xlabel('Ensemble mean')
-            ax.set_ylabel('Observation - ensemble mean')
-        if plot == 'hist' or plot == 'both':
-            fig,ax = plt.subplots()
-            ax.hist(diff)
-            ax.axvline(color = 'k',linestyle = '--')
-            ax.set_title(self.varnames[self.variable] + ' (m)')
-            ax.set_xlabel('Observation - ensemble mean')
-            ax.set_ylabel('Frequency')
+        with plt.rc_context(plotsettings):
+        
+            if plot == 'scatter' or plot == 'both':
+                fig,ax = plt.subplots()
+                scatter = ax.scatter(ensmean.data,diff.data,marker = 'x',\
+                           c = time,cmap = 'spring')
+                cbar = plt.colorbar(scatter)
+                cbar.set_label('Leadtime (h)')
+                ax.axhline(color = 'k',linestyle = '--')
+                ax.set_title(self.varnames[variable] + ' (m)')
+                ax.set_xlabel('Ensemble mean')
+                ax.set_ylabel('Observation - ensemble mean')
+            if plot == 'hist' or plot == 'both':
+                fig,ax = plt.subplots()
+                ax.hist(diff)
+                ax.axvline(color = 'k',linestyle = '--')
+                ax.set_title(self.varnames[variable] + ' (m)')
+                ax.set_xlabel('Observation - ensemble mean')
+                ax.set_ylabel('Frequency')
         
         return diff,ensmean
     
-    def peakerror(self):
+    def ominusb(self,ax = None):
+        
+        if not hasattr(self,'fulldiff'):
+            diff = xr.DataArray()
+            
+            for i in range(6,13):
+                self.getensdata(i,30,True);
+                newdiff,_ = self.ensmeandiff()
+                newdiff = newdiff.rename({'time':'leadtime'})
+                newdiff = newdiff.assign_coords(leadtime = range(169))
+                diff = xr.concat((diff,newdiff),dim = 'run')
+            
+            self.fulldiff = diff.isel(run = slice(1,7)).assign_coords(run = range(6,13))
+        
+        if ax is None:
+            fig,ax = plt.subplots(figsize = (9,6))
+        
+        ax.hist(self.fulldiff.data.flatten())
+    
+    def ensdiff(self,variable = 'HM0',unit = 'm'):
+        
+        ens = self.ensdata
+        ensmean = ens.mean(dim = 'member')
+        
+        diff = self.data[variable] - ens
+        
+        sqdiff = diff*diff
+        rmse = np.sqrt(sqdiff.mean(dim = 'member'))
+        time = (diff.time.data - diff.time.data[0]).astype('float')/3.6e12
+        
+        fig,ax = plt.subplots()
+        scatter = ax.scatter(ensmean,rmse,marker = 'x',\
+                   c = time,cmap = 'spring')
+        cbar = plt.colorbar(scatter)
+        cbar.set_label('Leadtime (h)')
+        ax.set_xlabel(variable + ' ensemble mean (' + unit + ')')
+        ax.set_ylabel(variable + ' rmse (' + unit + ')')
+        
+        return diff
+    
+    def peakerror(self,variable = 'HM0'):
         
         # get ensemble forecast data if not already saved (RESTRUCTURE THIS)
         try:
             ens = self.ensdata
         except:
-            run = int(input('Select model run: \n'))
-            nmembers = int(input('Select number of ensemble members: \n'))
-            finedomain = bool(input('Use data from inner domain? (True/False): \n'))
-            variable = self.varnames[self.variable]
+            ensvariable = self.varnames[variable]
             
-            ens = self.getensdata(run,nmembers,finedomain,variable,'nearest')
+            ens = self.getensdata(variable = ensvariable)
         
-        obspeakindex = np.argmax(self.data.data)
+        self.data = self.data.sel(time = ens.time)
+        obspeakindex = np.argmax(self.data[variable].data)
         obspeaktime = self.data.time.data[obspeakindex]
         
         enspeakindices = [np.argmax(ens.sel(member = i).data) for i in ens.member]

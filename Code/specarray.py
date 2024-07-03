@@ -177,7 +177,12 @@ class specarray:
             fig = plt.figure(figsize = (12,4))
             uax = fig.add_subplot(121)
             dax = fig.add_subplot(122,projection = 'polar')
-            specud.isel(gridpt = gridpt-1,time = i).plot(ax = uax)
+            specud.isel(gridpt = gridpt-1,time = i).plot.line('k',ax = uax)
+            uax.set_title('Position ({:},{:}), Time '.format(self.lat[i],self.lon[i]) + \
+                          np.datetime_as_string(specdir.time[i],'m'))
+            uax.set_xlabel('Frequency (Hz)')
+            uax.set_ylabel('Wave Spectral Density ($m^2$/Hz)')
+            uax.set_ylim(bottom = 0)
             specdir.isel(gridpt = gridpt-1,time = i).plot(ax = dax)
             dax.set_xticks([0,np.pi/2,np.pi,3*np.pi/2],['E','N','W','S'])
     

@@ -1,6 +1,23 @@
-\subsection{Linear Wave Theory}
+% Chapter 1
 
-Ocean waves are a distinctive visual feature of the ocean surface, and very important to offshore operations such as wind farms. They are an instance of surface gravity waves. This section will outline the linear wave theory relevant to this project, as derived in \cite{vallis_atmospheric_2017}, page 253.
+\chapter{Theory} % Main chapter title
+
+\label{Chapter2} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+
+\section{Linear Wave Theory}
+
+Ocean waves are a distinctive visual feature of the ocean surface, and very important to offshore operations such as wind farms. They are an instance of surface gravity waves. This section will outline the linear wave theory relevant to this project, as derived in \parencite{vallis_atmospheric_2017}, page 253.
 
 Parameters describing surface gravity waves include the wavenumber $k$ and direction $\theta$, and the frequency $\omega$. The first two describe the wave vector $\mathbf{k}$, which has magnitude $k$ and direction $\theta$. $\omega$ here denotes the absolute frequency measured in a fixed frame of reference. If the medium is subject to currents, this will differ from the relative frequency $\sigma$ measured in a frame of reference moving with the mean current, due to the doppler effect. This difference is quantified by the equation
 
@@ -27,8 +44,8 @@ The phase speed is then given by
 
 \begin{equation}
 c = \frac{\sigma}{k} \approx \begin{cases}
-            \sqrt{\frac{g}{k}} & \text{in deep water} \\
-            \sqrt{gD} & \text{in shallow water}
+            \sqrt{\frac{g}{k}} &\text{in deep water} \\
+            \sqrt{gD} &\text{in shallow water}
 \end{cases}
 \label{eqn:pspeed}
 \end{equation}
@@ -37,8 +54,8 @@ and the group speed may be expressed as
 
 \begin{equation}
 c_g = \frac{\partial\sigma}{\partial k} = \frac{1}{2}c \left(1 + \frac{2kD}{\sinh{2kD}} \right) \approx \begin{cases}
-    \frac{1}{2} c & \text{in deep water} \\
-    c & \text{in shallow water}
+    \frac{1}{2} c &\text{in deep water} \\
+    c &\text{in shallow water}
 \end{cases}
 \label{eqn:gspeed}
 \end{equation}
@@ -60,7 +77,14 @@ E = \iint F d\sigma d\theta
 \label{eqn:waveenergy}
 \end{equation}
 
-Finally we define the wave action
+Here, we also define the wave spectral moments which are derived from the unidirectional spectrum $S(\sigma) = \int F(\sigma,\theta) d\theta$:
+
+\begin{equation}
+m_k = \int S(\sigma) \sigma^k d\sigma
+\label{eqn:moments}
+\end{equation}
+
+These moments can be used to derive other important wave variables, such as significant wave height and dominant wave period, from the spectrum (expand). Finally we define the wave action
 
 \[
 N(\sigma,\theta) = \frac {F(\sigma,\theta)} {\sigma}
@@ -68,55 +92,7 @@ N(\sigma,\theta) = \frac {F(\sigma,\theta)} {\sigma}
 
 $N$ is conserved in the absence of sources and sinks, making it the spectrum of choice for wave models.
 
-Our observations come from acoustic doppler current profiler (ACDP) buoys, which estimate the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{vallis_atmospheric_2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
-
-\begin{align*}
-	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
-	v &= a \frac {k_y} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
-	w &= -i a \frac k \sigma g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \sinh k(z + D) \\
-	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
-\end{align*}
-
-where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ (how is directional distribution estimated?)
-
-(Include ADCP locations if possible)
-
-\subsection{Model Description}
-
-Waves are modelled using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
-
-\[
-F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
-\]
-
-Wave propagation is then described by the equation
-
-\begin{equation}
-    \frac{D}{Dt}N(k,\theta) = \frac S \sigma
-\end{equation}
-
-Where $N(k,\theta) = F(k,\theta)/\sigma$ as before and $S$ describes the net effect of sources and sinks for the spectrum $F(k,\theta)$.
-
-In deep water, $S$ consists of three main parts: an atmospheric interaction term $S_{in}$, a nonlinear wave-wave interaction term $S_{nl}$ and a dissipation term $S_{ds}$.
-
-$S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is equal to some coefficient multiplied by $\sigma N(k,\theta)$. This leads to a feedback which is usually positive but can be negative in the case of swell, and reprensents the main source of wave energy.
-
-$S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
-
-$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{janssen_interaction_2004})
-
-In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
-
-As forcing, WAVEWATCH III uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?) The model is run on a rectangular grid at $0.5\degrees$ globally. There are then two higher resolution nested grids covering the region of interest in the gulf of Mexico: a $0.1\degrees$ resolution grid covering the whole gulf, and a $0.05\degrees$ grid covering the specific region of interest. Since the main sources of dangerous waves in the region are hurricanes from the East and cold fronts from the North, the first nested grid is positioned so that the smaller nested grid lies in its southwest region. (Include figure - ask Irina)
-
-\begin{figure}
-\centering
-\includegraphics[width = .8\textwidth]{modelDomain}
-\caption{Model domain shown on map}
-\label{fig:domain}
-\end{figure}
-
-\subsection{Data Assimilation}
+\section{Data Assimilation}
 
 As well as the model, we also have some direct observations of the waves which we would like to make use of to improve our predictions. We use techniques of data assimilation to achieve this.
 
@@ -190,4 +166,5 @@ A major advantage of this formulation is that we can make the approximation
 \mathbf{\hat{H}}_t \mathbf{X}'_b \approx \_\_\_\_\_
 \]
 
-This eliminates the need to compute a tangent linear and adjoint model, which is a computationally expensive aspect of most variational data assimilation schemes \cite{Bannister2017}.
+This eliminates the need to compute a tangent linear and adjoint model, which is a computationally expensive aspect of most variational data assimilation schemes \citep{Bannister2017}.
+

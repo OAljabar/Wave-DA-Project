@@ -56,8 +56,10 @@ class heightensrun:
             
             # assign coordinates to ensemble members
             ens = ens.assign_coords(member = range(1,nmembers+1))
-            ens['hs^2'] = ens['hs']**2
-            ens['t02^2'] = ens['t02']**2
+            if 'hs' in variables:
+                ens['hs^2'] = ens['hs']**2
+            if 't02' in variables:
+                ens['t02^2'] = ens['t02']**2
             
             self.data = ens
         
@@ -291,7 +293,7 @@ class heightensrun:
         
         return heights,times
     
-    def corrvec(self,lat,lon,time = None,plot = False,\
+    def corrvec(self,lat,lon,time = None,lag = dt.timedelta(0),plot = False,ax = None,\
                 split = 'rows',var1 = 'hs',var2 = 'hs',quantity = 'correlation'):
         
         '''
@@ -312,7 +314,7 @@ class heightensrun:
         
         if not time is None:
             data1 = self.data[var1].sel(time = time)
-            data2 = self.data[var2].sel(time = time)
+            data2 = self.data[var2].sel(time = time + lag)
             if type(time) is slice:
                 title += 'times between ' + time.start.strftime('%Y-%m-%dT%H:%M') + \
                     ' and ' + time.stop.strftime('%Y-%m-%dT%H:%M')
@@ -341,8 +343,9 @@ class heightensrun:
                     corrs[i,j] = functions[quantity](h1,h2,rowvar = False)[0,1]
         
         if plot:
-            fig = plt.figure()
-            ax = fig.add_subplot(projection = ccrs.PlateCarree())
+            if ax is None:
+                fig = plt.figure()
+                ax = fig.add_subplot(projection = ccrs.PlateCarree())
             ax.coastlines()
             if quantity == 'correlation':
                 CS = ax.pcolormesh(lons,lats,corrs,cmap = 'RdBu_r',\
