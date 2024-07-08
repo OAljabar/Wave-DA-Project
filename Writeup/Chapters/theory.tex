@@ -138,7 +138,7 @@ In our case, we have observations from multiple times $t = 0,1,\dots,T$ spread o
 	&= \frac 1 2 \norm[\mathbf{B}_0^{-1}]{\x_0 - \x_b}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{\hat{h}}_t\x_0}^2
 \end{align}
 
-where the observations $\y_t$ and matrices $\mathbf{H}_t,\mathbf{R}_t$ are valid at time $t$, and $\mathbf{\hat{h}}_t = \mathbf{H}_t\mathcal{M}_{t-1}\mathcal{M}_{t-2}\dots\mathcal{M}_0$.
+where the observations $\y_t$ and matrices $\mathbf{H}_t,\mathbf{R}_t$ are valid at time $t$, and $\mathbf{\hat{h}}_t = \mathbf{H}_t\mathcal{M}_{0 \rightarrow t}$ using the abbreviation $ \mathcal{M}_{0 \rightarrow t} = \mathcal{M}_{t-1}\mathcal{M}_{t-2}\dots\mathcal{M}_0$.
 
 We will use the 4DEnVar method, where a control variable transform is used to write $\x_0$ as a linear combination of the ensemble perturbations:
 
@@ -154,7 +154,7 @@ Here $\x_b^{(n)}$ represents the background state from ensemble member $n$, and 
 J(\mathbf{\chi}) = \frac 1 2 \norm{\mathbf{\chi}}^2 + \frac 1 2 \sum_{t=0}^T \norm[\mathbf{R}_t^{-1}]{\y_t - \mathbf{\hat{h}}_t\overline{\x}_b - \mathbf{\hat{H}}_t \mathbf{X}'_b \mathbf{\chi}}^2
 \end{equation}
 
-where $\mathbf{\hat{H}}_t = \mathbf{H}_t\mathbf{M}_{t-1}\dots\mathbf{M_0}$ is the linearisation of $\mathbf{\hat{h}}_t$. Note that this cost function is further simplified since we have taken a background error covariance matrix of the form $\mathbf{B} = \mathbf{X}'_b\mathbf{X}_b^{\prime\top}$. This cost function has gradient
+where $\mathbf{\hat{H}}_t = \mathbf{H}_t\mathbf{M}_{0 \rightarrow t}$ is the linearisation of $\mathbf{\hat{h}}_t$. This cost function is simplified by taking a background error covariance matrix of the form $\mathbf{B} = \mathbf{X}'_b\mathbf{X}_b^{\prime\top}$, which reduces to the identity under the control variable transform. This cost function has gradient
 
 \[
 \nabla J(\mathbf{\chi}) = \mathbf{\chi} + \sum_{t=0}^T\left(\mathbf{\hat{H}}_t \mathbf{X}'_b\right)^\top \mathbf{R}_t^{-1} \left(\mathbf{\hat{h}}_t \mathbf{X}'_b \chi + \mathbf{\hat{H}}_t \overline{\x}_b - \y_t\right)
@@ -163,8 +163,8 @@ where $\mathbf{\hat{H}}_t = \mathbf{H}_t\mathbf{M}_{t-1}\dots\mathbf{M_0}$ is th
 A major advantage of this formulation is that we can make the approximation
 
 \[
-\mathbf{\hat{H}}_t \mathbf{X}'_b \approx \_\_\_\_\_
+\mathbf{M}_{0 \rightarrow t} \left( \x^{(n)}_b - \overline{\x}_b \right) \approx \mathcal{M}_{0 \rightarrow t} \left( \x^{(n)}_b \right) - \overline{\mathcal{M}_{0 \rightarrow t} \left( \x_b \right)}
 \]
 
-This eliminates the need to compute a tangent linear and adjoint model, which is a computationally expensive aspect of most variational data assimilation schemes \citep{Bannister2017}.
+Since $\mathbf{H}_t \mathbf{M}_{0 \rightarrow t} \left( \x^{(n)}_b - \overline{\x}_b \right)$ is the $n^{\text{th}}$ column of $\mathbf{\hat{H}}_t \mathbf{X}'_b$, this approximation allows us to compute the cost function and its gradient without a tangent linear or adjoint model, which is a computationally expensive aspect of most variational data assimilation schemes \citep{Bannister2017}.
 
