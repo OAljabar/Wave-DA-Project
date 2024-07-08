@@ -10,4 +10,44 @@
 
 \section{The need for Reliable Wave Forecasting}
 
-Offshore operations can only be carried out in sufficiently calm waters...
+Offshore operations form an important of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, the the operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method from (cite). 
+
+(Description of site specific alpha factor)
+
+In this project, we explore the potential of Data Assimilation (DA) to reduce uncertainty and error in these wave forecasts. We will also examine the ensemble statistics, which are an important component of ensemble-based DA systems.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Previous work on DA for Wave Forecasts}
+
+\cite{Houghton2023} assimilated wave height observations from satellite altimeters and a global network of drifting Sofar spotter buoys. They compared two different DA methods, a deterministic optimal interpolation (OI) method and an ensemble-based local ensemble transform Kalman filter (LETKF). They found the both methods reduced forecast error out to 2.5 days leadtime, and the LETKF gave more physically realistic output states. In this project we will assimilate observations of both wave height and period in the hope that correlations between these variables might give better predictions of both. We will use the ensemble transform Kalman filter (ETKF).
+
+\cite{Houghton2022} used OI to compare the effects of assimilating wave height and period. They found that both variables give very similar imporvements in predictions of wave height, while spectral assimilation gives better results for other quantities such as period and direction.
+
+\cite{Caires2018} investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) method to adjust the wind fields used as forcing in a wave model. They found...
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+
+\section{Main Research Questions}
+
+\textbf{1:} What are the statistical relations in an ensemble of wave height and period forecasts?
+\hspace{1cm}
+
+We will examine forecasts from Fugro of significant wave height Hs, along with two measures of the peak period Tm01 and Tm02 (defined in equation \ref{eqn:mainvars}). We will look at the statistics most relevant to ensemble DA systems, including:
+
+\begin{itemize}
+\item Ensemble spread
+\item Spatial covariances of each variable
+\item Cross covariances between variables
+\end{itemize}
+
+These covariances are particularly important in DA as they determine how information from the observations is spread around the domain.
+
+\hspace{1cm}
+\textbf{2:} What kind of reduction in forecast error can be achieved by assimilating Hs, Tm01 and Tm02 using the ETKF method?
+
+We will use ETKF to assimilate observations of the three variables and examine the nature of the forecast errors after DA. We will look at...
