@@ -12,7 +12,7 @@
 
 
 
-Waves are modelled by Fugro using WAVEWATCH III, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
+Waves are modelled by Fugro using WAVEWATCH III (WW3), which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
 \[
 F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
@@ -45,9 +45,9 @@ From the forecasted spectra, other variables such as wave height, period and mea
 \label{eqn:mainvars}
 \end{align}
 
-As forcing, WAVEWATCH III uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?)
+As forcing, WW3 uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?)
 
-The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W in the gulf of Mexico. Fugro use a nested domain to produce the forecasts, running WAVEWATCH III on a $0.5\degrees$ resolution globally rectangular grid, and two higher resolution nested grids covering the region of interest. There is  a $0.1\degrees$ resolution grid spanning the region described above, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
+The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W in the gulf of Mexico. Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution globally rectangular grid, and two higher resolution nested grids covering the region of interest. There is  a $0.1\degrees$ resolution grid spanning the region described above, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
 
 \begin{figure}
 \centering
@@ -133,7 +133,21 @@ In our case, we only have observations from one buoy and they are available hour
 \label{fig:periodobsstd}
 \end{figure}
 
-The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. (maybe bump up - why?)
+The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. To avoid 'overfitting' the observations of period (explain and cite), I set a minimum threshold of 0.3s (revise) for the period errors and used the scaling method when it gives a value above this threshold, setting the error equal to the threshold otherwise. This threshold was determined from $o - b$ histograms for Tm01 and Tm02, shown in figure \ref{fig:periodominusb}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{figures/tm01ominusb}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{figures/tm02ominusb}
+\end{subfigure}
+\caption{Observation minus background histograms for Tm01 (left) and Tm02 (right).}
+\label{fig:periodominusb}
+\end{figure}
 
 
 %----------------------------------------------------------------------------------------
