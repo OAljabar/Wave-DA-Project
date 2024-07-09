@@ -96,13 +96,15 @@ $N$ is conserved in the absence of sources and sinks, making it the spectrum of 
 
 As well as the model, we also have some direct observations of the waves which we would like to make use of to improve our predictions. We use techniques of data assimilation to achieve this.
 
-We take a vector $\x$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,\mathbf{B})$. We take a vector $\y$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}$:
+We take a vector $\x \in \mathbb{R}^n$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,\mathbf{B})$. We take a vector $\y \in \mathbb{R}^p$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}: \mathbb{R}^n \rightarrow \mathbb{R}^p$:
 
 \[
 \y = \mathcal{H}(\x) + \varepsilon
 \]
 
-where the error term $\varepsilon$ is assumed to be normally distributed with mean zero and covariance $\mathbf{R}$: $\varepsilon \sim N(0,\mathbf{R})$. In our case $\mathcal{H}$ is linear i.e. there is a matrix $\mathbf{H}$ such that $\mathcal{H}(\x) = \mathbf{H}\x$, and so $\prob(\y|\x) = N(\mathbf{H}\x,\mathbf{R})$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
+where the error term $\varepsilon$ is assumed to be normally distributed with mean zero and covariance $\mathbf{R}$: $\varepsilon \sim N(0,\mathbf{R})$. We call the vector spaces containing $\x$ and $\y$ the state space and observation space respectively. In operational contexts, the dimensions of these spaces are very large: typically $n \sim 10^8$ and $p \sim 10^6$. This means that considerable computational resources are required in most cases and computational efficiency is a key consideration in any operational DA implementation.
+
+In our case $\mathcal{H}$ is linear i.e. there is a matrix $\mathbf{H} \in \mathbb{R}^{n \times p}$ such that $\mathcal{H}(\x) = \mathbf{H}\x$, and so $\prob(\y|\x) = N(\mathbf{H}\x,\mathbf{R})$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
 
 \begin{equation}
     \prob(\x|\y) = \prob(\y|\x) \frac{\prob(\x)}{\prob(\y)}
@@ -124,12 +126,32 @@ adopting the notation $\norm[\mathbf{M}]{\mathbf{a}}^2 = \mathbf{a}^\top \mathbf
 The state that minimises this cost function is called the analysis $\x_a$ and may be expressed as
 
 \begin{equation}
-    \x_a = \x_b + \mathbf{K}\mathbf{d}
+    \x_a = \x_b + \mathbf{K}d^o_b
+\label{eqn:analysisupdate}
 \end{equation}
 
-where $\mathbf{d} = \y - \mathbf{H}\x$ is the innovation and $\mathbf{K} = \mathbf{B}\mathbf{H}^\top\left(\mathbf{H}\mathbf{B}\mathbf{H}^\top + \mathbf{R}\right)^{-1}$
+where $d^o_b = \y - \mathbf{H}\x$ is the innovation and $\mathbf{K} = \mathbf{B}\mathbf{H}^\top\left(\mathbf{H}\mathbf{B}\mathbf{H}^\top + \mathbf{R}\right)^{-1}$ is the Kalman gain. Note that the increment $d^a_b = \x_a - \x_b$ is given by $ \mathbf{B}\left(\mathbf{H}^\top\left(\mathbf{H}\mathbf{B}\mathbf{H}^\top + \mathbf{R}\right)^{-1} d^o_b \right)$, so it always lies in the column space of $\mathbf{B}$. This means that $\mathbf{B}$ is crucial to determining how information from the observations is spread around the domain by the DA system. In particular, if $\mathbf{B}$ is rank deficient, then all possible increments lie within a strict subspace of the state space. (so?)
 
-is the Kalman gain.
+In most contexts, observations are not all simultaneous but instead come from a sequence of times $t = 0,1,\dots$. One approach to assimilating non-simultaneous observations is to use a filter method such as the Ensemble Kalman Filter \parencite{Evensen1994,Houtekamer1998,Anderson2001}. A filter method consists of successive analysis steps, in which the observations from time $t$ are assimilated according to equation \ref{eqn:analysisupdate}, alternating with update steps, in which the forecast model is used to evolve the state forward to time $t+1$.
+
+In the ensemble Kalman filter (EnKF), a forecast ensemble is used and each ensemble member is evolved separately by the filter. The background error covariance matrix $\mathbf{B}$ is approximated at each analysis step by the forecast error covariance matrix
+
+\[
+\mathbf{P}^f_t = \frac{1}{N-1} \sum_{i = 1}^{N}\left(\x_t^{(i)} - \overline{\x}_t\right)\left(\x_t^{(i)} - \overline{\x}_t\right)^\top
+\label{eqn:ferrorcov}
+\]
+
+Where $N$ is the ensemble size, $\x_t^{(i)}$ is the state of ensemble member $i$ before the analysis step at time $t$ and $\overline{\x}_t = \frac{1}{N} \Sigma_{i=1}^{N} \x_t^{(i)}$ i.e. the ensemble mean.
+
+In general, the observations from each time $t$ may be available at different locations, or observations of different variables may be available, so the observation operator and observation error covariance matrix are functions of time. Denoting these at time $t$ by $\mathbf{H}_t, \mathbf{R}_t$, the Kalman gain matrix takes the form
+
+\[
+\mathbf{K}_t = \mathbf{P}^f_t\mathbf{H}_t^\top\left(\mathbf{H}_t\mathbf{P}^f_t\mathbf{H}_t^\top + \mathbf{R}_t\right)^{-1}
+\]
+
+The EnKF method is prone to a problem called filter divergence -  sampling error in the calculation of $\mathbf{P}^f_t$ means the magnitude of the forecast error covariance tends to erroneously shrink over time \parencite{Jazwinski1970}. This means that after some time, the ensemble distribution becomes very tight and further observations do not affect the state of the ensemble, resulting in forecast analysis states which diverge from the true state. (schematic) To counteract this, we will employ the method of inflation described in \cite{Anderson1999}, where the forecast error covariance matrix is multiplied by a factor $\alpha$ before the analysis step is performed.
+
+\subsection{(Description of 4DEnVar - may not be needed)}
 
 In our case, we have observations from multiple times $t = 0,1,\dots,T$ spread out over some time window, and we expect the state $\x$ to evolve over this time window. This evolution may be predicted using the model as follows: let $\x_0$ represent the state of the system at $t=0$, then we define the model operator $\mathcal{M}_t$ for each $t$ such that $\x_{t+1} = \mathcal{M}_t\left(\x_t\right)$ as predicted by the model. The cost function then becomes
 
