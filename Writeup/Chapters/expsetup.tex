@@ -113,7 +113,19 @@ To determine the magnitude of the observation errors, several methods are availa
 \label{fig:hsominusb}
 \end{figure}
 
-This approach may be quantified more precisely following \cite{Desroziers2006}...
+This approach may be quantified more precisely following \cite{Desroziers2006}, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation
+
+\[
+\mathbb{E}\left[d^o_b\left( d^o_b \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
+\]
+
+Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is
+
+\[
+\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right] - \text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
+\]
+
+In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $H P^f H^\top$ are simply the ensemble forecast variances at the observation location and times.
 
 Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of of differences from each bin was computed. They found a strong dependence of error on wave height.
 
