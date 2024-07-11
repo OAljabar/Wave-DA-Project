@@ -1,0 +1,17 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Model domains shown on map.\relax }}{10}{figure.caption.52}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Left: Significant wave height (colours) and direction (arrows) in the domain at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive\relax }}{11}{figure.caption.53}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Observed timeseries of significant wave height from ADCP buoy\relax }}{12}{figure.caption.55}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Observation - background histogram for significant wave height.\relax }}{12}{figure.caption.56}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces A plot of Hs error standard deviation against Hs.\relax }}{13}{figure.caption.57}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Plots of Tm01 and Tm02 error standard deviation against Tm01 and Tm02 respectively.\relax }}{13}{figure.caption.58}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Observation minus background histograms for Tm01 (left) and Tm02 (right).\relax }}{14}{figure.caption.59}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Schematic of the forecast and analysis steps from the ETKF scheme employed in this project.\relax }}{15}{figure.caption.62}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \textbf {Left:} Timeseries of Hs ensemble mean (top) and variance (bottom) from the buoy location. Data is taken from the run beginning $10^\text {th}$ March 2022. \textbf {Right:} Same as left but a spatial average is taken over the entire domain before taking the ensemble mean and variance.\relax }}{18}{figure.caption.65}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \textbf {Left:} Timeseries of Tm01 ensemble mean (top) and variance (bottom) from the buoy location. Data is taken from the run beginning $10^\text {th}$ March 2022. \textbf {Right:} Same as left but a spatial average is taken over the entire domain before taking the ensemble mean and variance.\relax }}{18}{figure.caption.66}%
+\addvspace {10\p@ }

@@ -1,0 +1,393 @@
+#LyX file created by tex2lyx 2.3
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin /home/ivo/Code/Wave-DA-Project/Writeup/Chapters/
+\textclass article
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% Chapter Template
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+chapter{Introduction}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% Main chapter title
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset CommandInset label
+LatexCommand label
+name "Chapter1"
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% Change X to a consecutive number; for referencing this chapter elsewhere, use 
+\backslash
+ref{ChapterX}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%	SECTION 1
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The need for Reliable Wave Forecasting
+\end_layout
+
+\begin_layout Standard
+Offshore operations form an important of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, the the operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method from (cite).
+\end_layout
+
+\begin_layout Standard
+(Description of site specific alpha factor)
+\end_layout
+
+\begin_layout Standard
+In this project, we explore the potential of Data Assimilation (DA) to reduce uncertainty and error in these wave forecasts. We will also examine the ensemble statistics, which are an important component of ensemble-based DA systems.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%	SECTION 2
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Previous work on DA for Wave Forecasts
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "Houghton2023"
+literal "false"
+
+\end_inset
+
+ assimilated wave height observations from satellite altimeters and a global network of drifting Sofar spotter buoys. They compared two different DA methods, a deterministic optimal interpolation (OI) method and an ensemble-based local ensemble transform Kalman filter (LETKF). They found the both methods reduced forecast error out to 2.5 days leadtime, and the LETKF gave more physically realistic output states. In this project we will assimilate observations of both wave height and period in the hope that correlations between these variables might give better predictions of both. We will use the ensemble transform Kalman filter (ETKF).
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "Houghton2022"
+literal "false"
+
+\end_inset
+
+ used OI to compare the effects of assimilating wave height and period. They found that both variables give very similar imporvements in predictions of wave height, while spectral assimilation gives better results for other quantities such as period and direction.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after ""
+key "Caires2018"
+literal "false"
+
+\end_inset
+
+ investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) method to adjust the wind fields used as forcing in a wave model. They found...
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%	SECTION 3
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+%----------------------------------------------------------------------------------------
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Main Research Questions
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+1:
+\series default
+ What are the statistical relations in an ensemble of wave height and period forecasts? 
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We will examine forecasts from Fugro of significant wave height Hs, along with two measures of the peak period Tm01 and Tm02 (defined in equation 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eqn:mainvars"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+). We will look at the statistics most relevant to ensemble DA systems, including:
+\end_layout
+
+\begin_layout Itemize
+Ensemble spread 
+\end_layout
+
+\begin_layout Itemize
+Spatial covariances of each variable 
+\end_layout
+
+\begin_layout Itemize
+Cross covariances between variables 
+\end_layout
+
+\begin_layout Standard
+These covariances are particularly important in DA as they determine how information from the observations is spread around the domain.
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+ 
+\series bold
+2:
+\series default
+ What kind of reduction in forecast error can be achieved by assimilating Hs, Tm01 and Tm02 using the ETKF method?
+\end_layout
+
+\begin_layout Standard
+We will use ETKF to assimilate observations of the three variables and examine the nature of the forecast errors after DA. We will look at...
+\end_layout
+
+\end_body
+\end_document

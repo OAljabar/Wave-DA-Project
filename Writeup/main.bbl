@@ -1,0 +1,660 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global}
+  \entry{Anderson2001}{article}{}
+    \name{author}{1}{}{%
+      {{hash=AJL}{%
+         family={Anderson},
+         familyi={A\bibinitperiod},
+         given={Jeffrey\bibnamedelima L},
+         giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJL1}
+    \strng{fullhash}{AJL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2001}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    A theory for estimating the probability distribution of the state of a
+  model given a set of observations exists. This nonlinear filtering theory
+  unifies the data assimilation and ensemble generation problem that have been
+  key foci of prediction and predictability research for numerical weather and
+  ocean prediction applications. A new algorithm, referred to as an ensemble
+  adjustment Kalman filter, and the more traditional implementation of the
+  ensemble Kalman filter in which ''perturbed observations'' are used, are
+  derived as Monte Carlo approximations to the nonlinear filter. Both ensemble
+  Kalman filter methods produce assimilations with small ensemble mean errors
+  while providing reasonable measures of uncertainty in the assimilated
+  variables. The ensemble methods can assimilate observations with a nonlinear
+  relation to model state variables and can also use observations to estimate
+  the value of imprecisely known model parameters. These ensemble filter
+  methods are shown to have significant advantages over four-dimensional
+  variational assimilation in low-order models and scale easily to much larger
+  applications. Heuristic modifications to the filtering algorithms allow them
+  to be applied efficiently to very large models by sequentially processing
+  observations and computing the impact of each observation on each state
+  variable in an independent calculation. The ensemble adjustment Kalman filter
+  is applied to a nondivergent barotropic model on the sphere to demonstrate
+  the capabilities of the filters in models with state spaces that are much
+  larger than the ensemble size. When observations are assimilated in the
+  traditional ensemble Kalman filter, the resulting updated ensemble has a mean
+  that is consistent with the value given by filtering theory, but only the
+  expected value of the covariance of the updated ensemble is consistent with
+  the theory. The ensemble adjustment Kalman filter computes a linear operator
+  that is applied to the prior ensemble estimate of the state, resulting in an
+  updated ensemble whose mean and also covariance are consistent with the
+  theory. In the cases compared here, the ensemble adjustment Kalman filter
+  performs significantly better than the traditional ensemble Kalman filter,
+  apparently because noise introduced into the assimilated ensemble through
+  perturbed observations in the traditional filter limits its relative
+  performance. This superior performance may not occur for all problems and is
+  expected to be most notable for small ensembles. Still, the results suggest
+  that careful study of the capabilities of different varieties of ensemble
+  Kalman filters is appropriate when exploring new applications.%
+    }
+    \field{issue}{12}
+    \field{pages}{2884\bibrangedash 2903}
+    \field{title}{An Ensemble Adjustment Kalman Filter for Data Assimilation}
+    \field{volume}{129}
+    \field{journaltitle}{Monthly Weather Review}
+    \field{year}{2001}
+  \endentry
+
+  \entry{Anderson1999}{article}{}
+    \name{author}{2}{}{%
+      {{hash=AJL}{%
+         family={Anderson},
+         familyi={A\bibinitperiod},
+         given={Jeffrey\bibnamedelima L},
+         giveni={J\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=ASL}{%
+         family={Anderson},
+         familyi={A\bibinitperiod},
+         given={Stephen\bibnamedelima L},
+         giveni={S\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{AJLASL1}
+    \strng{fullhash}{AJLASL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1999}
+    \field{labeldatesource}{}
+    \field{sortinit}{A}
+    \field{sortinithash}{A}
+    \field{abstract}{%
+    Knowledge of the probability distribution of initial conditions is central
+  to almost all practical studies of predictability and to improvements in
+  stochastic prediction of the atmosphere. Traditionally, data assimilation for
+  atmospheric predictability or prediction experiments has attempted to find a
+  single ''best'' estimate of the initial state. Additional information about
+  the initial condition probability distribution is then obtained primarily
+  through heuristic techniques that attempt to generate representative
+  perturbations around the best estimate. However, a classical theory for
+  generating an estimate of the complete probability distribution of an initial
+  state given a set of observations exists. This nonlinear filtering theory can
+  be applied to unify the data assimilation and ensemble generation problem and
+  to produce superior estimates of the probability distribution of the initial
+  state of the atmosphere (or ocean) on regional or global scales. A Monte
+  Carlo implementation of the fully nonlinear filter has been developed and
+  applied to several low-order models. The method is able to produce
+  assimilations with small ensemble mean errors while also providing random
+  samples of the initial condition probability distribution. The Monte Carlo
+  method can be applied in models that traditionally require the application of
+  initialization techniques without any explicit initialization. Initial
+  application to larger models is promising, but a number of challenges remain
+  before the method can be extended to large realistic forecast models.%
+    }
+    \field{issue}{12}
+    \field{pages}{2741\bibrangedash 2758}
+    \field{title}{A Monte Carlo Implementation of the Nonlinear Filtering
+  Problem to Produce Ensemble Assimilations and Forecasts}
+    \field{volume}{127}
+    \field{journaltitle}{Monthly Weather Review}
+    \field{year}{1999}
+  \endentry
+
+  \entry{Bannister2017}{article}{}
+    \name{author}{1}{}{%
+      {{hash=BRN}{%
+         family={Bannister},
+         familyi={B\bibinitperiod},
+         given={R.\bibnamedelima N.},
+         giveni={R\bibinitperiod\bibinitdelim N\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {John Wiley & Sons, Ltd}%
+    }
+    \keyw{dependent background,ensemble data assimilation,error
+  covariances,flow,hybrid data assimilation,localization,model
+  error,nomenclature,variational data assimilation}
+    \strng{namehash}{BRN1}
+    \strng{fullhash}{BRN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{labeldatesource}{}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Variational and ensemble methods have been developed separately by various
+  research and development groups and each brings its own benefits to data
+  assimilation. In the last decade or so, various ways have been developed to
+  combine these methods, especially with the aims of improving the
+  background-error covariance matrices and of improving efficiency. The field
+  has become confusing, even to many specialists, and so there is now a need to
+  summarize the methods in order to show how they work, how they are related,
+  what benefits they bring, why they have been developed, how they perform, and
+  what improvements are pending. This article starts with a reminder of basic
+  variational and ensemble techniques and shows how they can be combined to
+  give the emerging ensemble-variational (EnVar) and hybrid methods. A key part
+  of the article includes details of how localization is commonly represented.
+  There has been a particular push to develop four-dimensional methods that are
+  free of linearized forecast models. This article attempts to provide
+  derivations of the formulations of most popular schemes. These are otherwise
+  scattered throughout the literature or absent. It builds on the nomenclature
+  used to distinguish between methods, and discusses further possible
+  developments to the methods, including the representation of model error.%
+    }
+    \verb{doi}
+    \verb 10.1002/QJ.2982
+    \endverb
+    \field{issn}{1477-870X}
+    \field{issue}{703}
+    \field{pages}{607\bibrangedash 633}
+    \field{title}{A review of operational methods of variational and
+  ensemble-variational data assimilation}
+    \field{volume}{143}
+    \field{journaltitle}{Quarterly Journal of the Royal Meteorological Society}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Caires2018}{article}{}
+    \name{author}{3}{}{%
+      {{hash=CS}{%
+         family={Caires},
+         familyi={C\bibinitperiod},
+         given={Sofia},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=KJ}{%
+         family={Kim},
+         familyi={K\bibinitperiod},
+         given={Jinah},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Groeneweg},
+         familyi={G\bibinitperiod},
+         given={Jacco},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Springer Verlag}%
+    }
+    \keyw{East Coast of Korea,EnKF,SWAN,Wave modelling}
+    \strng{namehash}{CSKJGJ1}
+    \strng{fullhash}{CSKJGJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{abstract}{%
+    To respond to the need for preventing offshore and coastal accidents,
+  damage and flooding, a state-of-the-art coastal wave forecast system for the
+  East Coast of Korea waters is being developed. Given that the quality of the
+  input wind has been identified as the main factor influencing the quality of
+  the wave results, the effectiveness of adjusting the wind fields by means of
+  data assimilation using the ensemble Kalman filter technique has been
+  explored. In this article the model setup, the data assimilation parameters
+  and the validation of the predictions during stormy periods is described. The
+  validation shows that the model is able to provide predictions of coastal
+  waves fulfilling available benchmarks; especially, the data assimilation
+  analysis and forecast predictions are judged to be of high quality.%
+    }
+    \verb{doi}
+    \verb 10.1007/S10236-018-1214-0/FIGURES/30
+    \endverb
+    \field{issn}{16167228}
+    \field{issue}{11}
+    \field{pages}{1571\bibrangedash 1592}
+    \field{title}{Korean East Coast wave predictions by means of ensemble
+  Kalman filter data assimilation}
+    \verb{url}
+    \verb https://link.springer.com/article/10.1007/s10236-018-1214-0
+    \endverb
+    \field{volume}{68}
+    \field{journaltitle}{Ocean Dynamics}
+    \field{month}{11}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Desroziers2006}{article}{}
+    \name{author}{4}{}{%
+      {{hash=DG}{%
+         family={Desroziers},
+         familyi={D\bibinitperiod},
+         given={G.},
+         giveni={G\bibinitperiod},
+      }}%
+      {{hash=BL}{%
+         family={Berre},
+         familyi={B\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=CB}{%
+         family={Chapnik},
+         familyi={C\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=PP}{%
+         family={Poli},
+         familyi={P\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \keyw{Estimation theory,Optimality criterion,Parameter estimation}
+    \strng{namehash}{DG+1}
+    \strng{fullhash}{DGBLCBPP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2006}
+    \field{labeldatesource}{}
+    \field{sortinit}{D}
+    \field{sortinithash}{D}
+    \field{abstract}{%
+    Most operational assimilation schemes rely on linear estimation theory.
+  Under this assumption, it is shown how simple consistency diagnostics can be
+  obtained for the covariances of observation, background and estimation errors
+  in observation space. Those diagnostics are shown to be nearly cost-free
+  since they only combine quantities available after the analysis, i.e.
+  observed values and their background and analysis counterparts in observation
+  space. A first application of such diagnostics is presented on analyses
+  provided by the French 4D-Var assimilation. A procedure to refine background
+  and observation-error variances is also proposed and tested in a simple toy
+  analysis problem. The possibility to diagnose cross-correlations between
+  observation errors is also investigated in this same simple framework. A
+  spectral interpretation of the diagnosed covariances is finally presented,
+  which allows us to highlight the role of the scale separation between
+  background and observation errors. © Royal Meteorological Society, 2005.%
+    }
+    \verb{doi}
+    \verb 10.1256/qj.05.108
+    \endverb
+    \field{issn}{00359009}
+    \field{issue}{613}
+    \field{pages}{3385\bibrangedash 3396}
+    \field{title}{Diagnosis of observation, background and analysis-error
+  statistics in observation space}
+    \field{volume}{131}
+    \field{journaltitle}{Quarterly Journal of the Royal Meteorological Society}
+    \field{month}{01}
+    \field{year}{2006}
+  \endentry
+
+  \entry{Evensen1994}{article}{}
+    \name{author}{1}{}{%
+      {{hash=EG}{%
+         family={Evensen},
+         familyi={E\bibinitperiod},
+         given={Geir},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{EG1}
+    \strng{fullhash}{EG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1994}
+    \field{labeldatesource}{}
+    \field{sortinit}{E}
+    \field{sortinithash}{E}
+    \field{abstract}{%
+    A new sequential data assimilation method is discussed. it is based on
+  forecasting the error statistics using Monte Carlo methods, a better
+  alternative than solving the traditional and computationally extremely
+  demanding approximate error covariance equation used in the extended Kalman
+  filter. The unbounded error growth found in the extended Kalman filter, which
+  is caused by an overly simplified closure in the error covariance equation,
+  is completely eliminated. Open boundaries can be handled as long as the ocean
+  model is well posed. Well-known numerical instabilities associated with the
+  error covariance equation are avoided because storage and evolution of the
+  error covariance matrix itself are not needed. The results are also better
+  than what is provided by the extended Kalman filter since there is no closure
+  problem and the quality of the forecast error statistics therefore improves.
+  The method should be feasible also for more sophisticated primitive equation
+  models. -from Author%
+    }
+    \verb{doi}
+    \verb 10.1029/94jc00572
+    \endverb
+    \field{issn}{01480227}
+    \field{issue}{C5}
+    \field{pages}{10,143\bibrangedash 10,162}
+    \field{title}{Sequential data assimilation with a nonlinear
+  quasi-geostrophic model using Monte Carlo methods to forecast error
+  statistics}
+    \field{volume}{99}
+    \field{journaltitle}{Journal of Geophysical Research}
+    \field{year}{1994}
+  \endentry
+
+  \entry{Houghton2022}{article}{}
+    \name{author}{4}{}{%
+      {{hash=HIA}{%
+         family={Houghton},
+         familyi={H\bibinitperiod},
+         given={Isabel\bibnamedelima A.},
+         giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=HC}{%
+         family={Hegermiller},
+         familyi={H\bibinitperiod},
+         given={Christie},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=TC}{%
+         family={Teicheira},
+         familyi={T\bibinitperiod},
+         given={Camille},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=SPB}{%
+         family={Smit},
+         familyi={S\bibinitperiod},
+         given={Pieter\bibnamedelima B.},
+         giveni={P\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {John Wiley & Sons, Ltd}%
+    }
+    \keyw{air,data assimilation,distributed sensing,sea interface,wave
+  buoys,wave modeling,wave spectra observations}
+    \strng{namehash}{HIA+1}
+    \strng{fullhash}{HIAHCTCSPB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2022}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Historically, the sparseness of in situ open-ocean wave and weather
+  observations has severely limited the forecast skill of weather over the
+  ocean with major social and economic consequences for coastal communities and
+  maritime industries. Ocean surface waves, specifically, are important for the
+  interaction between atmosphere and ocean, and thus key in modeling weather
+  and climate processes. Here, we investigate the improvements achievable from
+  a large distributed sensor network combined with advances in assimilation
+  strategies. Wave spectra from a global network of over 600 Sofar Spotter
+  buoys are assimilated into an operational global wave forecast via optimal
+  interpolation to update model spectra to best fit observations. We
+  demonstrate end-to-end improvements in forecast skill of significant wave
+  height of 38%, and up to 45% for other bulk parameters. This shows
+  distributed observations of the air-sea interface, with advances in
+  assimilation strategies, can reduce uncertainty in forecasts to dramatically
+  improve earth system modeling.%
+    }
+    \verb{doi}
+    \verb 10.1029/2022GL098973
+    \endverb
+    \field{issn}{1944-8007}
+    \field{issue}{15}
+    \field{pages}{e2022GL098973}
+    \field{title}{Operational Assimilation of Spectral Wave Data From the Sofar
+  Spotter Network}
+    \verb{url}
+    \verb https://onlinelibrary.wiley.com/doi/full/10.1029/2022GL098973 https:/
+    \verb /onlinelibrary.wiley.com/doi/abs/10.1029/2022GL098973 https://agupubs
+    \verb .onlinelibrary.wiley.com/doi/10.1029/2022GL098973
+    \endverb
+    \field{volume}{49}
+    \field{journaltitle}{Geophysical Research Letters}
+    \field{month}{08}
+    \field{year}{2022}
+  \endentry
+
+  \entry{Houghton2023}{article}{}
+    \name{author}{6}{}{%
+      {{hash=HIA}{%
+         family={Houghton},
+         familyi={H\bibinitperiod},
+         given={Isabel\bibnamedelima A.},
+         giveni={I\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=PSG}{%
+         family={Penny},
+         familyi={P\bibinitperiod},
+         given={Stephen\bibnamedelima G.},
+         giveni={S\bibinitperiod\bibinitdelim G\bibinitperiod},
+      }}%
+      {{hash=HC}{%
+         family={Hegermiller},
+         familyi={H\bibinitperiod},
+         given={Christie},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=CM}{%
+         family={Cesaretti},
+         familyi={C\bibinitperiod},
+         given={Moriah},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TC}{%
+         family={Teicheira},
+         familyi={T\bibinitperiod},
+         given={Camille},
+         giveni={C\bibinitperiod},
+      }}%
+      {{hash=SPB}{%
+         family={Smit},
+         familyi={S\bibinitperiod},
+         given={Pieter\bibnamedelima B.},
+         giveni={P\bibinitperiod\bibinitdelim B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Elsevier}%
+    }
+    \keyw{Ensemble data assimilation,LETKF,Sofar Spotter wave buoys,Wave data
+  assimilation}
+    \strng{namehash}{HIA+1}
+    \strng{fullhash}{HIAPSGHCCMTCSPB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2023}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    An ensemble-based method for wave data assimilation is implemented using
+  significant wave height observations from the globally distributed network of
+  Sofar Spotter buoys and satellite altimeters. The Local Ensemble Transform
+  Kalman Filter (LETKF) method generates skillful analysis fields resulting in
+  reduced forecast errors out to 2.5 days when used as initial conditions in a
+  cycled wave data assimilation system. The LETKF method provides more
+  physically realistic model state updates that better reflect the underlying
+  sea state dynamics and uncertainty compared to methods such as optimal
+  interpolation. Skill assessment far from any included observations and
+  inspection of specific storm events highlight the advantages of LETKF over an
+  optimal interpolation method for data assimilation. This advancement has
+  immediate value in improving predictions of the sea state and, more broadly,
+  enabling future coupled data assimilation and utilization of global surface
+  observations across domains (atmosphere-wave-ocean).%
+    }
+    \verb{doi}
+    \verb 10.1016/J.OCEMOD.2023.102200
+    \endverb
+    \field{issn}{1463-5003}
+    \field{pages}{102200}
+    \field{title}{Ensemble-based data assimilation of significant wave height
+  from Sofar Spotters and satellite altimeters with a global operational wave
+  model}
+    \field{volume}{183}
+    \field{journaltitle}{Ocean Modelling}
+    \field{month}{06}
+    \field{year}{2023}
+  \endentry
+
+  \entry{Houtekamer1998}{article}{}
+    \name{author}{2}{}{%
+      {{hash=HPL}{%
+         family={Houtekamer},
+         familyi={H\bibinitperiod},
+         given={P\bibnamedelima L},
+         giveni={P\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+      {{hash=MHL}{%
+         family={Mitchell},
+         familyi={M\bibinitperiod},
+         given={Herschel\bibnamedelima L},
+         giveni={H\bibinitperiod\bibinitdelim L\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{HPLMHL1}
+    \strng{fullhash}{HPLMHL1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1998}
+    \field{labeldatesource}{}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    The possibility of performing data assimilation using the flow-dependent
+  statistics calculated from an ensemble of short-range forecasts (a technique
+  referred to as ensemble Kalman filtering) is examined in an idealized
+  environment. Using a three-level, quasigeostrophic, T21 model and simulated
+  observations, experiments are performed in a perfect-model context. By using
+  forward interpolation operators from the model state to the observations, the
+  ensemble Kalman filter is able to utilize nonconventional observations. In
+  order to maintain a representative spread between the ensemble members and
+  avoid a problem of inbreeding, a pair of ensemble Kalman filters is
+  configured so that the assimilation of data using one ensemble of short-range
+  forecasts as background fields employs the weights calculated from the other
+  ensemble of short-range forecasts. This configuration is found to work well:
+  the spread between the ensemble members resembles the difference between the
+  ensemble mean and the true state, except in the case of the smallest
+  ensembles. A series of 30-day data assimilation cycles is performed using
+  ensembles of different sizes. The results indicate that (i) as the size of
+  the ensembles increases, correlations are estimated more accurately and the
+  root-mean-square analysis error decreases, as expected, and (ii) ensembles
+  having on the order of 100 members are sufficient to accurately describe
+  local anisotropic, baroclinic correlation structures. Due to the difficulty
+  of accurately estimating the small correlations associated with remote
+  observations, a cutoff radius beyond which observations are not used, is
+  implemented. It is found that (a) for a given ensemble size there is an
+  optimal value of this cutoff radius, and (b) the optimal cutoff radius
+  increases as the ensemble size increases.%
+    }
+    \field{issue}{3}
+    \field{pages}{796\bibrangedash 811}
+    \field{title}{Data Assimilation Using an Ensemble Kalman Filter Technique}
+    \field{volume}{126}
+    \field{journaltitle}{Monthly Weather Review}
+    \field{year}{1998}
+  \endentry
+
+  \entry{janssen_interaction_2004}{book}{}
+    \name{author}{1}{}{%
+      {{hash=JP}{%
+         family={Janssen},
+         familyi={J\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{JP1}
+    \strng{fullhash}{JP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2004}
+    \field{labeldatesource}{}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{isbn}{0-521-46540-0}
+    \field{title}{The {Interaction} of {Ocean} {Waves} and {Wind}}
+    \field{year}{2004}
+  \endentry
+
+  \entry{Jazwinski1970}{inbook}{}
+    \name{author}{1}{}{%
+      {{hash=JAH}{%
+         family={Jazwinski},
+         familyi={J\bibinitperiod},
+         given={Andrew\bibnamedelima H.},
+         giveni={A\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{JAH1}
+    \strng{fullhash}{JAH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1970}
+    \field{labeldatesource}{}
+    \field{sortinit}{J}
+    \field{sortinithash}{J}
+    \field{pages}{301\bibrangedash 305}
+    \field{title}{8.8 - Filter Divergence and Error Compensation Techniques}
+    \field{journaltitle}{Stochastic Processes and Filtering Theory}
+    \field{year}{1970}
+  \endentry
+
+  \entry{vallis_atmospheric_2017}{book}{}
+    \name{author}{1}{}{%
+      {{hash=VGK}{%
+         family={Vallis},
+         familyi={V\bibinitperiod},
+         given={Geoffrey\bibnamedelima K.},
+         giveni={G\bibinitperiod\bibinitdelim K\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Cambridge University Press}%
+    }
+    \strng{namehash}{VGK1}
+    \strng{fullhash}{VGK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{labeldatesource}{}
+    \field{sortinit}{V}
+    \field{sortinithash}{V}
+    \field{edition}{Second}
+    \field{isbn}{987-1-107-06550-5}
+    \field{title}{Atmospheric and {Oceanic} {Fluid} {Dynamics}}
+    \field{year}{2017}
+  \endentry
+\enddatalist
+\endinput
