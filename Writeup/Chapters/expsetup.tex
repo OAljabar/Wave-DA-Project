@@ -9,10 +9,9 @@
 %----------------------------------------------------------------------------------------
 
 \section{Model Description and Domain}
+\label{sec:model}
 
-
-
-Waves are modelled by Fugro using WAVEWATCH III (WW3), which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described above. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
+Waves are modelled by Fugro using WW3, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described in section \ref{sec:wavespectra}. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
 \[
 F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
@@ -32,18 +31,13 @@ $S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is eq
 
 $S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
 
-$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{janssen_interaction_2004})
+$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. (maybe expand -  \citealp{Janssen2004})
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
-From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height Hs, and two measures of the dominant wave period Tm01 and Tm02. These are related to the spectrum via the spectral moments defined in \ref{eqn:moments} as follows:
+From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height Hs, and two measures of the dominant wave period Tm01 and Tm02. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
 
-\begin{align}
-\text{Hs} &= 4\sqrt{m_0} \\
-\text{Tm01} &= \frac{m_0}{m_1} \\
-\text{Tm02} &= \sqrt{\frac{m_0}{m_2}}
-\label{eqn:mainvars}
-\end{align}
+The reason for assimilating both Tm01 and Tm02 is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which should lead to better DA results.
 
 As forcing, WW3 uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. Each GEFS run acts as forcing for one member of the wave ensemble.  (Do they?)
 
@@ -82,7 +76,7 @@ The available model runs give forecast data for a period spanning from 12Z on 06
 \section{ADCP Observations}
 \label{sec:observations}
 
-Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{vallis_atmospheric_2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
 
 \begin{align*}
 	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
@@ -104,7 +98,9 @@ We have observations available over a roughly 6 month period spanning from Octob
 \label{fig:obshsseries}
 \end{figure}
 
-To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard of observational errors in significant wave height may be estimated to be approximately 50cm.
+\subsection{Diagnosis of Observation Errors}
+
+To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essnetially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard of observational errors in significant wave height may be estimated to be approximately 50cm.
 
 \begin{figure}
 \centering
@@ -115,15 +111,16 @@ To determine the magnitude of the observation errors, several methods are availa
 
 This approach may be quantified more precisely following \cite{Desroziers2006}, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation
 
-\[
+\begin{equation}
 \mathbb{E}\left[d^o_b\left( d^o_b \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
-\]
+\end{equation}
 
 Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is
 
-\[
-\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right] - \text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
-\]
+\begin{equation}
+\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
+\label{eqn:obserrestimate}
+\end{equation}
 
 In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $H P^f H^\top$ are simply the ensemble forecast variances at the observation location and times.
 
@@ -145,7 +142,17 @@ In our case, we only have observations from one buoy and they are available hour
 \label{fig:periodobsstd}
 \end{figure}
 
-The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. To avoid 'overfitting' the observations of period (explain and cite), I set a minimum threshold of 0.3s (revise) for the period errors and used the scaling method when it gives a value above this threshold, setting the error equal to the threshold otherwise. This threshold was determined from $o - b$ histograms for Tm01 and Tm02, shown in figure \ref{fig:periodominusb}
+The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. 
+
+Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and produing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
+
+The terms in \ref{eqn:obserrestimate} were calculated to be
+
+\[
+\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right]}{\text{\# observations}} = 0.16 s^2, \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.11 s^2
+\]
+
+So the observation error variance is estimated to be $0.05 s^2$ and the standard deviation threshold is set at $0.23s$.
 
 \begin{figure}
 \centering
@@ -168,10 +175,10 @@ The error distributions for Tm01 and Tm02 also fall aproximately on straight lin
 
 \section{Twin Experiment}
 
-In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the 'truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations:
+In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations:
 
 \begin{itemize}
-\item The 'truth' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated
+\item The `truth' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated
 \end{itemize}
 
 The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}

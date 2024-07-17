@@ -57,8 +57,11 @@ headsepline, % Uncomment to get a line under the header
 %	CUSTOM COMMANDS
 %----------------------------------------------------------------------------------------
 
-\newcommand{\x}{\mathbf{x}}
-\newcommand{\y}{\mathbf{y}}
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\uvec}[1]{\hat{\textbf{#1}}}
+\newcommand{\mat}[1]{\mathbf{#1}}
+\newcommand{\x}{\vect{x}}
+\newcommand{\y}{\vect{y}}
 \newcommand{\prob}{\mathbb{P}}
 \newcommand{\norm}[2][]{\left\lVert#2\right\rVert_{#1}}
 \newcommand{\degrees}{^{\circ}}
@@ -245,7 +248,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/introduction}
 \include{Chapters/theory}
 \include{Chapters/expsetup} 
-\include{Chapters/ensstats}
+\include{Chapters/results}
 %\include{Chapters/Chapter4} 
 %\include{Chapters/Chapter5} 
 
