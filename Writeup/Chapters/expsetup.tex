@@ -4,6 +4,8 @@
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
+This chapter is intended to describe the details of the experimental setup used in this project. It contains a description of the wave model used to generate the forecasts, as well as an overview of the background state, the observations used and the errors present in these observations. Finally a description is given of the twin experiment method used in this project, as well as the data assimilation setup.
+
 %----------------------------------------------------------------------------------------
 %	SECTION 1
 %----------------------------------------------------------------------------------------
@@ -11,7 +13,7 @@
 \section{Model Description and Domain}
 \label{sec:model}
 
-Waves are modelled by Fugro using WW3, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described in section \ref{sec:wavespectra}. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
+Waves are modelled by Fugro using WW3 \citep{WW3DG2019}, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described in section \ref{sec:wavespectra}. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
 \[
 F(\sigma,\theta) = \frac{\partial k}{\partial \sigma}F(k,\theta) = \frac{1}{c_g}F(k,\theta)
@@ -52,7 +54,20 @@ The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N a
 
 Forecasts are produced at 12Z each day, and run up to seven days ahead. We have seven of these daily runs available, with start dates spanning from 06/03/2022 to 12/03/2022. (include schematic) As we do not have access to the model code in this project, we will treat each of these runs as one 'timestep' of the DA system. Further description of how this works can be found in section \ref{sec:DAsetup}.
 
-The available model runs give forecast data for a period spanning from 12Z on 06/03/2022 to 19/03/2022. The main feature of this period is a large swell event with north-northwesterly waves, associated with a cold front passing through the domain. This event is illustrated in figure \ref{fig:wavesandchart}.
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+
+\section{Background State and Climatology}
+\label{sec:background}
+
+In this section we present a general overview of the background state and climatology in the domain. This will mostly come from the model data which spans a period from 06/03/2022 to 19/03/2022. Since the available observations span a longer period of roughly six months, observations will also be used to identify broader climatological features at the buoy location. 
+
+\subsection{Model Background State}
+
+The model output has largely westerly waves throughout much of the period (check, other climatologies).
+
+There is a large peak in Hs on the 12/03/2022, related to a cold front passing through the region. A map of Hs in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is in line with \citet{Appendini2014}, a study into the wave climatology of the GoM. In that paper, cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
 
 \begin{figure}
 \centering
@@ -65,12 +80,32 @@ The available model runs give forecast data for a period spanning from 12Z on 06
 \centering
 \includegraphics[width = \textwidth]{figures/0312chart}
 \end{subfigure}
-\caption{Left: Significant wave height (colours) and direction (arrows) in the domain at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
+\caption{Left: Hs (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
 \label{fig:wavesandchart}
 \end{figure}
 
+The high waves associated with this cold front have a long period of $\sim$ 8s, which suggests they are swell waves. This is illustrated in figure \ref{fig:0312t01}
+
+\begin{figure}
+\centering
+\includegraphics[width = .45\textwidth]{figures/0312t01}
+\caption{A map of the Gulf of Mexico with Tm01 at 18:00 on 06/03/2022 shown with colours.}
+\label{fig:0312t01}
+\end{figure}
+
+\subsection{Climatology at Buoy Location}
+
+Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction.
+
+\begin{figure}
+\centering
+\includegraphics[width = .6\textwidth]{figures/obsdensityplot}
+\caption{Density plot of Hs (radial axis) and wave direction at the buoy location.}
+\label{fig:obsdensityplot}
+\end{figure}
+
 %----------------------------------------------------------------------------------------
-%	SECTION 2
+%	SECTION 3
 %----------------------------------------------------------------------------------------
 
 \section{ADCP Observations}
@@ -170,7 +205,7 @@ So the observation error variance is estimated to be $0.05 s^2$ and the standard
 
 
 %----------------------------------------------------------------------------------------
-%	SECTION 3
+%	SECTION 4
 %----------------------------------------------------------------------------------------
 
 \section{Twin Experiment}
@@ -184,13 +219,13 @@ In this study, we will not be using real observations in our assimilation but se
 The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}
 
 %----------------------------------------------------------------------------------------
-%	SECTION 4
+%	SECTION 5
 %----------------------------------------------------------------------------------------
 
 \section{Data Assimilation Setup}
 \label{sec:DAsetup}
 
-To perform the data assimiliation we use pyPDAF, the python interface for the fortran-based Parallel Data Assimilation Framework (PDAF). (cite Yumeng?) We will use the ETKF method which comes builtin with PDAF. As we are not able to run the WAVEWATCH III model ourselves, at each analysis step we will correct one 7-day forecast window all at once, and then the forecast step will consist of selecting data from the next 7-day window. In this way the time within the 7-day window is treated like another spatial coordinate by the DA system. A schematic of this process is included in figure \ref{fig:ETKFschematic}
+To perform the data assimiliation we use pyPDAF \citep{Chen2024}, which is a python interface for the fortran-based Parallel Data Assimilation Framework (PDAF). We will use the ETKF method which comes builtin with PDAF. As we are not able to run the WAVEWATCH III model ourselves, at each analysis step we will correct one 7-day forecast window all at once, and then the forecast step will consist of selecting data from the next 7-day window. In this way the time within the 7-day window is treated like another spatial coordinate by the DA system. A schematic of this process is included in figure \ref{fig:ETKFschematic}
 
 At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.
 
