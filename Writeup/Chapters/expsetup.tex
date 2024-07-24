@@ -52,7 +52,14 @@ The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N a
 \label{fig:domain}
 \end{figure}
 
-Forecasts are produced at 12Z each day, and run up to seven days ahead. We have seven of these daily runs available, with start dates spanning from 06/03/2022 to 12/03/2022. (include schematic) As we do not have access to the model code in this project, we will treat each of these runs as one 'timestep' of the DA system. Further description of how this works can be found in section \ref{sec:DAsetup}.
+Forecasts are produced at 12Z each day, and run up to seven days ahead. We have seven of these daily runs available, with start dates spanning from 06/03/2022 to 12/03/2022. A schematic of this process is shown in figure \ref{fig:fugrosetup}. As we do not have access to the model code in this project, we will treat each of these runs as one 'timestep' of the DA system. Further description of how this works can be found in section \ref{sec:DAsetup}.
+
+\begin{figure}
+\centering
+\includegraphics[width = .9\textwidth]{figures/fugrosetup}
+\caption{Schematic of the forecasting setup used by Fugro. A new 7-day 31-member ensemble forecast is produced at 12Z each day.}
+\label{fig:fugrosetup}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
@@ -61,11 +68,25 @@ Forecasts are produced at 12Z each day, and run up to seven days ahead. We have 
 \section{Background State and Climatology}
 \label{sec:background}
 
-In this section we present a general overview of the background state and climatology in the domain. This will mostly come from the model data which spans a period from 06/03/2022 to 19/03/2022. Since the available observations span a longer period of roughly six months, observations will also be used to identify broader climatological features at the buoy location. 
+In this section we present a general overview of the background state and climatology in the domain. This will mostly come from the forecast data which spans a period from 06/03/2022 to 19/03/2022. Since the available observations span a longer period of roughly six months, observations will also be used to identify broader climatological features at the buoy location. 
 
 \subsection{Model Background State}
 
-The model output has largely westerly waves throughout much of the period (check, other climatologies).
+Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. Hs is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the GoM has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front. (check other climatologies).
+
+\begin{figure}
+\centering
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{figures/hdir6-12}
+\end{subfigure}
+\begin{subfigure}{.45\textwidth}
+\centering
+\includegraphics[width = \textwidth]{figures/hdir13-19}
+\end{subfigure}
+\caption{Left: Hs (colours) and wave direction (arrows) averaged between 12Z 06/03/2022 and 12Z 12/03/2022. Right: The same averaged between 12Z 13/03/2022 and 12Z 19/03/2022}
+\label{fig:hdirtimemean}
+\end{figure}
 
 There is a large peak in Hs on the 12/03/2022, related to a cold front passing through the region. A map of Hs in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is in line with \citet{Appendini2014}, a study into the wave climatology of the GoM. In that paper, cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
 
@@ -84,18 +105,45 @@ There is a large peak in Hs on the 12/03/2022, related to a cold front passing t
 \label{fig:wavesandchart}
 \end{figure}
 
-The high waves associated with this cold front have a long period of $\sim$ 8s, which suggests they are swell waves. This is illustrated in figure \ref{fig:0312t01}
+Figure \ref{fig:t01maps} shows Tm01 at 18Z 12/03/2022 and averaged over the preceding 48 hours.The high waves associated with the cold front at 18Z have a period of $\sim$ 8s, which is higher than the period in the rest of the GoM at that time and also higher than the waves accross the entire GoM in the 48 hours prior. This suggests these waves are swell waves.
 
 \begin{figure}
 \centering
-\includegraphics[width = .45\textwidth]{figures/0312t01}
-\caption{A map of the Gulf of Mexico with Tm01 at 18:00 on 06/03/2022 shown with colours.}
-\label{fig:0312t01}
+\includegraphics[width = \textwidth]{figures/backgroundt01map}
+\caption{Left: Tm01 at 18Z on 12/03/2022. Right: Tm01 averaged over the period from 12Z 10/03/2022 to 12Z 12/03/2022}
+\label{fig:t01maps}
+\end{figure}
+
+Figure \ref{fig:hsensseries} shows a timeseries of Hs ensemble mean and variance at the buoy location from the forecast starting 12Z 10/03/2022. We see the peak on the 12th as seen in figure \ref{fig:wavesandchart}. We also see that the variance is a strong function of the mean. The variance in Hs peaks just before the peak in the mean, and drops back to a lower value as the mean reaches its peak. This is notable since the diagonal elements of our forecast error covariance matrix $\mat{P}^f$ are simply the ensemble variances at each gridpoint and timestep, so ensemble variance is a good measure of the magnitude of the background error. This means that the background error in Hs is highest just before the peak in Hs.
+
+Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for Tm01. Again we see a peak in the variance just before the peak in the mean. In this case peak in Tm01 is preceded by a dip, and this dip is also associated with a peak in the ensemble variance. This means that the background error in Tm01 is high for a period of $\sim 24$ hours, as opposed to $\sim 12$ hours for Hs.
+
+\begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/buoyhsvar}
+\caption{Timeseries of forecast Hs ensemble mean and variance at the buoy location from the 10/03/2022 model run.}
+\label{fig:hsensseries}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/buoyt01var}
+\caption{Timeseries of forecast Tm01 ensemble mean and variance at the buoy location from the 10/03/2022 model run.}
+\label{fig:t01ensseries}
 \end{figure}
 
 \subsection{Climatology at Buoy Location}
 
-Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction.
+Figure \ref{fig:buoyseries} shows a timeseries of Hs and Tm01 as measured by the buoy. We that outside of specific peaks, Hs is generally < 1m. This is consistent with the model background state which showed Hs in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in Hs followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in Hs are associated with peaks in Tm01. This suggests that the high waves seen at the buoy are travelling swell waves and are not generated in the vicinity of the buoy.
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/buoyseries}
+\caption{Timeseries of observed Hs (top) and Tm01 (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
+\label{fig:buoyseries}
+\end{figure}
+
+Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
 
 \begin{figure}
 \centering
@@ -135,7 +183,9 @@ We have observations available over a roughly 6 month period spanning from Octob
 
 \subsection{Diagnosis of Observation Errors}
 
-To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essnetially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard of observational errors in significant wave height may be estimated to be approximately 50cm.
+To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essnetially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
+
+Another thing that is visible from the $o-b$ plot is a bias in either the Hs forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this is not possible (see section \ref{sec:twinexp} for details).
 
 \begin{figure}
 \centering
@@ -144,7 +194,7 @@ To simplify the computation, we assume that the observation error covariance mat
 \label{fig:hsominusb}
 \end{figure}
 
-This approach may be quantified more precisely following \cite{Desroziers2006}, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation
+The histogram approach may be quantified more precisely following \cite{Desroziers2006}, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation
 
 \begin{equation}
 \mathbb{E}\left[d^o_b\left( d^o_b \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
@@ -161,7 +211,9 @@ In our case, the observation operator is very simple and simply selects the fore
 
 Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of of differences from each bin was computed. They found a strong dependence of error on wave height.
 
-In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height. Repeating this process with the periods Tm01 and Tm02 yields the plots shown in figure \ref{fig:periodobsstd}.
+In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height.
+
+Recall from figure \ref{fig:hsensseries} that the ensemble variance Hs peaks just before the peak in Hs and drops back to lower values as Hs is at its highest value. Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.
 
 \begin{figure}
 \centering
@@ -177,7 +229,7 @@ In our case, we only have observations from one buoy and they are available hour
 \label{fig:periodobsstd}
 \end{figure}
 
-The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. 
+Repeating this process with the observations of Tm01 and Tm02 yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. 
 
 Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and produing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
 
@@ -209,14 +261,17 @@ So the observation error variance is estimated to be $0.05 s^2$ and the standard
 %----------------------------------------------------------------------------------------
 
 \section{Twin Experiment}
+\label{sec:twinexp}
 
-In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations:
+In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations in this context:
 
 \begin{itemize}
 \item The `truth' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated
 \end{itemize}
 
 The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}
+
+A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of Hs, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is impossible for the DA to correct these biases.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5

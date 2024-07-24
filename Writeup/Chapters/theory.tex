@@ -148,6 +148,8 @@ $N$ is conserved in the absence of sources and sinks \parencite{Bretherton1968},
 
 As well as the model, we also have some direct observations of the waves which we would like to make use of to improve our predictions. We use techniques of data assimilation to achieve this.
 
+\subsection{Vector Representations and Cost Function}
+
 We take a vector $\x \in \mathbb{R}^n$ to represent the state of the system, assuming it has a normal background distribution $\x \sim N(\x_b,\mat{B})$. We take a vector $\y \in \mathbb{R}^p$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}: \mathbb{R}^n \rightarrow \mathbb{R}^p$:
 
 \[
@@ -174,6 +176,10 @@ adopting the notation $\norm[\mat{M}]{\vect{a}}^2 = \vect{a}^\top \mat{M} \vect{
     J(\x) = \frac 1 2 \norm[\mat{B}^{-1}]{\x - \x_b}^2 + \frac 1 2 \norm[\mat{R}^{-1}]{\y - \mat{H}\x}^2
     \label{eqn:cost3d}
 \end{equation}
+
+The first term of \ref{eqn:cost3d} represents the deviation of $\x$ from the background state and the second term represents the deviation from the observations, with the overall cost function being a sum of these two weighted by the background and observation error matrices. This means that when the background error is large compared to the observational error, the observations will be given more weight and vice versa.
+
+\subsection{Kalman Filters}
 
 The state that minimises this cost function is called the analysis $\x_a$ and may be expressed as
 
@@ -214,7 +220,7 @@ This matrix is rank deficient since its column space has dimension equal to the 
 \label{eqn:ETKFens}
 \end{equation}
 
-And the analysis error covariance can $\mat{P}_a$ be defined similarly to $\mat{P}_f$ but from the analysis ensemble:
+And the analysis error covariance $\mat{P}_a$ can be defined similarly to $\mat{P}_f$ but from the analysis ensemble:
 
 \begin{align}
 \mat{X}_a &= \frac{1}{\sqrt{N- 1}} \left( \x^a_1 - \x^a, \x^a_2 - \x^a, \dots, \x^a_N - \x^a \right) \\
@@ -222,6 +228,19 @@ And the analysis error covariance can $\mat{P}_a$ be defined similarly to $\mat{
 \end{align}
 
 Another advantage of the ETKF (compared to the stochastic ensemble Kalman filter) is that $\mat{P}_a$ matches exactly the form given by Kalman theory (cite?)
+
+\subsection{Practical Aspects}
+\label{sec:DApractice}
+
+When calculating $\mat{P}^f$ from the ensemble, spurious covariances may arise at long distances, especially when the ensemble size is small. This is problematic as it can lead to large increments far from observation locations, which is physically unrealistic. One way to fix this is called localisation, and involves multiplying each component of the background error matrix $\mat{P}^f_{ij}$ by a factor which depends on the distance between gridpoints $i$ and $j$. Representing this distance with $d(i,j)$, we have the following equation:
+
+\begin{equation}
+\mat{P}^{f\prime}_{ij} = \mat{P}^f_{ij} f(d(i,j))
+\end{equation}
+
+The function $f$ should be close to 1 when $d(i,j)$ is small and close to 0 when $d(i,j)$ is large, to suppress covariances at long distances while allowing them to exist at short distances (FIND SOURCE)
+
+Another problem that may be encountered is... (filter divergence - tailor to our case)
 
 PROOF OF EQUIVALENCE WITH WEAK 4DENVAR
 

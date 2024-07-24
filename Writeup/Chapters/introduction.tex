@@ -10,7 +10,7 @@
 
 \section{The need for Reliable Wave Forecasting}
 
-Offshore operations form an important of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, the the operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \cite{Wu2021}. 
+Offshore operations form an important of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, the the operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. It is important to understand the risk posed by waves in this region since increased cyclone intensity is leading to increased extreme wave heights in the Gulf of Mexico \citep{Appendini2014}. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \cite{Wu2021}. 
 
 This proprietary method is referred to by Fugro as a site-specific alpha factor and works by...
 
@@ -45,11 +45,11 @@ Another major difference between this study and others that should be noted is t
 %	SECTION 3
 %----------------------------------------------------------------------------------------
 
-\section{Main Research Questions}
+\section{Aims of the Project}
 
-The main overarching research question in this project is ``\textbf{What kind of reduction in forecast error can be achieved by assimilating Hs, Tm01 and Tm02 using the ensemble transform Kalman filter method?}''
+The main research question in this project is ``\textbf{What kind of reduction in forecast error can be achieved by assimilating Hs, Tm01 and Tm02 using the ensemble transform Kalman filter method?}''
 
-To this end, we will use the ensemble transform Kalman filter (ETKF) to assimilate observations of the three variables and examine the errors resulting from this as compared to the errors before any DA is applied. Measures of error that will be examined are:
+To this end, we use the ensemble transform Kalman filter (ETKF) to assimilate observations of the three variables and examine the errors resulting from this as compared to the errors before any DA is applied. Measures of error that are examined are:
 
 \begin{itemize}
 \item The root mean square error (RMSE) of the ensemble mean. We expect the DA to move the ensemble mean closer to the true state so RMSE will be used to quantify and test this. The dependence of RMSE on forecast leadtime and location within the domain will be examined.
@@ -57,3 +57,4 @@ To this end, we will use the ensemble transform Kalman filter (ETKF) to assimila
 \item Errors in maximum Hs. Extremes of Hs are of particular interest in these forecasts as these are the events which cause danger and require the pausing of offshore operations. We will examine the effectiveness of DA to reduce error in the timings and magnitudes of wave height maxima.
 \end{itemize}
 
+Since accuracy in forecasting Hs is safety critical for offshore operations, we consider it to be the most important variable of the three and so a separate DA run is performed where only Hs is assimilated. Results from this run are compared to results from assimilating the three variables Hs, Tm01 and Tm02 together.
