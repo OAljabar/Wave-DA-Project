@@ -74,7 +74,7 @@ At 4-5 days leadtime, all vars DA shows improvement through most of the western 
 
 \section{Ensemble Spread}
 
-Ensemble spread is an important measure of uncertianty in ensemble forecasts. One aim of this project is to reduce uncertainty in the forecasts so that they may be used to inform decisions with greater confidence. Figure \ref{fig:DAensspread} shows the enemble standard deviation in Hs and Tm01 at the buoy location from two different model runs.
+Ensemble spread is an important measure of uncertianty in ensemble forecasts. One aim of this project is to reduce uncertainty in the forecasts so that they may be used to inform decisions with greater confidence. Figure \ref{fig:DAensspread} shows the ensemble standard deviation in Hs and Tm01 at the buoy location from two different model runs. Both Hs DA and all vars DA show a reduction in ensemble spread in both variables. All vars DA shows a greater reduction in Tm01 ensemble spread overall. This is unsurprising since Tm01 is not directly assimilated in Hs DA. This means that any increment to Tm01 from Hs DA comes from cross covariances between Hs and Tm01, which we generally expect to be small. In Hs ensemble spread, both runs perform similarly but Hs DA generally shows lower spread during the assimilation window and the opposite is true after the assimilation window. This is likely because the observational error scale in Hs was increased from $10\%$ in Hs DA to $12\%$ in all vars DA.
 
 \begin{figure}
 \centering
@@ -88,6 +88,26 @@ Ensemble spread is an important measure of uncertianty in ensemble forecasts. On
 \end{subfigure}
 \caption{Timeseries of ensemble standard deviation in Hs (top) and Tm01 (bottom) at the buoy location. Taken from 12Z 06/03/2022 (left) and 12Z 10/03/2022 (right) model runs.}
 \label{fig:DAensspread}
+\end{figure}
+
+Figure \ref{fig:hsspreadmaps} shows the spatial distribution of Hs ensemble spread at 12Z 11/03/2022, from 1 day and 5 days leadtime. At both leadtimes, All vars DA shows a greater reduction in ensemble spread than Hs DA across most of the domain. The only exception to this is the vicinity of the buoy at 1 day leadtime, when Hs DA shows a greater reduction. This is similar to what we saw in the timeseries, when Hs DA had greater spread reduction outside of the assimilation window. This reflects the fact that the dimensions of space and time within a forecast window are treated equivalently by our DA system. The greatest reductions in spread are where the spread of no DA is greatest.
+
+Figure \ref{fig:t01spreadmaps} shows the same as \ref{fig:hsspreadmaps} but for Tm01. At 1 day leadtime, the pattern of reductions from both all vars DA and Hs DA closely match the pattern of standard deviation from no DA, and the reductions from all vars DA are stronger overall. At 5 days leadtime, the reduction from all vars DA generally matches the pattern of standard deviation from no DA, with a peak concentrated on the western side of the Yucatan peninsula. This peak is also present in Hs DA, which shows little reduction in spread elsewhere.
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/hsspreadmap1}
+\includegraphics[width = \textwidth]{figures/hsspreadmap5}
+\caption{Ensemble standard deviation in Hs at 12Z 11/03/2022, taken from 12Z 06/03/2022 (top) and 12Z 10/03/2022 (bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation from all vars DA (left) and Hs DA (right).}
+\label{fig:hsspreadmaps}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/t01spreadmap1}
+\includegraphics[width = \textwidth]{figures/t01spreadmap5}
+\caption{Ensemble standard deviation in Tm01 at 12Z 11/03/2022, taken from 12Z 06/03/2022 (top) and 12Z 10/03/2022 (bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation from all vars DA (left) and Hs DA (right).}
+\label{fig:t01spreadmaps}
 \end{figure}
 
 However, it would be short-sighted to focus solely on reducing the ensemble spread, as this may lead to the ensemble being overconfident. As described in section \ref{sec:DApractice}, it is detrimental to the forecast to have ensemble spread smaller than the forecast errors. To test whether this problem has arisen, we plot the ensemble standard deviation against
