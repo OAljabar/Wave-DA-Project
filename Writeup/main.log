@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.15)  25 JUL 2024 11:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2024.3.15)  25 JUL 2024 11:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1272,17 +1272,17 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 108
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 1: section
-<figures/unilogo.png, id=173, 178.16562pt x 195.22937pt>
-File: figures/unilogo.png Graphic file (type png)
-<use figures/unilogo.png>
-Package pdftex.def Info: figures/unilogo.png  used on input line 124.
+<Figures/figures/unilogo.png, id=173, 178.16562pt x 195.22937pt>
+File: Figures/figures/unilogo.png Graphic file (type png)
+<use Figures/figures/unilogo.png>
+Package pdftex.def Info: Figures/figures/unilogo.png  used on input line 124.
 (pdftex.def)             Requested size: 161.60916pt x 177.09596pt.
 [1
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./figures/unilogo.png>]
-[2
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Figures/figures/unilogo.
+png>] [2
 
 ]
 --------------------
@@ -1479,42 +1479,45 @@ Overfull \hbox (3.38437pt too wide) in paragraph at lines 36--37
 
 1: section
 [15]
-<figures/modelDomain.png, id=549, 746.03719pt x 451.6875pt>
-File: figures/modelDomain.png Graphic file (type png)
-<use figures/modelDomain.png>
-Package pdftex.def Info: figures/modelDomain.png  used on input line 50.
+<Figures/figures/modelDomain.png, id=549, 746.03719pt x 451.6875pt>
+File: Figures/figures/modelDomain.png Graphic file (type png)
+<use Figures/figures/modelDomain.png>
+Package pdftex.def Info: Figures/figures/modelDomain.png  used on input line 50
+.
 (pdftex.def)             Requested size: 323.22449pt x 195.69676pt.
-<figures/fugrosetup.png, id=553, 1354.3097pt x 400.49625pt>
-File: figures/fugrosetup.png Graphic file (type png)
-<use figures/fugrosetup.png>
-Package pdftex.def Info: figures/fugrosetup.png  used on input line 59.
+<Figures/figures/fugrosetup.png, id=553, 1354.3097pt x 400.49625pt>
+File: Figures/figures/fugrosetup.png Graphic file (type png)
+<use Figures/figures/fugrosetup.png>
+Package pdftex.def Info: Figures/figures/fugrosetup.png  used on input line 59.
+
 (pdftex.def)             Requested size: 363.6237pt x 107.53043pt.
- [16 <./figures/modelDomain.png>]
-<figures/hdir6-12.png, id=561, 589.20125pt x 425.59pt>
-File: figures/hdir6-12.png Graphic file (type png)
-<use figures/hdir6-12.png>
-Package pdftex.def Info: figures/hdir6-12.png  used on input line 81.
+ [16 <./Figures/figures/modelDomain.png>]
+<Figures/figures/hdir6-12.png, id=561, 589.20125pt x 425.59pt>
+File: Figures/figures/hdir6-12.png Graphic file (type png)
+<use Figures/figures/hdir6-12.png>
+Package pdftex.def Info: Figures/figures/hdir6-12.png  used on input line 81.
 (pdftex.def)             Requested size: 181.81184pt x 131.32759pt.
-<figures/hdir13-19.png, id=562, 589.20125pt x 425.59pt>
-File: figures/hdir13-19.png Graphic file (type png)
-<use figures/hdir13-19.png>
-Package pdftex.def Info: figures/hdir13-19.png  used on input line 85.
+<Figures/figures/hdir13-19.png, id=562, 589.20125pt x 425.59pt>
+File: Figures/figures/hdir13-19.png Graphic file (type png)
+<use Figures/figures/hdir13-19.png>
+Package pdftex.def Info: Figures/figures/hdir13-19.png  used on input line 85.
 (pdftex.def)             Requested size: 181.81184pt x 131.32759pt.
 
 
 LaTeX Warning: Citation 'Appendini2014' on page 17 undefined on input line 91.
 
-[17 <./figures/fugrosetup.png> <./figures/hdir6-12.png> <./figures/hdir13-19.pn
-g>]
-<figures/0312waves.png, id=572, 548.0475pt x 422.57875pt>
-File: figures/0312waves.png Graphic file (type png)
-<use figures/0312waves.png>
-Package pdftex.def Info: figures/0312waves.png  used on input line 97.
+[17 <./Figures/figures/fugrosetup.png> <./Figures/figures/hdir6-12.png> <./Figu
+res/figures/hdir13-19.png>]
+<Figures/figures/0312waves.png, id=572, 548.0475pt x 422.57875pt>
+File: Figures/figures/0312waves.png Graphic file (type png)
+<use Figures/figures/0312waves.png>
+Package pdftex.def Info: Figures/figures/0312waves.png  used on input line 97.
 (pdftex.def)             Requested size: 181.81184pt x 140.1865pt.
-<figures/0312chart.png, id=573, 136.51pt x 92.345pt>
-File: figures/0312chart.png Graphic file (type png)
-<use figures/0312chart.png>
-Package pdftex.def Info: figures/0312chart.png  used on input line 102.
+<Figures/figures/0312chart.png, id=573, 136.51pt x 92.345pt>
+File: Figures/figures/0312chart.png Graphic file (type png)
+<use Figures/figures/0312chart.png>
+Package pdftex.def Info: Figures/figures/0312chart.png  used on input line 102.
+
 (pdftex.def)             Requested size: 181.81184pt x 122.99763pt.
 
 Overfull \hbox (7.04762pt too wide) in paragraph at lines 108--109
@@ -1522,186 +1525,216 @@ Overfull \hbox (7.04762pt too wide) in paragraph at lines 108--109
 ged over the pre-ced-ing 48 hours.The
  []
 
-<figures/backgroundt01map.png, id=575, 1083.04625pt x 410.53375pt>
-File: figures/backgroundt01map.png Graphic file (type png)
-<use figures/backgroundt01map.png>
-Package pdftex.def Info: figures/backgroundt01map.png  used on input line 112.
+<Figures/figures/backgroundt01map.png, id=575, 1083.04625pt x 410.53375pt>
+File: Figures/figures/backgroundt01map.png Graphic file (type png)
+<use Figures/figures/backgroundt01map.png>
+Package pdftex.def Info: Figures/figures/backgroundt01map.png  used on input li
+ne 112.
 (pdftex.def)             Requested size: 404.02908pt x 153.14795pt.
-[18 <./figures/0312waves.png> <./figures/0312chart.png> <./figures/backgroundt0
-1map.png>]
-<figures/buoyhsvar.png, id=587, 683.55376pt x 621.32124pt>
-File: figures/buoyhsvar.png Graphic file (type png)
-<use figures/buoyhsvar.png>
-Package pdftex.def Info: figures/buoyhsvar.png  used on input line 123.
+[18 <./Figures/figures/0312waves.png> <./Figures/figures/0312chart.png> <./Figu
+res/figures/backgroundt01map.png>]
+<Figures/figures/buoyhsvar.png, id=587, 683.55376pt x 621.32124pt>
+File: Figures/figures/buoyhsvar.png Graphic file (type png)
+<use Figures/figures/buoyhsvar.png>
+Package pdftex.def Info: Figures/figures/buoyhsvar.png  used on input line 123.
+
 (pdftex.def)             Requested size: 323.22449pt x 293.80338pt.
-<figures/buoyt01var.png, id=588, 683.55376pt x 621.32124pt>
-File: figures/buoyt01var.png Graphic file (type png)
-<use figures/buoyt01var.png>
-Package pdftex.def Info: figures/buoyt01var.png  used on input line 130.
+<Figures/figures/buoyt01var.png, id=588, 683.55376pt x 621.32124pt>
+File: Figures/figures/buoyt01var.png Graphic file (type png)
+<use Figures/figures/buoyt01var.png>
+Package pdftex.def Info: Figures/figures/buoyt01var.png  used on input line 130
+.
 (pdftex.def)             Requested size: 323.22449pt x 293.80338pt.
-<figures/buoyseries.png, id=590, 1258.7025pt x 688.5725pt>
-File: figures/buoyseries.png Graphic file (type png)
-<use figures/buoyseries.png>
-Package pdftex.def Info: figures/buoyseries.png  used on input line 141.
+<Figures/figures/buoyseries.png, id=590, 1258.7025pt x 688.5725pt>
+File: Figures/figures/buoyseries.png Graphic file (type png)
+<use Figures/figures/buoyseries.png>
+Package pdftex.def Info: Figures/figures/buoyseries.png  used on input line 141
+.
 (pdftex.def)             Requested size: 404.02908pt x 221.02013pt.
-<figures/obsdensityplot.png, id=592, 464.73625pt x 387.4475pt>
-File: figures/obsdensityplot.png Graphic file (type png)
-<use figures/obsdensityplot.png>
-Package pdftex.def Info: figures/obsdensityplot.png  used on input line 150.
+<Figures/figures/obsdensityplot.png, id=592, 464.73625pt x 387.4475pt>
+File: Figures/figures/obsdensityplot.png Graphic file (type png)
+<use Figures/figures/obsdensityplot.png>
+Package pdftex.def Info: Figures/figures/obsdensityplot.png  used on input line
+ 150.
 (pdftex.def)             Requested size: 242.4199pt x 202.10052pt.
 
 
 LaTeX Warning: Citation 'Vallis2017' on page 19 undefined on input line 162.
 
-[19 <./figures/buoyhsvar.png>] [20 <./figures/buoyt01var.png> <./figures/buoyse
-ries.png>]
-<figures/obshsseries.png, id=607, 607.26875pt x 301.125pt>
-File: figures/obshsseries.png Graphic file (type png)
-<use figures/obshsseries.png>
-Package pdftex.def Info: figures/obshsseries.png  used on input line 179.
+[19 <./Figures/figures/buoyhsvar.png>] [20 <./Figures/figures/buoyt01var.png> <
+./Figures/figures/buoyseries.png>]
+<Figures/figures/obshsseries.png, id=607, 607.26875pt x 301.125pt>
+File: Figures/figures/obshsseries.png Graphic file (type png)
+<use Figures/figures/obshsseries.png>
+Package pdftex.def Info: Figures/figures/obshsseries.png  used on input line 17
+9.
 (pdftex.def)             Requested size: 323.22449pt x 160.2801pt.
- [21 <./figures/obsdensityplot.png>]
-<figures/hsominusb.png, id=615, 567.11874pt x 380.42125pt>
-File: figures/hsominusb.png Graphic file (type png)
-<use figures/hsominusb.png>
-Package pdftex.def Info: figures/hsominusb.png  used on input line 192.
+ [21 <./Figures/figures/obsdensityplot.png>]
+<Figures/figures/hsominusb.png, id=615, 567.11874pt x 380.42125pt>
+File: Figures/figures/hsominusb.png Graphic file (type png)
+<use Figures/figures/hsominusb.png>
+Package pdftex.def Info: Figures/figures/hsominusb.png  used on input line 192.
+
 (pdftex.def)             Requested size: 323.22449pt x 216.82494pt.
- [22 <./figures/obshsseries.png>]
-<figures/hsobsstd.png, id=629, 412.54124pt x 271.0125pt>
-File: figures/hsobsstd.png Graphic file (type png)
-<use figures/hsobsstd.png>
-Package pdftex.def Info: figures/hsobsstd.png  used on input line 220.
+
+[22 <./Figures/figures/obshsseries.png>]
+<Figures/figures/hsobsstd.png, id=629, 412.54124pt x 271.0125pt>
+File: Figures/figures/hsobsstd.png Graphic file (type png)
+<use Figures/figures/hsobsstd.png>
+Package pdftex.def Info: Figures/figures/hsobsstd.png  used on input line 220.
 (pdftex.def)             Requested size: 202.01454pt x 132.71043pt.
-<figures/periodobsstd.png, id=630, 742.775pt x 275.0275pt>
-File: figures/periodobsstd.png Graphic file (type png)
-<use figures/periodobsstd.png>
-Package pdftex.def Info: figures/periodobsstd.png  used on input line 227.
+<Figures/figures/periodobsstd.png, id=630, 742.775pt x 275.0275pt>
+File: Figures/figures/periodobsstd.png Graphic file (type png)
+<use Figures/figures/periodobsstd.png>
+Package pdftex.def Info: Figures/figures/periodobsstd.png  used on input line 2
+27.
 (pdftex.def)             Requested size: 404.02908pt x 149.60374pt.
-[23 <./figures/hsominusb.png>]
-<figures/tm01ominusb.png, id=640, 510.90875pt x 328.22626pt>
-File: figures/tm01ominusb.png Graphic file (type png)
-<use figures/tm01ominusb.png>
-Package pdftex.def Info: figures/tm01ominusb.png  used on input line 248.
+ [23 <./Figures/figures/hsominusb.png>]
+<Figures/figures/tm01ominusb.png, id=640, 510.90875pt x 328.22626pt>
+File: Figures/figures/tm01ominusb.png Graphic file (type png)
+<use Figures/figures/tm01ominusb.png>
+Package pdftex.def Info: Figures/figures/tm01ominusb.png  used on input line 24
+8.
 (pdftex.def)             Requested size: 181.81184pt x 116.79909pt.
-<figures/tm02ominusb.png, id=641, 510.90875pt x 326.21875pt>
-File: figures/tm02ominusb.png Graphic file (type png)
-<use figures/tm02ominusb.png>
-Package pdftex.def Info: figures/tm02ominusb.png  used on input line 252.
+<Figures/figures/tm02ominusb.png, id=641, 510.90875pt x 326.21875pt>
+File: Figures/figures/tm02ominusb.png Graphic file (type png)
+<use Figures/figures/tm02ominusb.png>
+Package pdftex.def Info: Figures/figures/tm02ominusb.png  used on input line 25
+2.
 (pdftex.def)             Requested size: 181.81184pt x 116.08472pt.
- [24 <./figures/hsobsstd.png> <./figures/periodobsstd.png>]
+[24 <./Figures/figures/hsobsstd.png> <./Figures/figures/periodobsstd.png>]
 
 LaTeX Warning: Citation 'Chen2024' on page 25 undefined on input line 283.
 
-<figures/ETKFschematic.png, id=651, 1318.9275pt x 258.9675pt>
-File: figures/ETKFschematic.png Graphic file (type png)
-<use figures/ETKFschematic.png>
-Package pdftex.def Info: figures/ETKFschematic.png  used on input line 289.
+<Figures/figures/ETKFschematic.png, id=651, 1318.9275pt x 258.9675pt>
+File: Figures/figures/ETKFschematic.png Graphic file (type png)
+<use Figures/figures/ETKFschematic.png>
+Package pdftex.def Info: Figures/figures/ETKFschematic.png  used on input line 
+289.
 (pdftex.def)             Requested size: 404.02908pt x 79.33072pt.
-) [25 <./figures/tm01ominusb.png> <./figures/tm02ominusb.png>] [26 <./figures/E
-TKFschematic.png>]
+) [25 <./Figures/figures/tm01ominusb.png> <./Figures/figures/tm02ominusb.png>]
+[26 <./Figures/figures/ETKFschematic.png>]
 \openout2 = `Chapters/results.aux'.
 
  (./Chapters/results.tex
 Chapter 4.
-<figures/buoyhsseries9.png, id=666, 890.32625pt x 436.63126pt>
-File: figures/buoyhsseries9.png Graphic file (type png)
-<use figures/buoyhsseries9.png>
-Package pdftex.def Info: figures/buoyhsseries9.png  used on input line 13.
+<Figures/figures/buoyhsseries9.png, id=666, 890.32625pt x 436.63126pt>
+File: Figures/figures/buoyhsseries9.png Graphic file (type png)
+<use Figures/figures/buoyhsseries9.png>
+Package pdftex.def Info: Figures/figures/buoyhsseries9.png  used on input line 
+13.
 (pdftex.def)             Requested size: 282.81912pt x 138.69884pt.
-<figures/buoyt01series9.png, id=667, 890.32625pt x 436.63126pt>
-File: figures/buoyt01series9.png Graphic file (type png)
-<use figures/buoyt01series9.png>
-Package pdftex.def Info: figures/buoyt01series9.png  used on input line 14.
+<Figures/figures/buoyt01series9.png, id=667, 890.32625pt x 436.63126pt>
+File: Figures/figures/buoyt01series9.png Graphic file (type png)
+<use Figures/figures/buoyt01series9.png>
+Package pdftex.def Info: Figures/figures/buoyt01series9.png  used on input line
+ 14.
 (pdftex.def)             Requested size: 282.81912pt x 138.69884pt.
-<figures/farhsseries9.png, id=668, 905.3825pt x 436.63126pt>
-File: figures/farhsseries9.png Graphic file (type png)
-<use figures/farhsseries9.png>
-Package pdftex.def Info: figures/farhsseries9.png  used on input line 21.
+<Figures/figures/farhsseries9.png, id=668, 905.3825pt x 436.63126pt>
+File: Figures/figures/farhsseries9.png Graphic file (type png)
+<use Figures/figures/farhsseries9.png>
+Package pdftex.def Info: Figures/figures/farhsseries9.png  used on input line 2
+1.
 (pdftex.def)             Requested size: 282.81912pt x 136.38696pt.
-<figures/fart01series9.png, id=669, 905.3825pt x 436.63126pt>
-File: figures/fart01series9.png Graphic file (type png)
-<use figures/fart01series9.png>
-Package pdftex.def Info: figures/fart01series9.png  used on input line 22.
+<Figures/figures/fart01series9.png, id=669, 905.3825pt x 436.63126pt>
+File: Figures/figures/fart01series9.png Graphic file (type png)
+<use Figures/figures/fart01series9.png>
+Package pdftex.def Info: Figures/figures/fart01series9.png  used on input line 
+22.
 (pdftex.def)             Requested size: 282.81912pt x 136.38696pt.
-<figures/buoyhsbyday.png, id=671, 569.12625pt x 382.42876pt>
-File: figures/buoyhsbyday.png Graphic file (type png)
-<use figures/buoyhsbyday.png>
-Package pdftex.def Info: figures/buoyhsbyday.png  used on input line 35.
+<Figures/figures/buoyhsbyday.png, id=671, 569.12625pt x 382.42876pt>
+File: Figures/figures/buoyhsbyday.png Graphic file (type png)
+<use Figures/figures/buoyhsbyday.png>
+Package pdftex.def Info: Figures/figures/buoyhsbyday.png  used on input line 35
+.
 (pdftex.def)             Requested size: 181.81184pt x 122.16962pt.
-<figures/buoyt01byday.png, id=672, 569.12625pt x 382.42876pt>
-File: figures/buoyt01byday.png Graphic file (type png)
-<use figures/buoyt01byday.png>
-Package pdftex.def Info: figures/buoyt01byday.png  used on input line 39.
+<Figures/figures/buoyt01byday.png, id=672, 569.12625pt x 382.42876pt>
+File: Figures/figures/buoyt01byday.png Graphic file (type png)
+<use Figures/figures/buoyt01byday.png>
+Package pdftex.def Info: Figures/figures/buoyt01byday.png  used on input line 3
+9.
 (pdftex.def)             Requested size: 181.81184pt x 122.16962pt.
 1: section
 [27
 
 
 
-] [28 <./figures/buoyhsseries9.png> <./figures/buoyt01series9.png>] [29 <./figu
-res/farhsseries9.png> <./figures/fart01series9.png> <./figures/buoyhsbyday.png>
- <./figures/buoyt01byday.png>]
-<figures/hserrmap2-3.png, id=696, 1343.0175pt x 340.27126pt>
-File: figures/hserrmap2-3.png Graphic file (type png)
-<use figures/hserrmap2-3.png>
-Package pdftex.def Info: figures/hserrmap2-3.png  used on input line 59.
+] [28 <./Figures/figures/buoyhsseries9.png> <./Figures/figures/buoyt01series9.p
+ng>] [29 <./Figures/figures/farhsseries9.png> <./Figures/figures/fart01series9.
+png> <./Figures/figures/buoyhsbyday.png> <./Figures/figures/buoyt01byday.png>]
+<Figures/figures/hserrmap2-3.png, id=696, 1343.0175pt x 340.27126pt>
+File: Figures/figures/hserrmap2-3.png Graphic file (type png)
+<use Figures/figures/hserrmap2-3.png>
+Package pdftex.def Info: Figures/figures/hserrmap2-3.png  used on input line 59
+.
 (pdftex.def)             Requested size: 404.02908pt x 102.36253pt.
-<figures/hserrmap4-5.png, id=697, 1341.01pt x 342.27875pt>
-File: figures/hserrmap4-5.png Graphic file (type png)
-<use figures/hserrmap4-5.png>
-Package pdftex.def Info: figures/hserrmap4-5.png  used on input line 60.
+<Figures/figures/hserrmap4-5.png, id=697, 1341.01pt x 342.27875pt>
+File: Figures/figures/hserrmap4-5.png Graphic file (type png)
+<use Figures/figures/hserrmap4-5.png>
+Package pdftex.def Info: Figures/figures/hserrmap4-5.png  used on input line 60
+.
 (pdftex.def)             Requested size: 404.02908pt x 103.12311pt.
-<figures/t01errmap2-3.png, id=698, 1342.01375pt x 340.27126pt>
-File: figures/t01errmap2-3.png Graphic file (type png)
-<use figures/t01errmap2-3.png>
-Package pdftex.def Info: figures/t01errmap2-3.png  used on input line 67.
+<Figures/figures/t01errmap2-3.png, id=698, 1342.01375pt x 340.27126pt>
+File: Figures/figures/t01errmap2-3.png Graphic file (type png)
+<use Figures/figures/t01errmap2-3.png>
+Package pdftex.def Info: Figures/figures/t01errmap2-3.png  used on input line 6
+7.
 (pdftex.def)             Requested size: 404.02908pt x 102.44041pt.
-<figures/t01errmap4-5.png, id=699, 1341.01pt x 339.2675pt>
-File: figures/t01errmap4-5.png Graphic file (type png)
-<use figures/t01errmap4-5.png>
-Package pdftex.def Info: figures/t01errmap4-5.png  used on input line 68.
+<Figures/figures/t01errmap4-5.png, id=699, 1341.01pt x 339.2675pt>
+File: Figures/figures/t01errmap4-5.png Graphic file (type png)
+<use Figures/figures/t01errmap4-5.png>
+Package pdftex.def Info: Figures/figures/t01errmap4-5.png  used on input line 6
+8.
 (pdftex.def)             Requested size: 404.02908pt x 102.21588pt.
- [30] [31 <./figures/hserrmap2-3.png> <./figures/hserrmap4-5.png> <./figures/t0
-1errmap2-3.png> <./figures/t01errmap4-5.png>]
-<figures/hsspreadseries6.png, id=713, 625.33624pt x 349.305pt>
-File: figures/hsspreadseries6.png Graphic file (type png)
-<use figures/hsspreadseries6.png>
-Package pdftex.def Info: figures/hsspreadseries6.png  used on input line 82.
+ [30] [31 <./Figures/figures/hserrmap2-3.png> <./Figures/figures/hserrmap4-5.pn
+g> <./Figures/figures/t01errmap2-3.png> <./Figures/figures/t01errmap4-5.png>]
+<Figures/figures/hsspreadseries6.png, id=713, 625.33624pt x 349.305pt>
+File: Figures/figures/hsspreadseries6.png Graphic file (type png)
+<use Figures/figures/hsspreadseries6.png>
+Package pdftex.def Info: Figures/figures/hsspreadseries6.png  used on input lin
+e 82.
 (pdftex.def)             Requested size: 197.97646pt x 110.58597pt.
-<figures/t01spreadseries6.png, id=714, 625.33624pt x 349.305pt>
-File: figures/t01spreadseries6.png Graphic file (type png)
-<use figures/t01spreadseries6.png>
-Package pdftex.def Info: figures/t01spreadseries6.png  used on input line 83.
+<Figures/figures/t01spreadseries6.png, id=714, 625.33624pt x 349.305pt>
+File: Figures/figures/t01spreadseries6.png Graphic file (type png)
+<use Figures/figures/t01spreadseries6.png>
+Package pdftex.def Info: Figures/figures/t01spreadseries6.png  used on input li
+ne 83.
 (pdftex.def)             Requested size: 197.97646pt x 110.58597pt.
-<figures/hsspreadseries10.png, id=715, 625.33624pt x 349.305pt>
-File: figures/hsspreadseries10.png Graphic file (type png)
-<use figures/hsspreadseries10.png>
-Package pdftex.def Info: figures/hsspreadseries10.png  used on input line 86.
+<Figures/figures/hsspreadseries10.png, id=715, 625.33624pt x 349.305pt>
+File: Figures/figures/hsspreadseries10.png Graphic file (type png)
+<use Figures/figures/hsspreadseries10.png>
+Package pdftex.def Info: Figures/figures/hsspreadseries10.png  used on input li
+ne 86.
 (pdftex.def)             Requested size: 197.97646pt x 110.58597pt.
-<figures/t01spreadseries10.png, id=716, 625.33624pt x 349.305pt>
-File: figures/t01spreadseries10.png Graphic file (type png)
-<use figures/t01spreadseries10.png>
-Package pdftex.def Info: figures/t01spreadseries10.png  used on input line 87.
+<Figures/figures/t01spreadseries10.png, id=716, 625.33624pt x 349.305pt>
+File: Figures/figures/t01spreadseries10.png Graphic file (type png)
+<use Figures/figures/t01spreadseries10.png>
+Package pdftex.def Info: Figures/figures/t01spreadseries10.png  used on input l
+ine 87.
 (pdftex.def)             Requested size: 197.97646pt x 110.58597pt.
-<figures/hsspreadmap1.png, id=720, 1343.0175pt x 340.27126pt>
-File: figures/hsspreadmap1.png Graphic file (type png)
-<use figures/hsspreadmap1.png>
-Package pdftex.def Info: figures/hsspreadmap1.png  used on input line 99.
+<Figures/figures/hsspreadmap1.png, id=720, 1343.0175pt x 340.27126pt>
+File: Figures/figures/hsspreadmap1.png Graphic file (type png)
+<use Figures/figures/hsspreadmap1.png>
+Package pdftex.def Info: Figures/figures/hsspreadmap1.png  used on input line 9
+9.
 (pdftex.def)             Requested size: 404.02908pt x 102.36253pt.
-<figures/hsspreadmap5.png, id=721, 1351.0475pt x 340.27126pt>
-File: figures/hsspreadmap5.png Graphic file (type png)
-<use figures/hsspreadmap5.png>
-Package pdftex.def Info: figures/hsspreadmap5.png  used on input line 100.
+<Figures/figures/hsspreadmap5.png, id=721, 1351.0475pt x 340.27126pt>
+File: Figures/figures/hsspreadmap5.png Graphic file (type png)
+<use Figures/figures/hsspreadmap5.png>
+Package pdftex.def Info: Figures/figures/hsspreadmap5.png  used on input line 1
+00.
 (pdftex.def)             Requested size: 404.02908pt x 101.75505pt.
-<figures/t01spreadmap1.png, id=722, 1342.01375pt x 343.2825pt>
-File: figures/t01spreadmap1.png Graphic file (type png)
-<use figures/t01spreadmap1.png>
-Package pdftex.def Info: figures/t01spreadmap1.png  used on input line 107.
+<Figures/figures/t01spreadmap1.png, id=722, 1342.01375pt x 343.2825pt>
+File: Figures/figures/t01spreadmap1.png Graphic file (type png)
+<use Figures/figures/t01spreadmap1.png>
+Package pdftex.def Info: Figures/figures/t01spreadmap1.png  used on input line 
+107.
 (pdftex.def)             Requested size: 404.02908pt x 103.34695pt.
-<figures/t01spreadmap5.png, id=723, 1342.01375pt x 340.27126pt>
-File: figures/t01spreadmap5.png Graphic file (type png)
-<use figures/t01spreadmap5.png>
-Package pdftex.def Info: figures/t01spreadmap5.png  used on input line 108.
+<Figures/figures/t01spreadmap5.png, id=723, 1342.01375pt x 340.27126pt>
+File: Figures/figures/t01spreadmap5.png Graphic file (type png)
+<use Figures/figures/t01spreadmap5.png>
+Package pdftex.def Info: Figures/figures/t01spreadmap5.png  used on input line 
+108.
 (pdftex.def)             Requested size: 404.02908pt x 102.44041pt.
 
 Underfull \hbox (badness 2478) in paragraph at lines 109--109
@@ -1709,19 +1742,22 @@ Underfull \hbox (badness 2478) in paragraph at lines 109--109
 n in Tm01 at 12Z 
  []
 
-[32 <./figures/hsspreadseries6.png> <./figures/t01spreadseries6.png> <./figures
-/hsspreadseries10.png> <./figures/t01spreadseries10.png>] [33 <./figures/hsspre
-admap1.png> <./figures/hsspreadmap5.png> <./figures/t01spreadmap1.png> <./figur
-es/t01spreadmap5.png>]
-<figures/peakbuoy2.png, id=744, 583.17876pt x 382.42876pt>
-File: figures/peakbuoy2.png Graphic file (type png)
-<use figures/peakbuoy2.png>
-Package pdftex.def Info: figures/peakbuoy2.png  used on input line 123.
+[32 <./Figures/figures/hsspreadseries6.png> <./Figures/figures/t01spreadseries6
+.png> <./Figures/figures/hsspreadseries10.png> <./Figures/figures/t01spreadseri
+es10.png>] [33 <./Figures/figures/hsspreadmap1.png> <./Figures/figures/hsspread
+map5.png> <./Figures/figures/t01spreadmap1.png> <./Figures/figures/t01spreadmap
+5.png>]
+<Figures/figures/peakbuoy2.png, id=744, 583.17876pt x 382.42876pt>
+File: Figures/figures/peakbuoy2.png Graphic file (type png)
+<use Figures/figures/peakbuoy2.png>
+Package pdftex.def Info: Figures/figures/peakbuoy2.png  used on input line 123.
+
 (pdftex.def)             Requested size: 181.81184pt x 119.22275pt.
-<figures/peakbuoy4.png, id=745, 593.21625pt x 382.42876pt>
-File: figures/peakbuoy4.png Graphic file (type png)
-<use figures/peakbuoy4.png>
-Package pdftex.def Info: figures/peakbuoy4.png  used on input line 127.
+<Figures/figures/peakbuoy4.png, id=745, 593.21625pt x 382.42876pt>
+File: Figures/figures/peakbuoy4.png Graphic file (type png)
+<use Figures/figures/peakbuoy4.png>
+Package pdftex.def Info: Figures/figures/peakbuoy4.png  used on input line 127.
+
 (pdftex.def)             Requested size: 181.81184pt x 117.20955pt.
 
 
@@ -1733,21 +1769,24 @@ Overfull \hbox (10.97687pt too wide) in paragraph at lines 135--150
 [][] [] 
  []
 
-[34 <./figures/peakbuoy2.png> <./figures/peakbuoy4.png>]
-<figures/hsinc10.png, id=757, 823.075pt x 294.09875pt>
-File: figures/hsinc10.png Graphic file (type png)
-<use figures/hsinc10.png>
-Package pdftex.def Info: figures/hsinc10.png  used on input line 167.
+[34 <./Figures/figures/peakbuoy2.png> <./Figures/figures/peakbuoy4.png>]
+<Figures/figures/hsinc10.png, id=757, 823.075pt x 294.09875pt>
+File: Figures/figures/hsinc10.png Graphic file (type png)
+<use Figures/figures/hsinc10.png>
+Package pdftex.def Info: Figures/figures/hsinc10.png  used on input line 167.
 (pdftex.def)             Requested size: 363.6237pt x 129.9289pt.
-<figures/hsincmean.png, id=758, 823.075pt x 299.1175pt>
-File: figures/hsincmean.png Graphic file (type png)
-<use figures/hsincmean.png>
-Package pdftex.def Info: figures/hsincmean.png  used on input line 168.
+<Figures/figures/hsincmean.png, id=758, 823.075pt x 299.1175pt>
+File: Figures/figures/hsincmean.png Graphic file (type png)
+<use Figures/figures/hsincmean.png>
+Package pdftex.def Info: Figures/figures/hsincmean.png  used on input line 168.
+
 (pdftex.def)             Requested size: 363.6237pt x 132.1461pt.
-) [35 <./figures/hsinc10.png> <./figures/hsincmean.png>]
+)
+[35 <./Figures/figures/hsinc10.png> <./Figures/figures/hsincmean.png>]
 \openout2 = `Appendices/AppendixA.aux'.
 
- (./Appendices/AppendixA.tex [36
+
+(./Appendices/AppendixA.tex [36
 
 
 
@@ -1794,7 +1833,7 @@ Package logreq Info: Writing requests to 'main.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  38627 strings out of 481239
- 804118 string characters out of 5920377
+ 805430 string characters out of 5920377
  1402287 words of memory out of 5000000
  53046 multiletter control sequences out of 15000+600000
  562368 words of font info for 95 fonts, out of 8000000 for 9000
