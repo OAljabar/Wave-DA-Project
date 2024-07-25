@@ -6,22 +6,32 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.8}%
 \contentsline {section}{\numberline {1.1}The need for Reliable Wave Forecasting}{1}{section.9}%
 \contentsline {section}{\numberline {1.2}Previous work on DA for Wave Forecasts}{1}{section.10}%
-\contentsline {section}{\numberline {1.3}Main Research Questions}{2}{section.11}%
-\contentsline {chapter}{\numberline {2}Theory}{3}{chapter.12}%
-\contentsline {section}{\numberline {2.1}Linear Wave Theory}{3}{section.14}%
-\contentsline {section}{\numberline {2.2}Data Assimilation}{5}{section.27}%
-\contentsline {subsection}{\numberline {2.2.1}(Description of 4DEnVar - may not be needed)}{7}{subsection.41}%
-\contentsline {chapter}{\numberline {3}Experimental Setup}{9}{chapter.46}%
-\contentsline {section}{\numberline {3.1}Model Description and Domain}{9}{section.47}%
-\contentsline {section}{\numberline {3.2}ADCP Observations}{11}{section.54}%
-\contentsline {section}{\numberline {3.3}Twin Experiment}{14}{section.60}%
-\contentsline {section}{\numberline {3.4}Data Assimilation Setup}{14}{section.61}%
-\contentsline {chapter}{\numberline {4}Ensemble Statistics}{17}{chapter.63}%
-\contentsline {section}{\numberline {4.1}Ensemble Spread}{17}{section.64}%
-\contentsline {section}{\numberline {4.2}Covariances}{19}{section.67}%
-\contentsline {subsection}{\numberline {4.2.1}Spatial Covariances}{19}{subsection.68}%
-\contentsline {subsection}{\numberline {4.2.2}Cross Covariances in Time}{19}{subsection.69}%
-\contentsline {subsection}{\numberline {4.2.3}Cross Covariances Between Variables}{19}{subsection.70}%
-\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{21}{appendix.71}%
-\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{21}{section.72}%
-\contentsline {chapter}{Bibliography}{23}{appendix*.73}%
+\contentsline {section}{\numberline {1.3}Aims of the Project}{2}{section.12}%
+\contentsline {chapter}{\numberline {2}Theory}{5}{chapter.13}%
+\contentsline {section}{\numberline {2.1}Ocean Waves}{5}{section.14}%
+\contentsline {subsection}{\numberline {2.1.1}Physical Processes}{5}{subsection.15}%
+\contentsline {subsection}{\numberline {2.1.2}Linear Wave Theory}{6}{subsection.17}%
+\contentsline {subsection}{\numberline {2.1.3}Wave Spectra}{7}{subsection.24}%
+\contentsline {subsection}{\numberline {2.1.4}Vector Representations and Cost Function}{8}{subsection.33}%
+\contentsline {subsection}{\numberline {2.1.5}Vector Representations and Cost Function}{8}{subsection.34}%
+\contentsline {subsection}{\numberline {2.1.6}Kalman Filters}{9}{subsection.40}%
+\contentsline {subsection}{\numberline {2.1.7}Practical Aspects}{11}{subsection.49}%
+\contentsline {subsection}{\numberline {2.1.8}(Description of 4DEnVar - may not be needed)}{12}{subsection.51}%
+\contentsline {chapter}{\numberline {3}Experimental Setup}{15}{chapter.56}%
+\contentsline {section}{\numberline {3.1}Model Description and Domain}{15}{section.57}%
+\contentsline {section}{\numberline {3.2}Background State and Climatology}{17}{section.61}%
+\contentsline {subsection}{\numberline {3.2.1}Model Background State}{17}{subsection.62}%
+\contentsline {subsection}{\numberline {3.2.2}Climatology at Buoy Location}{19}{subsection.68}%
+\contentsline {section}{\numberline {3.3}ADCP Observations}{21}{section.71}%
+\contentsline {subsection}{\numberline {3.3.1}Diagnosis of Observation Errors}{22}{subsection.73}%
+\contentsline {section}{\numberline {3.4}Twin Experiment}{24}{section.80}%
+\contentsline {section}{\numberline {3.5}Data Assimilation Setup}{25}{section.81}%
+\contentsline {chapter}{\numberline {4}Results}{27}{chapter.83}%
+\contentsline {section}{\numberline {4.1}RMSE}{27}{section.86}%
+\contentsline {section}{\numberline {4.2}Correlation}{30}{section.90}%
+\contentsline {section}{\numberline {4.3}Ensemble Spread}{30}{section.91}%
+\contentsline {section}{\numberline {4.4}Errors in Maximum Hs}{34}{section.95}%
+\contentsline {section}{\numberline {4.5}Increments}{35}{section.98}%
+\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{37}{appendix.100}%
+\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{37}{section.101}%
+\contentsline {chapter}{Bibliography}{39}{appendix*.102}%
