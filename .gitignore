@@ -1,9 +1,0 @@
-*.*
-!.gitignore
-!*.py
-!*.tex
-!*.bib
-!*.pdf
-!*.png
-!*.txt
-!*.orig
