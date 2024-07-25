@@ -10,9 +10,9 @@
 
 \section{The need for Reliable Wave Forecasting}
 
-Offshore operations form an important of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, the the operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. It is important to understand the risk posed by waves in this region since increased cyclone intensity is leading to increased extreme wave heights in the Gulf of Mexico \citep{Appendini2014}. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \cite{Wu2021}. 
+Offshore operations \replace{form an important of}{are common in} many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, \replace{the the}{as offshore} operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. It is important to understand the risk posed by waves in this region since increased cyclone intensity is leading to increased extreme wave heights in the Gulf of Mexico \citep{Appendini2014}. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \cite{Wu2021}. 
 
-This proprietary method is referred to by Fugro as a site-specific alpha factor and works by...
+\highlight{This proprietary method is referred to by Fugro as a site-specific alpha factor and works by...}
 
 As well as these forecasts, Fugro has a buoy based near to the client which produces hourly observations of the sea state. Data assimilation refers to a range of techniques used to integrate observations into a forecast, with the aim of making the forecast more accurate. In this project, we explore the potential of DA to reduce uncertainty and error in these wave forecasts.
 
@@ -22,39 +22,49 @@ As well as these forecasts, Fugro has a buoy based near to the client which prod
 
 \section{Previous work on DA for Wave Forecasts}
 
-\cite{Houghton2023} assimilated wave height observations from satellite altimeters and a global network of drifting Sofar spotter buoys. They compared two different DA methods, a deterministic optimal interpolation (OI) method (cite) and an ensemble-based local ensemble transform Kalman filter (LETKF) (cite). They found that both methods reduced forecast error out to 2.5 days leadtime, and the LETKF gave more physically realistic output states. In this project we will assimilate observations of both wave height and period in the hope that correlations between these variables might give better predictions of both. We will use the ensemble transform Kalman filter (ETKF).
+\add{The use of data assimilation to correct forecasts from wave models is not new. Several setups have been tried in the past, differing in the fields corrected, the DA methodology used and the assimilated observations. Several of these studies and their findings will be discussed below.}
 
-\cite{Houghton2022} used OI to compare the effects of assimilating wave height and spectra. They found that both variables give very similar improvements in predictions of wave height, while spectral assimilation gives better results for other quantities such as period and direction. They also found that the spectral DA did particularly well in swell-dominated fields when compared to assimilating wave height. A plot showing the RMSE from both approaches is shown in figure \ref{fig:houghton2022fig3}
+\comment{}{I think that a chronologically ascending ordering makes more sense than the chronologically descending ordering used here.}
+
+\cite{Houghton2023} assimilated wave height observations from satellite altimeters and a global network of drifting Sofar spotter buoys. They compared two different DA methods, a deterministic optimal interpolation (OI) method (cite) and an ensemble-based local ensemble transform Kalman filter (LETKF) (cite). They found that both methods reduced forecast error out to 2.5 days \replace{leadtime}{lead time}, and the LETKF gave more physically realistic output states. \remove{In this project we will assimilate observations of both wave height and period in the hope that correlations between these variables might give better predictions of both. We will use the ensemble transform Kalman filter (ETKF).}
+
+\cite{Houghton2022} used OI to compare the effects of assimilating wave height and spectra. \comment{They found that both variables give very similar improvements in predictions of wave height, while spectral assimilation gives better results for other quantities such as period and direction. They also found that the spectral DA did particularly well in swell-dominated fields when compared to assimilating wave height. A plot showing the RMSE from both approaches is shown in figure}{I think you be introduce the figure first as their results and then point out that the figure shows that Hs performs equally well regardless whether Hs (red) or wave spectra (blue) are assimilated but that for short lead times assimilation of spectra produces superior results for the other variables. Furthermore, this paragraph can be linked to the previous one by making a remark along the lines that "Not only DA method used influences the predictive power of the system, but so does the type of observations used.} \ref{fig:houghton2022fig3}
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{Figures/houghton2022fig3}
-\caption{RMSE from spectral DA and wave height (Hs) DA, normalised by the RMSE without DA. Results shown for significant wave height Hs, peak period $T_p$, mean period $T_m$, directional spread $\sigma_\theta$, peak direction $D_p$ and mean direction $D_m$ Figure 3 from \citet{Houghton2022}}
+\includegraphics[width = \textwidth]{Figures/houghton2022fig3.png}
+\caption{RMSE from spectral DA and wave height (Hs) DA, normalised by the RMSE without DA. Results shown for significant wave height $H_{s}$, peak period $T_p$, mean period $T_m$, directional spread $\sigma_\theta$, peak direction $D_p$ and mean direction $D_m$ Figure 3 from \citet{Houghton2022}}
 \label{fig:houghton2022fig3}
 \end{figure}
 
-\cite{Caires2018} investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) method to adjust the wind fields used as forcing in a wave model. They found...
 
-All the studies mentioned forecasted over a wide area (check). A problem with this approach is the inherent difficulty present in observing the ocean which means that observations are sparse, generally coming from drifting buoys which give irregular observations (reword) and satellite altimetry which can be unrelieable (check). This is problematic for DA, which relies on regular and frequent observations to work well.
+\cite{Caires2018} investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) method to adjust the wind fields used as forcing in a wave model. \highlight{They found...}
 
-In this project we will be focusing mainly on a particular point of interest and analysing the effectiveness of DA to reduce forecast error at this point. The observations used in this project are also point-based, coming from a fixed buoy near the point of interest (how far?) which measures the sea state hourly. The point, which will be referred to as the buoy location, is of particular interest to a client of Fugro and is located near the Southern coast of the Gulf of Mexico. Its exact location cannot be disclosed due to confidentiality requirements. We hope that the regularity of observations and proximity of the buoy to the point of interest will lead to improved DA performance compared to area-based forecasts.
+All the studies mentioned forecasted over a wide area (check). A problem with this approach is the inherent difficulty present in observing the ocean which means that observations are sparse, generally coming from \remove{drifting}  \comment{buoys which give irregular observations (reword) and satellite altimetry which can be unreliable (check)}{The mention of satellite observations is a very good addition here, but a list of references to studies in which they assimilate satellite observations would be good here. Same for the buoy studies.}. This is problematic for DA, which relies on regular and frequent observations to work well.
 
-Another major difference between this study and others that should be noted is the difference in scale: all studies mentioned used many more observations than are used here, and 
+\replace{In this project we will be focusing mainly on a particular point of interest and analysing the effectiveness of DA to reduce forecast error at this point. The observations used in this project are also point-based, coming from a fixed buoy near the point of interest (how far?) which measures the sea state hourly. The point, which will be referred to as the buoy location, is of particular interest to a client of Fugro and is located near the Southern coast of the Gulf of Mexico. Its exact location cannot be disclosed due to confidentiality requirements. We hope that the regularity of observations and proximity of the buoy to the point of interest will lead to improved DA performance compared to area-based forecasts.
+\\	
+Another major difference between this study and others that should be noted is the difference in scale: all studies mentioned used many more observations than are used here, and }{In this project we will implement knowledge gained in the aforementioned works to implement wave DA for a specific, real-world wave study in the Gulf of Mexico carried out by Fugro and described in more detail in section~\ref{sec:aim}. In doing so, we are, however, constrained by the available data. I.e. we will not correct, nor assimilate wave spectra, do not apply cycling, and are limited to assimilating wave observations from a single buoy.} 
+
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3
 %----------------------------------------------------------------------------------------
 
 \section{Aims of the Project}
+\label{sec:aim}
 
-The main research question in this project is ``\textbf{What kind of reduction in forecast error can be achieved by assimilating Hs, Tm01 and Tm02 using the ensemble transform Kalman filter method?}''
+The main research question in this project is ``\textbf{What kind of reduction in forecast error can be achieved \add{in Fugro's Gulf of Mexico ensemble wave forecasting system} by assimilating \comment{Hs, Tm01 and Tm02}{These should be symbols throughout the thesis. I.e. use math mode.} at a single buoy location using the ensemble transform Kalman filter method?}''
 
-To this end, we use the ensemble transform Kalman filter (ETKF) to assimilate observations of the three variables and examine the errors resulting from this as compared to the errors before any DA is applied. Measures of error that are examined are:
+To this end, \replace{we use the ensemble transform Kalman filter (ETKF) to assimilate observations of the three variables and examine the errors resulting from this as compared to the errors before any DA is applied. Measures of error that are examined are:}{we will conduct a twin experiment using a series of 7-day wave ensemble forecasts. In this twin experiment one of the ensemble members will be set apart as artificial truth and from its values at the buoy location artificial observations will be synthesized. After DA the ensemble mean will be compared with the artificial truth using three metrics:}  
 
 \begin{itemize}
 \item The root mean square error (RMSE) of the ensemble mean. We expect the DA to move the ensemble mean closer to the true state so RMSE will be used to quantify and test this. The dependence of RMSE on forecast leadtime and location within the domain will be examined.
-\item The correlation between ensemble mean and the true state. DA should make the ensemble mean more closely correlated with the true state, so we will test this hypothesis. Correlations in space and in time will both be presented.
-\item Errors in maximum Hs. Extremes of Hs are of particular interest in these forecasts as these are the events which cause danger and require the pausing of offshore operations. We will examine the effectiveness of DA to reduce error in the timings and magnitudes of wave height maxima.
+\item \comment{The correlation between ensemble mean and the true state. DA should make the ensemble mean more closely correlated with the true state, so we will test this hypothesis. Correlations in space and in time will both be presented.}{Are you still making this comparison?}
+\item Errors in maximum Hs. Extremes of Hs are of particular interest in these forecasts as these are the events which cause danger and \replace{require the pausing}{require the cession} of offshore operations. We will examine the effectiveness of DA to reduce error in the timings and magnitudes of wave height maxima.
 \end{itemize}
+\add{Furthermore, we will evaluate whether the ensemble spread provides an appropriate measure for the error in the ensemble mean.} 
 
-Since accuracy in forecasting Hs is safety critical for offshore operations, we consider it to be the most important variable of the three and so a separate DA run is performed where only Hs is assimilated. Results from this run are compared to results from assimilating the three variables Hs, Tm01 and Tm02 together.
+\comment{}{Add a summary of what you're going to cover in the next chapters. E.g. In order to understand our DA system and its performance, we will look at ... in chapter 2. In chapter 3 the ...}
+
+\remove{Since accuracy in forecasting Hs is safety critical for offshore operations, we consider it to be the most important variable of the three and so a separate DA run is performed where only Hs is assimilated. Results from this run are compared to results from assimilating the three variables Hs, Tm01 and Tm02 together.}
