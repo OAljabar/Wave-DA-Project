@@ -1,6 +1,8 @@
-env
-env.run
-*~
-*/__pycache__/*
-*.gz
-*.pyc
+*
+
+!.gitignore
+!*.py
+!*.pdf
+!*.png
+!*.tex
+!*.bib
