@@ -248,9 +248,15 @@ The acknowledgments and the people to thank go here, don't forget to include you
 
 \include{Chapters/introduction}
 \include{Chapters/theory}
+<<<<<<< HEAD
+%\include{Chapters/expsetup} 
+%\include{Chapters/results}
+
+=======
 \include{Chapters/expsetup}
 \include{Chapters/bandoerrs}
 \include{Chapters/results}
+>>>>>>> 3e074fb1d698192361013067b62dd7ab66811914
 %\include{Chapters/Chapter4} 
 %\include{Chapters/Chapter5} 
 
