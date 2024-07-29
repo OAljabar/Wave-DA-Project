@@ -65,7 +65,7 @@ An improvement is seen in forecasts of wave height and period, but it is relativ
 
 \begin{figure}
 \centering
-\includegraphics[width = \textwidth]{figures/caires2018fig30}
+\includegraphics[width = \textwidth]{Figures/caires2018fig30}
 \caption{RMSE in wave height (left) and period (right) from two different observation locations. Figure 30 from \cite{Caires2018}.}
 \label{fig:caires2018fig30}
 \end{figure}
@@ -87,7 +87,7 @@ To investigate the effect of the DA method used, \cite{Houghton2023} assimilated
 
 \begin{figure}
 \centering
-\includegraphics[width = .8\textwidth]{figures/houghton2023fig6}
+\includegraphics[width = .8\textwidth]{Figures/houghton2023fig6}
 \caption{Forecast bias and RMSE from altimeter observations (top) and buoy observations (bottom). Figure 6 from \cite{Houghton2023}.}
 \label{fig:houghton2023fig6}
 \end{figure}
@@ -126,6 +126,7 @@ Various aspects of the results will be examined to gain a full understanding of 
 \comment{}{Add a summary of what you're going to cover in the next chapters. E.g. In order to understand our DA system and its performance, we will look at ... in chapter 2. In chapter 3 the ...}
 
 \remove{Since accuracy in forecasting Hs is safety critical for offshore operations, we consider it to be the most important variable of the three and so a separate DA run is performed where only Hs is assimilated. Results from this run are compared to results from assimilating the three variables Hs, Tm01 and Tm02 together.}
+\begin{itemize}
 \item The correlation between ensemble mean and the true state. DA should make the ensemble mean more closely correlated with the true state, so we will test this hypothesis.
 \item Ensemble spread. This is an important measure of uncertainty in ensemble forecasts, which allows a forecast to inform decisions with greater or lesser confidence. We hope that DA will reduce the ensemble spread, thus allowing decisions to be made with greater confidence based on the forecasts. The ensemble spread is compared to the RMSE to check for `overconfidence' in the post-DA ensemble (see section \ref{sec:DApractice}).
 \item Errors in maximum Hs. Extremes of Hs are of particular interest in these forecasts as these are the events which cause danger and require the pausing of offshore operations. We will examine the effectiveness of DA to reduce error in the timings and magnitudes of wave height maxima.
