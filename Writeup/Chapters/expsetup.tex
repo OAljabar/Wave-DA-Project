@@ -114,7 +114,7 @@ Figure \ref{fig:t01maps} shows Tm01 at 18Z 12/03/2022 and averaged over the prec
 \label{fig:t01maps}
 \end{figure}
 
-Figure \ref{fig:hsensseries} shows a time series of \comment{Hs}{Should be formatted as symbol throughout.} ensemble mean and \add{ensemble} variance at the buoy location from the forecast starting 12Z 10/03/2022. We see the peak on the 12th as seen in figure \ref{fig:wavesandchart}. We also see that the variance is a strong function of the mean. The variance in Hs peaks just before the peak in the mean, and drops back to a lower value as the mean reaches its peak. This is notable since the diagonal elements of our forecast error covariance matrix $\mat{P}^f$ are simply the ensemble variances at each grid point and time step.\replace{, so ensemble variance is a good measure of the magnitude of the background error. This means that the background error in Hs is highest just before the peak in Hs.}{This indicates that forecast errors are not completely relative to the field magnitudes. The largest forecast errors actually occur in the hours preceding the maximum in significant wave height.}
+Figure \ref{fig:hsensseries} \comment{shows}{Is this in the fine or coarse domain?} a time series of \comment{Hs}{Should be formatted as symbol throughout.} ensemble mean and \add{ensemble} variance at the buoy location from the forecast starting 12Z 10/03/2022. We see the peak on the 12th as seen in figure \ref{fig:wavesandchart}. We also see that the variance is a strong function of the mean. The variance in Hs peaks just before the peak in the mean, and drops back to a lower value as the mean reaches its peak. This is notable since the diagonal elements of our forecast error covariance matrix $\mat{P}^f$ are simply the ensemble variances at each grid point and time step.\replace{, so ensemble variance is a good measure of the magnitude of the background error. This means that the background error in Hs is highest just before the peak in Hs.}{This indicates that forecast errors are not completely relative to the field magnitudes. The largest forecast errors actually occur in the hours preceding the maximum in significant wave height.}
 
 Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for Tm01. Again we see a peak in the variance just before the peak in the mean. In this case peak in Tm01 is preceded by a \comment{dip}{Is it known what physical process causes this dip?}, and this dip is also associated with a peak in the ensemble variance. This means that the background error in Tm01 is high for a period of $\sim 24$ hours, as opposed to $\sim 12$ hours for Hs.
 
@@ -134,20 +134,18 @@ Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for T
 \label{fig:t01ensseries}
 \end{figure}
 
-\highlight{correct upto this point}
-
 \subsection{Climatology at Buoy Location}
 
-Figure \ref{fig:buoyseries} shows a timeseries of Hs and Tm01 as measured by the buoy. We that outside of specific peaks, Hs is generally < 1m. This is consistent with the model background state which showed Hs in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in Hs followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in Hs are associated with peaks in Tm01. This suggests that the high waves seen at the buoy are travelling swell waves and are not generated in the vicinity of the buoy.
+Figure \ref{fig:buoyseries} shows a time series of Hs and Tm01 as measured by the buoy. We \add{see} that outside of specific peaks, Hs is generally < 1m. This is consistent with the model background state which showed Hs in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in Hs followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in Hs are associated with peaks in Tm01. \comment{This suggests that the high waves seen at the buoy are travelling swell waves and are not generated in the vicinity of the buoy.}{Hasn't this observation already been made in the previous section?}
 
 \begin{figure}
 \centering
 \includegraphics[width = \textwidth]{Figures/buoyseries}
-\caption{Timeseries of observed Hs (top) and Tm01 (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
+\caption{Times series of observed Hs (top) and Tm01 (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
 \label{fig:buoyseries}
 \end{figure}
 
-Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
+Figure \ref{fig:obsdensityplot} shows a \comment{density plot}{The procedure to create the plot should be described in more detail.} of observed Hs and wave direction at the buoy location. There is a clear peak in \add{the} frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
 
 \begin{figure}
 \centering
@@ -163,7 +161,7 @@ Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave dir
 \section{ADCP Observations}
 \label{sec:observations}
 
-Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+\comment{Our observations come from an acoustic Doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations.}{A short description of the ADCP and how these observations were acquired would be appropriate at the beginning of this section. It should probably also be explained why we're not assimilating these observations.} According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
 
 \begin{align*}
 	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
@@ -172,20 +170,18 @@ Our observations come from an acoustic doppler current profiler (ACDP) buoy, whi
 	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
 \end{align*}
 
-where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ (how is directional distribution estimated?)
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a time series of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ \comment{(how is directional distribution estimated?)}{Spectrum is measured along different beams. The cross-covariance between the different beams is calculated. Each wave is assumed to have a fixed directional pattern centred around the wave direction. Directional energy distribution is then inverted from the cross-covariances and this assumed distribution using linear regression. See boyd\_evaluation\_2006 for the details.} Other variables are then deduced from this spectrum, including Hs, Tm01 and Tm02 as described above.
 
-Other variables are then deduced from this spectrum, including Hs, Tm01 and Tm02 as described above.
-
-We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
+We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A time series of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
 
 \begin{figure}
 \centering
 \includegraphics[width = .8\textwidth]{Figures/obshsseries}
-\caption{Observed timeseries of significant wave height from ADCP buoy}
+\caption{Observed time series of significant wave height from ADCP buoy}
 \label{fig:obshsseries}
 \end{figure}
 
-(MORE ON OBSERVATIONS - TAKE CLIMATOLOGY SECTION AND EXPAND)
+\highlight{MORE ON OBSERVATIONS - TAKE CLIMATOLOGY SECTION AND EXPAND}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 4
@@ -194,15 +190,17 @@ We have observations available over a roughly 6 month period spanning from Octob
 \section{Twin Experiment}
 \label{sec:twinexp}
 
-In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations in this context:
+\comment{In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations in this context}{please add reference}:
 
 \begin{itemize}
-\item The `truth' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated
+\item \comment{The ``truth'' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated}{This is a good remark, though it doesn't deserve its own bullet point.}
 \end{itemize}
 
-The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}
+\comment{The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section}{add equation that captures this.} \ref{sec:observations}.
 
-A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of Hs, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is impossible for the DA to correct these biases.
+\replace{A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \protect\ref{fig:hsominusb} shows a possible bias in the forecasted values of Hs, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is impossible for the DA to correct these biases.}{
+In our twin experiment we neglect the presence of any bias in the model. 
+To verify whether this is a realistic assumption we have plotted the difference between the observed and modelled significant wave height as function of time. We see that ... (figure missing) , indicating that the model systematically underestimate/overestimate the significant wave height and ...} 
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
@@ -211,10 +209,23 @@ A downside of using the twin experiment method in this project is its inability 
 \section{Data Assimilation Setup}
 \label{sec:DAsetup}
 
-To perform the data assimiliation we use pyPDAF \citep{Chen2024}, which is a python interface for the fortran-based Parallel Data Assimilation Framework (PDAF). We will use the ETKF method which comes builtin with PDAF. As we are not able to run the WAVEWATCH III model ourselves, at each analysis step we will correct one 7-day forecast window all at once, and then the forecast step will consist of selecting data from the next 7-day window. In this way the time within the 7-day window is treated like another spatial coordinate by the DA system. A schematic of this process is included in figure \ref{fig:ETKFschematic}
+To perform the data assimiliation we use pyPDAF \citep{Chen2024}, which is a Python interface for the Fortran-based Parallel Data Assimilation Framework (PDAF). We will use the ETKF method which comes built-in with PDAF. As we are not able to run the WAVEWATCH III model ourselves, \replace{at each analysis step we will correct one 7-day forecast window all at once, and then the forecast step will consist of selecting data from the next 7-day window. In this way the time within the 7-day window is treated like another spatial coordinate by the DA system.}{we will correct one 7-day forecast window all at once and repeat this for each 7-day forecast window. The ETKF algorithm conventionally is a filter that assimilates observations at a single time. In order to investigate the capability of DA to improve the forecast at future times when observations are unavailable without having to run the prediction step, we turn the ETKF into an ensemble smoother. To achieve this,	we treat the lead time, the time since the start of the window, on the same footing as the spatial coordinates. I.e. for each 7-day window the ensemble members $\x_{b}^{(n)}$ consists of a concatenation of significant wave height, $T_{m01}$ and $T_{m02}$ for each hour in the window} 
+\begin{equation}
+	(\x_{b}^{(n)})^{\mathrm{T}} = [ 
+	(H_{s})^{(n)}_{0},(H_{s})^{(n)}_{1},\ldots,(H_{s})^{(n)}_{168},(T_{m01})^{(n)}_{0}\ldots (T_{m01})^{(n)}_{168},T_{m02})^{(n)}_{0}\ldots (T_{m02})^{(n)}_{168}
+	]
+\end{equation}.
+The observation vector consists of a concatenation of the aforementioned fields or a selection thereof at the buoy location for each hour for the first 3 days of the window 
+\begin{equation}
+	\mathbf{y}^{\mathrm{T}} = [\overline{H_{s}}(\mathbf{r}_{buoy})_{0}], 
+	\overline{H}_{s}(\mathbf{r}_{buoy})_{1}],\ldots,
+	\overline{H}_{s}(\mathbf{r}_{buoy})_{72},\overline{T_{m01}}(\mathbf{r}_{buoy})_{0},\ldots]
+\end{equation}.
+A schematic of this process is included in figure \ref{fig:ETKFschematic}.
 
-At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.
+\remove{At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.}
 
+\comment{}{It would be better to depict every window as a bar divided into a part with assimilated observations and forecast with the bars staggered to reflect that the windows are one day apart.}
 \begin{figure}
 \centering
 \includegraphics[width = \textwidth]{Figures/ETKFschematic}
