@@ -10,14 +10,15 @@ This chapter contains a discussion of the background and observation errors in o
 %	SECTION 1
 %----------------------------------------------------------------------------------------
 
-\section{Background Errors}
+\highlight{\protect\section{Background Errors}}
 
 \section{Diagnosis of Observation Errors}
 
-To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essnetially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. To determine the magnitude of the observation errors, several methods are available. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observationa and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for signficant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
+To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essentially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance \comment{at each point}{We only need it at the buoy location. Don't we?}. To determine the magnitude of the observation errors, \comment{several methods are available}{add references}. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observations and background error\replace{, so}{. So,} a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error\comment{, say 50\%}{1) this number seems to be chosen rather randomly. 2) I'm not familiar with this method. }. An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram \comment{is approximately 1m}{This can be quantified instead of estimated from figure by calculating the standard deviation of o-b or other statistic.}, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
 
-Another thing that is visible from the $o-b$ plot is a bias in either the Hs forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this is not possible (see section \ref{sec:twinexp} for details).
+Another thing that is visible from the $o-b$ plot is a bias in either the Hs forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. \comment{However, with the twin experiment method that is used in this project, this is not possible}{This is not true. Not correcting the bias is a choice that has been made. Furthermore, whether or not there is a bias rather depends on the period covered by the figures. In particular, a student-t test should be carried out to determine whether the mean is significantly different from zero taking into account reduction in effective degrees of freedom due to time-correlations.} (see section \ref{sec:twinexp} for details).
 
+\comment{}{What is the time period covered by figure 4.1? Also add the time period to the captions of the other figures.}
 \begin{figure}
 \centering
 \includegraphics[width = .8\textwidth]{Figures/hsominusb}
@@ -25,26 +26,28 @@ Another thing that is visible from the $o-b$ plot is a bias in either the Hs for
 \label{fig:hsominusb}
 \end{figure}
 
-The histogram approach may be quantified more precisely following \cite{Desroziers2006}, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation
+\replace{The histogram approach may be quantified more precisely following}{A more rigorous approach to estimate observational error variances is provided in} \cite{Desroziers2006} \add{using that}\remove{, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation}
 
 \begin{equation}
 \mathbb{E}\left[d^o_b\left( d^o_b \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
 \end{equation}
 
-Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is
+\add{here $d^o_b = \y - \mathbf{H}\x_b$.}
+\comment{Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is}{You should mention that either H here is over a single type of observations, or in your trace you're only summing over a single type of observation. Also mention the time period or periods over which the sums run.}
 
+\comment{}{This equation is missing something on the left hand side of the equation.}
 \begin{equation}
 \frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
 \label{eqn:obserrestimate}
 \end{equation}
 
-In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $H P^f H^\top$ are simply the ensemble forecast variances at the observation location and times.
+In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mathbf{H} \mathbf{P}^f \mathbf{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
 
-Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of of differences from each bin was computed. They found a strong dependence of error on wave height.
+\comment{Another available method}{Before moving on to this method you should write up the results from the Desroziers method.} is that used in \cite{Houghton2023}. They used a \replace{colocation}{collocation} study to estimate the error in wave height observations from a distributed network of drifting \replace{s}{S}ofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of \remove{of} \comment{differences from each bin was computed}{Add that they considered this difference as observational error (shouldn't this be the sum of observational errors?). That consequently the standard deviation of differences as observational error standard deviation (shouldn't it be sqrt(2) times the obs. error standard deviation?). And that the observational error here includes both instrumental and representativeness errors. Explain what what representativeness error are (see janjic\_representation\_2018).}. They found a strong dependence of error on wave height.
 
-In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height.
+In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, \comment{we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately}{Make clear that you found this using a standard linear regression and compare with values in literature like Houghton (2023).} \comment{9.6\%}{add confidence interval to this estimate.} of the wave height.
 
-Recall from figure \ref{fig:hsensseries} that the ensemble variance Hs peaks just before the peak in Hs and drops back to lower values as Hs is at its highest value. Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.
+Recall from figure \ref{fig:hsensseries} that the ensemble variance Hs peaks just before the peak in Hs and drops back to lower values as Hs is at its highest value. \comment{Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.}{However, observational error changes with significant wave height and consequently also increases during the peak, thus relatively reducing their weighting. So, you cannot say apriori that observations are more import during this period. If you want to make such claims you need to compare time series of observational std. dev. with that from the ensemble.}
 
 \begin{figure}
 \centering
@@ -60,17 +63,17 @@ Recall from figure \ref{fig:hsensseries} that the ensemble variance Hs peaks jus
 \label{fig:periodobsstd}
 \end{figure}
 
-Repeating this process with the observations of Tm01 and Tm02 yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for Tm01 and Tm02 also fall aproximately on straight lines, though the fit is not as good as for Hs. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as 3.5\% of Tm01 and Tm02 respectively. 
+Repeating this process with the observations of Tm01 and Tm02 yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for Tm01 and Tm02 also fall approximately on straight lines, though the fit is \comment{not as good as for Hs}{Could you quantifiy this using R2?}. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. So\add{,} we will model the error standard deviation in Hs as being equal to 10\% of Hs, and the error standard deviation in Tm01 and Tm02 as \comment{3.5\%}{add confidence intervals and quote result from both fits.} of Tm01 and Tm02 respectively. 
 
-Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and produing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
+Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may \comment{become very small}{Add possible reasons why this method could underestimates the error for small Tm01/Tm02 and why you're not applying this procedure to Hs observational error std. dev.}\replace{, which}{. This} would lead \remove{the} to \add{the} DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
 
 The terms in \ref{eqn:obserrestimate} were calculated to be
-
+\comment{}{Notice the space between units and units should be non-italic}.
 \[
-\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right]}{\text{\# observations}} = 0.16 s^2, \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.11 s^2
+\frac{\mathbb{E}\left[ \sum_{i} \left( d^o_b \right)_i^2 \right]}{\text{\# observations}} = 0.16 \,\unit{s^2}, \, \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.11 \,\unit{s^2}
 \]
 
-So the observation error variance is estimated to be $0.05 s^2$ and the standard deviation threshold is set at $0.23s$.
+So\add{, from equation~\ref{eqn:obserrestimate} it follows that} the observation error variance \replace{is estimated}{can be estimate} to be $0.05 \unit{s^2}$\replace{ and the}{. This corresponds to a} standard deviation threshold \replace{is set at}{of} $0.23 \,\unit{s}$ \add{for the wave periods}.
 
 \begin{figure}
 \centering
