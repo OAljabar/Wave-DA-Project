@@ -37,13 +37,13 @@ $S_{nl}$ represents interactions between waves due to nonlinear processes, which
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
-From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height Hs, and two measures of the dominant wave period Tm01 and Tm02. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
+From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height $H_s$, and two measures of the dominant wave period $T_{m01}$ and $T_{m02}$. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
 
-The reason for assimilating both Tm01 and Tm02 is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which should lead to better DA results.
+The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which we hope will lead to better DA results.
 
-As forcing, WW3 uses just the 10 metre wind, and this comes from the GEFS ensemble. The GEFS forecast contains one control run plus 20 perturbed ensemble members. (What is the relation between GEFS members and WAVEWATCH members?)
+As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS). A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members
 
-The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W in the gulf of Mexico. Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution global rectangular grid, and two higher resolution nested grids covering the region of interest. There is  a $0.1\degrees$ resolution grid spanning the region described above, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
+The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W in the Gulf of Mexico. Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution global rectangular grid, and two higher resolution nested grids covering the region of interest. There is  a $0.1\degrees$ resolution grid spanning the region described above, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
 
 \begin{figure}
 \centering
@@ -52,7 +52,7 @@ The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N a
 \label{fig:domain}
 \end{figure}
 
-Forecasts are produced at 12Z each day, and run up to seven days ahead. We have seven of these daily runs available, with start dates spanning from 06/03/2022 to 12/03/2022. A schematic of this process is shown in figure \ref{fig:fugrosetup}. As we do not have access to the model code in this project, we will treat each of these runs as one 'timestep' of the DA system. Further description of how this works can be found in section \ref{sec:DAsetup}.
+Forecasts are produced at 12Z each day, and run up to seven days ahead. Seven of these daily runs are available with start dates spanning from 06/03/2022 to 12/03/2022. A schematic of this process is shown in figure \ref{fig:fugrosetup}. As stated in section \ref{sec:kalmanfilters}, we are unable to run the forecast model in this project, so each 7-day forecast window is treated separately with a single analysis step.
 
 \begin{figure}
 \centering
@@ -65,14 +65,12 @@ Forecasts are produced at 12Z each day, and run up to seven days ahead. We have 
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 
-\section{Background State and Climatology}
+\section{Background State}
 \label{sec:background}
 
-In this section we present a general overview of the background state and climatology in the domain. This will mostly come from the forecast data which spans a period from 06/03/2022 to 19/03/2022. Since the available observations span a longer period of roughly six months, observations will also be used to identify broader climatological features at the buoy location. 
+In this section we present a general overview of the background state in the domain, coming from the forecast data which spans a period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022.
 
-\subsection{Model Background State}
-
-Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. Hs is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the GoM has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front. (check other climatologies).
+Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the Gulf of Mexico has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front.
 
 \begin{figure}
 \centering
@@ -84,11 +82,11 @@ Figure \ref{fig:hdirtimemean} shows the significant wave height and direction av
 \centering
 \includegraphics[width = \textwidth]{figures/hdir13-19}
 \end{subfigure}
-\caption{Left: Hs (colours) and wave direction (arrows) averaged between 12Z 06/03/2022 and 12Z 12/03/2022. Right: The same averaged between 12Z 13/03/2022 and 12Z 19/03/2022}
+\caption{Left: $H_s$ (colours) and wave direction (arrows) averaged between 12Z 06/03/2022 and 12Z 12/03/2022. Right: The same averaged between 12Z 13/03/2022 and 12Z 19/03/2022}
 \label{fig:hdirtimemean}
 \end{figure}
 
-There is a large peak in Hs on the 12/03/2022, related to a cold front passing through the region. A map of Hs in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is in line with \citet{Appendini2014}, a study into the wave climatology of the GoM. In that paper, cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
+There is a large peak in significant wave height on the 12/03/2022, related to a cold front passing through the region. A map of $H_s$ in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is in line with \citet{Appendini2014}, a study into the wave climatology of the GoM. In that paper, cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
 
 \begin{figure}
 \centering
@@ -101,55 +99,17 @@ There is a large peak in Hs on the 12/03/2022, related to a cold front passing t
 \centering
 \includegraphics[width = \textwidth]{figures/0312chart}
 \end{subfigure}
-\caption{Left: Hs (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
+\caption{Left: $H_s$ (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
 \label{fig:wavesandchart}
 \end{figure}
 
-Figure \ref{fig:t01maps} shows Tm01 at 18Z 12/03/2022 and averaged over the preceding 48 hours. The high waves associated with the cold front at 18Z have a period of $\sim$ 8s, which is higher than the period in the rest of the GoM at that time and also higher than the waves accross the entire GoM in the 48 hours prior. This suggests these waves are swell waves.
+Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the preceding 48 hours. The high waves associated with the cold front at 18Z have a period of $\sim$ 8s, which is higher than the period in the rest of the GoM at that time and also higher than the waves accross the entire GoM in the 48 hours prior.
 
 \begin{figure}
 \centering
 \includegraphics[width = \textwidth]{figures/backgroundt01map}
-\caption{Left: Tm01 at 18Z on 12/03/2022. Right: Tm01 averaged over the period from 12Z 10/03/2022 to 12Z 12/03/2022}
+\caption{Left: $T_{m01}$ at 18Z on 12/03/2022. Right: $T_{m01}$ averaged over the period from 12Z 10/03/2022 to 12Z 12/03/2022}
 \label{fig:t01maps}
-\end{figure}
-
-Figure \ref{fig:hsensseries} shows a timeseries of Hs ensemble mean and variance at the buoy location from the forecast starting 12Z 10/03/2022. We see the peak on the 12th as seen in figure \ref{fig:wavesandchart}. We also see that the variance is a strong function of the mean. The variance in Hs peaks just before the peak in the mean, and drops back to a lower value as the mean reaches its peak. This is notable since the diagonal elements of our forecast error covariance matrix $\mat{P}^f$ are simply the ensemble variances at each gridpoint and timestep, so ensemble variance is a good measure of the magnitude of the background error. This means that the background error in Hs is highest just before the peak in Hs.
-
-Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for Tm01. Again we see a peak in the variance just before the peak in the mean. In this case peak in Tm01 is preceded by a dip, and this dip is also associated with a peak in the ensemble variance. This means that the background error in Tm01 is high for a period of $\sim 24$ hours, as opposed to $\sim 12$ hours for Hs.
-
-\begin{figure}
-\centering
-\includegraphics[width = .8\textwidth]{figures/buoyhsvar}
-\caption{Timeseries of forecast Hs ensemble mean and variance at the buoy location from the 10/03/2022 model run.}
-\label{fig:hsensseries}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width = .8\textwidth]{figures/buoyt01var}
-\caption{Timeseries of forecast Tm01 ensemble mean and variance at the buoy location from the 10/03/2022 model run.}
-\label{fig:t01ensseries}
-\end{figure}
-
-\subsection{Climatology at Buoy Location}
-
-Figure \ref{fig:buoyseries} shows a timeseries of Hs and Tm01 as measured by the buoy. We that outside of specific peaks, Hs is generally < 1m. This is consistent with the model background state which showed Hs in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in Hs followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in Hs are associated with peaks in Tm01. This suggests that the high waves seen at the buoy are travelling swell waves and are not generated in the vicinity of the buoy.
-
-\begin{figure}
-\centering
-\includegraphics[width = \textwidth]{figures/buoyseries}
-\caption{Timeseries of observed Hs (top) and Tm01 (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
-\label{fig:buoyseries}
-\end{figure}
-
-Figure \ref{fig:obsdensityplot} shows a density plot of observed Hs and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
-
-\begin{figure}
-\centering
-\includegraphics[width = .6\textwidth]{figures/obsdensityplot}
-\caption{Density plot of Hs (radial axis) and wave direction at the buoy location.}
-\label{fig:obsdensityplot}
 \end{figure}
 
 %----------------------------------------------------------------------------------------
@@ -170,7 +130,7 @@ Our observations come from an acoustic doppler current profiler (ACDP) buoy, whi
 
 where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ (how is directional distribution estimated?)
 
-Other variables are then deduced from this spectrum, including Hs, Tm01 and Tm02 as described above.
+Other variables are then deduced from this spectrum, including $H_s$, $T_{m01}$ and $T_{m02}$ as described above.
 
 We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
 
@@ -181,7 +141,23 @@ We have observations available over a roughly 6 month period spanning from Octob
 \label{fig:obshsseries}
 \end{figure}
 
-(MORE ON OBSERVATIONS - TAKE CLIMATOLOGY SECTION AND EXPAND)
+Figure \ref{fig:buoyseries} shows a timeseries of observed $H_s$ and $T_{m01}$ from a longer period. We see that outside of specific peaks, $H_s$ is generally < 1m. This is consistent with the model background state which showed $H_s$ in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in $H_s$ followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in $H_s$ are associated with peaks in $T_{m01}$. This points to a positive correlation between $H_s$ and $T_{m01}$ which is dicussed further in section \ref{sec:bgerrors}.
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/buoyseries}
+\caption{Timeseries of observed $H_s$ (top) and $T_{m01}$ (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
+\label{fig:buoyseries}
+\end{figure}
+
+Figure \ref{fig:obsdensityplot} shows a density plot of observed $H_s$ and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
+
+\begin{figure}
+\centering
+\includegraphics[width = .6\textwidth]{figures/obsdensityplot}
+\caption{Density plot of $H_s$ (radial axis) and wave direction at the buoy location.}
+\label{fig:obsdensityplot}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 %	SECTION 4
@@ -198,7 +174,7 @@ In this study, we will not be using real observations in our assimilation but se
 
 The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:observations}
 
-A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of Hs, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is impossible for the DA to correct these biases.
+A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is not possible for the DA to correct these biases.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
