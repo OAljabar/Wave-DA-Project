@@ -151,27 +151,27 @@ headsepline, % Uncomment to get a line under the header
 %	DECLARATION PAGE
 %----------------------------------------------------------------------------------------
 
-\begin{declaration}
-\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
-\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
-
-\begin{itemize} 
-\item This work was done wholly or mainly while in candidature for a research degree at this University.
-\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
-\item Where I have consulted the published work of others, this is always clearly attributed.
-\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
-\item I have acknowledged all main sources of help.
-\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
-\end{itemize}
- 
-\noindent Signed:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
- 
-\noindent Date:\\
-\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
-\end{declaration}
-
-\cleardoublepage
+%\begin{declaration}
+%\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+%\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
+%
+%\begin{itemize} 
+%\item This work was done wholly or mainly while in candidature for a research degree at this University.
+%\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+%\item Where I have consulted the published work of others, this is always clearly attributed.
+%\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+%\item I have acknowledged all main sources of help.
+%\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
+%\end{itemize}
+% 
+%\noindent Signed:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+% 
+%\noindent Date:\\
+%\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+%\end{declaration}
+%
+%\cleardoublepage
 
 %----------------------------------------------------------------------------------------
 %	QUOTATION PAGE
@@ -191,18 +191,18 @@ The background errors are visualised using timeseries of ensemble mean and varia
 
 The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. Motivated by this, a scaled error approach is used in the DA, where observation errors are set at at a constant percentage of the observed value. A minimum error threshold is set for the two measures of period in an attempt to avoid fitting the observations too closely and producing unrealistic increments elsewhere.
 
-Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend up to 0.5 days after the end of the assimilation window in the case of $H_s$ DA, and up to 1.5 days in the case of all vars DA. Both experiments, but especially all vars DA, produce large increments at locations far from the buoy, which are judged to be somewhat unrealistic.
+Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend up to 0.5 days after the end of the assimilation window in the case of $H_s$ DA, and up to 1.5 days in the case of all vars DA. All vars DA prooduces larger increments overall, and especially at locations far from the buoy, which is judged to be somewhat unrealistic.
 
-The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing
+The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing.
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
-
-\begin{acknowledgements}
-\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
-\end{acknowledgements}
+%
+%\begin{acknowledgements}
+%\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+%The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+%\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
@@ -221,12 +221,14 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 
 \textbf{DA} & Data Assimilation\\
-\textbf{OI} & Optimal Interpolation\\
 \textbf{EnKF} & Ensemble Kalman Filter\\
 \textbf{ETKF} & Ensemble Transform Kalman Filter\\
+\textbf{GoM} & Gulf of Mexico\\
 \textbf{LETKF} & Local Ensemble Transform Kalman Filter\\
-\textbf{WW3} & WAVEWATCH III\\
-\textbf{GoM} & Gulf of Mexico
+\textbf{OI} & Optimal Interpolation\\
+\textbf{OSSE} & Observing System Simulation Experiment\\
+\textbf{PDAF} & Parallel Data Assimilation Framework\\
+\textbf{WW3} & WAVEWATCH III
 
 \end{abbreviations}
 
@@ -273,7 +275,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
-\include{Appendices/AppendixA}
+%\include{Appendices/AppendixA}
 %\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 
