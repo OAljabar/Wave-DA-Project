@@ -30,9 +30,14 @@ Ocean waves in deep water are dispersive, and waves with longer wavelengths trav
 
 \subsection{Linear Wave Theory}
 
-This section will outline the linear wave theory relevant to this project, as derived in \citet[pp. 253] ]{Vallis2017}. Linear wave theory is an approximation, and other higher-order theories of surface gravity waves exist, such as Stokes waves and cnoidal waves \citep{Osborne2010}. These higher-order theories will not be considered here since the WAVEWATCH III (WW3) model used in this project models the ocean surface as a linear superposition of simple linear waves.
+<<<<<<< HEAD
+This section will outline the linear wave theory relevant to this project, as derived in \citet[pp. 253] ]{Vallis2017}. These higher-order theories will not be considered here since the WAVEWATCH III model used in this project models the ocean surface as a linear superposition of simple linear waves.
+Parameters describing linear waves include the wavenumber $k$, direction $\theta$ and frequency $\omega$. The first two describe the wave vector $\vect{k}$, which has magnitude $k$ and direction $\theta$ i.e. 
+=======
+This section will outline the linear wave theory relevant to this project, as derived in \citet{Vallis2017}, page 253. Linear wave theory is an approximation, and other higher-order theories of surface gravity waves exist, such as Stokes waves and cnoidal waves \citep{Osborne2010}. These higher-order theories will not be considered here since the WAVEWATCH III (WW3) model used in this project models the ocean surface as a linear superposition of simple linear waves.
 
 Parameters describing linear waves include the wavenumber $k$, direction $\theta$ and frequency $\omega$. The first two describe the wave vector $\vect{k}$, which has magnitude $k$ and direction $\theta$,
+>>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
 
 \begin{equation}
 \vect{k} = - k \sin \theta \uvec{\i} - k \cos \theta \uvec{\j},
@@ -228,14 +233,23 @@ In the ETKF method, the analysis is performed in ensemble subspace rather than i
 \x^a &= \overline{\x}^f + \mat{X}_f \vect{w}^a, \label{eqn:ensspaceupdate}
 \end{align}
 
-where $\x^f_i$ is the state of ensemble member $i$ prior to assimilation and the ensemble mean $\overline{\x}^f$ is used as the background state. The columns of $\mat{X}^f$ are the perturtbations of each ensemble member from the ensemble mean, and $\vect{w}^a$ is a coefficient vector which determines the weighting of each ensemble perturbation in equation \ref{eqn:ensspaceupdate}. From \citet[pp.163--164]{Asch2016}, the optimal coefficient vector $\vect{w}^a$ is given by
+<<<<<<< HEAD
+Where $\x^f_i$ is the state of ensemble member $i$ prior to assimilation and the ensemble mean $\overline{\x}^f$ is used as the background state. From \citet[pp.163--164]{Asch2016}, the optimal coefficient vector $\vect{w}^a$ is given by
+=======
+where $\x^f_i$ is the state of ensemble member $i$ prior to assimilation and the ensemble mean $\overline{\x}^f$ is used as the background state. The columns of $\mat{X}^f$ are the perturtbations of each ensemble member from the ensemble mean, and $\vect{w}^a$ is a coefficient vector which determines the weighting of each ensemble perturbation in equation \ref{eqn:ensspaceupdate}. From \citet{Asch2016} pp.163-164, the optimal coefficient vector $\vect{w}^a$ is given by
+>>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
 
 \begin{equation}
 \vect{w}^a = \left( \mat{I}_N + \mat{X}_f^\top \mat{H}^\top \mat{R}^{-1} \mat{H} \mat{X}_f \right) ^{-1} \mat{X}_f^\top \mat{H}^\top \mat{R}^{-1} \vect{d}^o_b,
 \label{eqn:ETKFinc}
 \end{equation}
 
-where $\vect{d}^o_b = \y - \mat{H} \overline{\x}^f$. This method is algebraically equivalent to performing the analysis step in state space (equation \protect\ref{eqn:analysisupdate}) with background state $\overline{\x}^f$ and background error covariance matrix given by the forecast error covariance matrix
+<<<<<<< HEAD
+\comment{This method is algebraically equivalent to working in state space with the background error covariance matrix given by the forecast error covariance matrix}{This is too big of a jump. In the preceding you should introduce the mean and covariance in the left-hand side of 2.12 and why the mean is the most-likely estimate of the truth. Then introduce the approximation that B=frac{1}{N-1}XX{T} and finally show/discuss that in that case the 2.17 renders an ensemble with mean and covariance that matches the analysis mean and analysis covariance.} 
+Where $\vect{d}^o_b = \y - \mat{H} \overline{\x}^f$. This method is algebraically equivalent to working in state space with the background error covariance matrix given by the forecast error covariance matrix
+=======
+where $\vect{d}^o_b = \y - \mat{H} \overline{\x}^f$. This method is algebraically equivalent to performing the analysis step in state space (equation \ref{eqn:analysisupdate}) with background state $\overline{\x}^f$ and background error covariance matrix given by the forecast error covariance matrix
+>>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
 
 \begin{equation}
 \mat{P}_f = \mat{X}_f \mat{X}_f^\top .
@@ -294,9 +308,13 @@ since the $i^\text{th}$ column of $\mat{X}_a$ is
 \subsection{Practical Aspects}
 \label{sec:DApractice}
 
+<<<<<<< HEAD
+When calculating $\mat{P}^f$ from the ensemble, spurious covariances may arise at long distances, especially when the ensemble size is small. This is problematic as it can lead to large increments far from observation locations, which is physically unrealistic. One way to fix this is called \comment{localisation}{You might want postpone this introduction of localisation to discussion of your results }, and involves multiplying each component of the background error matrix $\mat{P}^f_{ij}$ by a factor which depends on the distance between grid points $i$ and $j$. Representing this distance with $d(i,j)$, we have the following equation:
+=======
 In this section, we discuss some of the pitfalls that can arise when implementing the ETKF, along with potential solutions. It is important to note that none of the solutions discussed here are implemented in this study, for the sake of computational simplicity and for other reasons discussed later in the section. Description of them is included nonetheless as knowledge of the potential problems helps to explain the results of this study, and the solutions are useful to inform future work.
 
 When calculating $\mat{P}^f$ from the ensemble, spurious covariances may arise at long distances \citep{Hunt2007}, especially when the ensemble size is small. This is problematic as it can lead to large increments far from observation locations, which is physically unrealistic. One way to fix this is called localisation, and involves multiplying each element of the forecast error covariance matrix $\mat{P}^f_{ij}$ by a factor which depends on the distance between gridpoints $i$ and $j$. Representing this distance with $d(i,j)$, we define the matrix $\mat{D}$ by $\mat{D}_{ij} = f(d(i,j))$ for some function $f$ of our choosing. We then define the new error covariance matrix $\mat{P}^{f\prime}$ via the following equation:
+>>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
 
 \begin{equation}
 \mat{P}^{f\prime} = \mat{P}^f \circ \mat{D}.
