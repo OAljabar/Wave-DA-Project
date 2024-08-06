@@ -64,6 +64,7 @@ headsepline, % Uncomment to get a line under the header
 \newcommand{\mat}[1]{\mathbf{#1}}
 \newcommand{\x}{\vect{x}}
 \newcommand{\y}{\vect{y}}
+\newcommand{\intd}{\text{d}}
 \newcommand{\prob}{\mathbb{P}}
 \newcommand{\norm}[2][]{\left\lVert#2\right\rVert_{#1}}
 \newcommand{\degrees}{^{\circ}}
@@ -98,7 +99,7 @@ headsepline, % Uncomment to get a line under the header
 \university{\href{http://www.university.com}{University of Reading}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{http://department.university.com}{Department of Meteorology}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+%\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 \AtBeginDocument{
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -183,10 +184,17 @@ headsepline, % Uncomment to get a line under the header
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
-\begin{abstract}
-\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
-The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
-\end{abstract}
+\section*{Abstract}
+\addchaptertocentry{Abstract} % Add the abstract to the table of contents
+The ensemble transform Kalman filter (ETKF) is used to assimilate observations of wave height and two measures of period into wave forecasts. The forecasts are produced by operationally by Fugro for a client in the Gulf of Mexico, and the observations come from a buoy belonging to the client in the Southern part of the Gulf. The data assimilation (DA) method used differs from the conventional ETKF method since the lack of access to a forecast model precludes any possibilty of cycling. Instead the update step of ETKF is used to correct an entire forecast window at once before loading forecast data from the next window. Observations are assimilated from the first three days of each forecast window (the `assimilation window'). One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
+
+The background errors are visualised using timeseries of ensemble mean and variance and maps of forrecast error covariances. The ensemble variance is seen to be strongly related to the mean, with peaks in variance typically preceding peaks in the mean. The forecast error covariances are seen to have nozero values at short distances and also sometimes at larger distances. Patterns of wind forcing and travelling waves are offered as physical explanations for these long distance covariances, and the possibility of spurious covariances arising from sampling error is also discussed.
+
+The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. Motivated by this, a scaled error approach is used in the DA, where observation errors are set at at a constant percentage of the observed value. A minimum error threshold is set for the two measures of period in an attempt to avoid fitting the observations too closely and producing unrealistic increments elsewhere.
+
+Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend up to 0.5 days after the end of the assimilation window in the case of $H_s$ DA, and up to 1.5 days in the case of all vars DA. Both experiments, but especially all vars DA, produce large increments at locations far from the buoy, which are judged to be somewhat unrealistic.
+
+The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
@@ -214,8 +222,12 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 
 \textbf{DA} & Data Assimilation\\
+\textbf{OI} & Optimal Interpolation\\
+\textbf{EnKF} & Ensemble Kalman Filter\\
+\textbf{ETKF} & Ensemble Transform Kalman Filter\\
+\textbf{LETKF} & Local Ensemble Transform Kalman Filter\\
 \textbf{WW3} & WAVEWATCH III\\
-\textbf{LETKF} & Local Ensemble Transform Kalman Filter
+\textbf{GoM} & Gulf of Mexico
 
 \end{abbreviations}
 
@@ -252,9 +264,7 @@ The acknowledgments and the people to thank go here, don't forget to include you
 \include{Chapters/expsetup}
 \include{Chapters/bandoerrs}
 \include{Chapters/results}
-%\include{Chapters/Chapter4} 
-%\include{Chapters/Chapter5} 
-
+\include{Chapters/conclusions}
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
