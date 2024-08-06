@@ -4,7 +4,7 @@
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-This chapter is intended to describe the details of the experimental setup used in this project. It contains a description of the wave model used to generate the forecasts, as well as an overview of the background state, the observations used and the errors present in these observations. Finally a description is given of the twin experiment method used in this project, as well as the data assimilation setup.
+This chapter is intended to describe the details of the experimental setup used in this project. It contains a description of the wave model used to generate the forecasts, as well as an overview of the background state and the observations available to us. Finally a description is given of the twin experiment method used in this project, as well as the data assimilation setup.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 1
@@ -12,6 +12,8 @@ This chapter is intended to describe the details of the experimental setup used 
 
 \section{Model Description and Domain}
 \label{sec:model}
+
+The forecast data used in this project comes from Fugro, and this section contains a description of the process used to generate this data. The setup of the WAVEWATCH III (WW3) model used by Fugro is discussed, as well as other aspects such as the model domain and frequency of forecasts. This information is useful to understand the form that the forecast data takes.
 
 Waves are modelled by Fugro using WW3 \citep{WW3DG2019}, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described in section \ref{sec:wavespectra}. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
@@ -33,7 +35,7 @@ $S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is eq
 
 $S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
 
-$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. \highlight{(maybe expand -}  \citealp{Janssen2004})
+$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. There are many options for the form of this term within WW3, reflecting the many posited theories of nonlinear wave-wave interactions. A general overview of the topic is available in \citet{Janssen2004}, chapter 4.
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
@@ -41,7 +43,7 @@ From the forecasted spectra, other variables such as wave height, period and mea
 
 The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which we hope will lead to better DA results.
 
-As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS). A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members
+As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS). A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members.
 
 The domain in which forecasts are produced lies between $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W in the Gulf of Mexico. Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution global rectangular grid, and two higher resolution nested grids covering the region of interest. There is  a $0.1\degrees$ resolution grid spanning the region described above, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
 
@@ -68,7 +70,7 @@ Forecasts are produced at 12Z each day, and run up to seven days ahead. Seven of
 \section{Background State}
 \label{sec:background}
 
-In this section we present a general overview of the background state in the domain, coming from the forecast data which spans a period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022.
+In this section we present a general overview of the background state in the domain, coming from the forecast data which spans a period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022. This cold front is particularly important to consider as these events are a very common cause of high waves in the region, and in our examination of the results of this study we are particularly interested in forecasts of the waves associated with the cold front.
 
 Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the Gulf of Mexico has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front.
 
@@ -119,7 +121,9 @@ Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the
 \section{ADCP Observations}
 \label{sec:observations}
 
-\comment{Our observations come from an acoustic Doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations.}{A short description of the ADCP and how these observations were acquired would be appropriate at the beginning of this section. It should probably also be explained why we're not assimilating these observations.} According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+This section begins with a discussion of the buoy which took the observations used in this study, including how the direct measurements of things like wave-induced current are converted into the bulk variables we assimilate. The observation data is plotted and examined, and patterns and relations between the different variables are identified.
+
+Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
 
 \begin{align*}
 	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
@@ -128,9 +132,7 @@ Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the
 	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
 \end{align*}
 
-where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a time series of wave induced energy per unit area $E = \int_{-D}^\eta \frac 1 2 \rho_0 \norm{\mathbf{u}}^2 dz + \frac 1 2 \rho_0 \eta^2$ can be calculated. This is equivalent/a good approximation to the wave energy in equation \ref{eqn:waveenergy} (source) so a Fourier transform of $E$ gives the wave spectrum integrated across all directions $E(\sigma) = \int F(\sigma,\theta) d\theta$ \comment{(how is directional distribution estimated?)}{Spectrum is measured along different beams. The cross-covariance between the different beams is calculated. Each wave is assumed to have a fixed directional pattern centred around the wave direction. Directional energy distribution is then inverted from the cross-covariances and this assumed distribution using linear regression. See boyd\_evaluation\_2006 for the details.} Other variables are then deduced from this spectrum, including Hs, Tm01 and Tm02 as described above.
-
-Other variables are then deduced from this spectrum, including $H_s$, $T_{m01}$ and $T_{m02}$ as described above.
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of surface height variance $\overline{\eta^2}$ can be calculated. This is related to the wave spectrum by equation \ref{eqn:waveenergy} so a Fourier transform of $\overline{\eta^2}$ gives the direction-integrated spectrum $S(\sigma) = \int F(\sigma,\theta) \intd\theta$. Other variables are then deduced from this spectrum, including $H_s$, $T_{m01}$ and $T_{m02}$ as described above.
 
 We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
 
@@ -166,13 +168,13 @@ Figure \ref{fig:obsdensityplot} shows a density plot of observed $H_s$ and wave 
 \section{Twin Experiment}
 \label{sec:twinexp}
 
-\comment{In this study, we will not be using real observations in our assimilation but setting aside one ensemble member to represent the `truth' and generating fictional observations based on this forecast data. This is known as a twin experiment, and has several advantages over assimilating real observations in this context}{please add reference}:
+A twin experiment, also known as an observing system simulation experiment (OSSE), is a popular methodology often used for evaluating the impact of new observing systems when observational data is not yet available \citep{Zeng2020}. Even though we do have observations available, we use the OSSE methodology because......
 
-\begin{itemize}
-\item \comment{The ``truth'' is available away from the location of observations, so forecast error can be calculated over the whole model domain. This allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated}{This is a good remark, though it doesn't deserve its own bullet point.}
-\end{itemize}
+In an OSSE, data from a model run (often called the `nature run', here called the `truth') is assimilated in place of real observational data. Here we select one of the 31 ensemble members to represent the truth, and DA is applied to the remaining 30 ensemble members.
 
-\comment{The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section}{add equation that captures this.} \ref{sec:observations}.
+The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:obserrors}
+
+An advantage of this method in this context is that the `truth' is available away from the location of observations. This means that forecast error can be calculated over the whole model domain, which allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated.
 
 A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is not possible for the DA to correct these biases.
 
@@ -183,21 +185,9 @@ A downside of using the twin experiment method in this project is its inability 
 \section{Data Assimilation Setup}
 \label{sec:DAsetup}
 
-To perform the data assimiliation we use pyPDAF \citep{Chen2024}, which is a Python interface for the Fortran-based Parallel Data Assimilation Framework (PDAF). We will use the ETKF method which comes built-in with PDAF. As we are not able to run the WAVEWATCH III model ourselves, \replace{at each analysis step we will correct one 7-day forecast window all at once, and then the forecast step will consist of selecting data from the next 7-day window. In this way the time within the 7-day window is treated like another spatial coordinate by the DA system.}{we will correct one 7-day forecast window all at once and repeat this for each 7-day forecast window. The ETKF algorithm conventionally is a filter that assimilates observations at a single time. In order to investigate the capability of DA to improve the forecast at future times when observations are unavailable without having to run the prediction step, we turn the ETKF into an ensemble smoother. To achieve this,	we treat the lead time, the time since the start of the window, on the same footing as the spatial coordinates. I.e. for each 7-day window the ensemble members $\x_{b}^{(n)}$ consists of a concatenation of significant wave height, $T_{m01}$ and $T_{m02}$ for each hour in the window} 
-\begin{equation}
-	(\x_{b}^{(n)})^{\mathrm{T}} = [ 
-	(H_{s})^{(n)}_{0},(H_{s})^{(n)}_{1},\ldots,(H_{s})^{(n)}_{168},(T_{m01})^{(n)}_{0}\ldots (T_{m01})^{(n)}_{168},T_{m02})^{(n)}_{0}\ldots (T_{m02})^{(n)}_{168}
-	]
-\end{equation}.
-The observation vector consists of a concatenation of the aforementioned fields or a selection thereof at the buoy location for each hour for the first 3 days of the window 
-\begin{equation}
-	\mathbf{y}^{\mathrm{T}} = [\overline{H_{s}}(\mathbf{r}_{buoy})_{0}], 
-	\overline{H}_{s}(\mathbf{r}_{buoy})_{1}],\ldots,
-	\overline{H}_{s}(\mathbf{r}_{buoy})_{72},\overline{T_{m01}}(\mathbf{r}_{buoy})_{0},\ldots]
-\end{equation}.
-A schematic of this process is included in figure \ref{fig:ETKFschematic}.
+To perform the data assimiliation we use pyPDAF \citep{Chen2024}, which is a python interface for the fortran-based Parallel Data Assimilation Framework (PDAF). We will use the ETKF method which comes builtin with PDAF. As previously stated, we do not have access to WW3, which makes a conventional forecast step impossible. To get around this, at each analysis step we correct an entire 7-day forecast window, and in place of the forecast step we load data from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}.
 
-\remove{At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.}
+This approach requires augmenting the state vector to include components from each leadtime within the forecast window. In this way, leadtime is treated the same as the two spatial coordinates by the DA system. At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.
 
 \comment{}{It would be better to depict every window as a bar divided into a part with assimilated observations and forecast with the bars staggered to reflect that the windows are one day apart.}
 \begin{figure}

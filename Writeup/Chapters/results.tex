@@ -31,11 +31,11 @@ The divergence of the different runs after the swell event tells us that the DA 
 \section{Increments}
 \label{sec:increments}
 
-The increments $\vect{d}^a_b = \x^a - \x_b$ are the corrections applied to the background state by the DA system. From equation \ref{eqn:cost3d}, the state that minimises the cost function will be close to the background when $\mat{P}^f$ is small compared to $\mat{R}$. This means that we expect the increments to be small in this situation. We have seen that generally $\mat{P}^f$ is small at locations far from the buoy, with some ecxeptions noted. (and at times far from the assimilation window,)
+The increments $\vect{d}^a_b = \x^a - \x_b$ are the corrections applied to the background state by the DA system. From equation \ref{eqn:cost3d}, the state that minimises the cost function will be close to the background when $\mat{P}^f$ is small compared to $\mat{R}$. This means that we expect the increments to be small in this situation. We have seen that generally $\mat{P}^f$ is small at locations far from the buoy, with some ecxeptions noted.% (and at times far from the assimilation window,)
 
 From equation \ref{eqn:analysisupdate}, the increments are a linear function of the innovations $\vect{d}^o_b = \y - \mat{H}\x_b$. We expect the increments and the innovations to have the same sign, so that the DA moves the analysis state closer to the truth than the forecast state.
 
-Figure \ref{fig:hsinc} shows the increments in $H_s$ ensemble mean at 12Z 12/03/2022 taken from the 12Z 10/03/2022 forecast run. We see that all vars DA has larger increments overall, and this is especially true far from the buoy. The increments fro both DA runs match the sign of the innovations somewhat well, but both have regions where the sign is incorrect. A notable example is the strong positive increment from all vars DA in the Northern GoM, where the innovation is slightly negative. The lower magnitude of increments in $H_s$ DA means it undercorrects in some regions where the magnitude of innovations is large, such as just Northwest of the buoy in the Western GoM. All vars DA does a better job at correcting for this large innovation.
+Figure \ref{fig:hsinc} shows the increments in $H_s$ ensemble mean at 12Z 12/03/2022 taken from the 12Z 10/03/2022 forecast run. We see that all vars DA has larger increments overall, and this is especially true far from the buoy. The increments from both DA runs match the sign of the innovations somewhat well, but both have regions where the sign is incorrect. A notable example is the strong positive increment from all vars DA in the Northern GoM, where the innovation is slightly negative. The lower magnitude of increments in $H_s$ DA means it undercorrects in some regions where the magnitude of innovations is large, such as just Northwest of the buoy in the Western GoM. All vars DA does a better job at correcting for this large innovation.
 
 \begin{figure}
 \centering
@@ -73,7 +73,7 @@ Figure \ref{fig:rmsebyday} shows the RMSE of the ensemble mean from no DA, $H_s$
 \label{fig:rmsebyday}
 \end{figure}
 
-For $H_s$, we see that during the assimilation window both $H_s$ DA and all vars DA show an improvement of  $\sim 60 \%$ over no DA. After the end of the window, the errors from all runs increase and at 3-4 days leadtime, $H_s$ DA shows a much greater RMSE reduction than all vars DA. At 4-5 days, $H_s$ DA has similar error to no DA and all vars DA shows an improvement of $\sim 50 \%$. 6-7 is similar except the improvement from all vars DA is around 35 \%. At 5-6 days leadtime, both $H_s$ DA and all vars DA have higher RMSE than no DA. (why)
+For $H_s$, we see that during the assimilation window both $H_s$ DA and all vars DA show an improvement of  $\sim 60 \%$ over no DA. After the end of the window, the errors from all runs increase and at 3-4 days leadtime, $H_s$ DA shows a much greater RMSE reduction than all vars DA. At 4-5 days, $H_s$ DA has similar error to no DA and all vars DA shows an improvement of $\sim 50 \%$. 6-7 is similar except the improvement from all vars DA is around 35 \%. At 5-6 days leadtime, both $H_s$ DA and all vars DA have higher RMSE than no DA. % why is this?
 
 For $T_{m01}$ the results are similar, with consistent improvement from DA within the assimilation window and more variable results afterwards. All vars DA still performs better than $H_s$ DA with the exception of 1-2 days and 3-4 days leadtime. It is notable that $H_s$ DA gives improvements in this case since no observations of $T_{m01}$ are actually assimilated. This can be explained by the nonzero cross-covariance between $H_s$ and $T_{m01}$ (figure \ref{fig:covhst0112-0}). One difference between the errors in $T_{m01}$ and $H_s$ and that $H_s$ DA does slightly worse in predicting $T_{m01}$, when using the other two runs as a benchmark. This is unsurprising as we would expect assimilating $H_s$, $T_{m01}$ and $T_{m02}$ to give better predictions of $T_{m01}$ than $H_s$ alone.
 
@@ -107,7 +107,7 @@ Overall, all vars DA does better than $H_s$ DA at predicting both $H_s$ and $T_{
 \label{fig:t01errmaps}
 \end{figure}
 
-\section{Correlation}
+%\section{Correlation}
 
 \section{Ensemble Spread}
 
@@ -197,7 +197,7 @@ All Vars DA & 100 & 135 \\ \hline
 
 $H_s$ maxima are of particular interest in this project as they present the most danger to offshore operations. In this section we examine the effect of DA on the errors in the timing and magnitude of the $H_s$ maximum on 12/03/2022. Figure \ref{fig:peakerrors} shows scatter plots of the timing and magnitude from no DA, $H_s$ DA and all vars DA, relative to the truth. The maximum is selected from the period spanning 12Z 12/03/2022 to 12Z 13/03/2022. The left plot is generated from the model run starting 12Z 10/03/2022 and the right plot is generated from the model run starting 12Z 08/03/2022, giving leadtime ranges of 2-3 days and 4-5 days respectively. Table \ref{tab:hsmax} shows the ensemble RMSE in timing and magnitude from each ensemble for both runs.
 
-Note on the scatter plots that the points are arranged discretely at integer numbers of hours: this is simply beacuse the forecast data used has a time resolution of one hour. This could reduce the maximum wave height detected if the true maximum lies in the middle of two timesteps. One way around this may be to fit a quadratic polynomial to the model data points either side of the peak and find the maximum value of this polynomial, but this was not explored here. The forecasters at Fugro work with hourly forecast data without any interpolation applied, and we assume they are aware that this can lead to inaccurate maximum values being sampled.
+Note on the scatter plots that the points are arranged discretely at integer numbers of hours: this is simply beacuse the forecast data used has a time resolution of one hour. This could reduce the maximum wave height detected if the true maximum lies in the middle of two timesteps. One way around this may be to fit a quadratic polynomial to the model data points either side of the peak and find the maximum value of this polynomial, but this was not explored here. The forecasters at Fugro work regularly with hourly forecast data without any interpolation applied, and we assume they are aware that this can lead to inaccurate maximum values being sampled.
 
 \begin{figure}
 \centering
@@ -215,6 +215,7 @@ Note on the scatter plots that the points are arranged discretely at integer num
 \begin{table}
 \centering
 \small
+%\parbox{.45\textwidth}{
 \begin{tabular}{|l|l|l|}
 \multicolumn{3}{c}{Leadtime 2-3 days} \\ \hline
  & Timing (h) & Magnitude (m) \\ \hline
@@ -222,6 +223,7 @@ No DA & 1.9 & 0.46 \\ \hline
 $H_s$ DA & 0.66 & 0.14 \\ \hline
 All Vars DA & 0.51 & 0.15 \\ \hline
 \end{tabular}
+%}\parbox{.45\textwidth}{
 \begin{tabular}{|l|l|l|}
 \multicolumn{3}{c}{Leadtime 4-5 days} \\ \hline
  & Timing (h) & Magnitude (m) \\ \hline
@@ -229,6 +231,7 @@ No DA & 2.9 & 0.45 \\ \hline
 $H_s$ DA & 2.7 & 0.40 \\ \hline
 All Vars DA & 1.9 & 0.46 \\ \hline
 \end{tabular}
+%}
 \caption{RMSE of magnitude and timing of the $H_s$ maximum from the ensembles plotted in figure \label{fig:peakerrors}.}
 \label{tab:hsmax}
 \end{table}
