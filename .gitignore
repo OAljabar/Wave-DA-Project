@@ -1,5 +1,6 @@
 *.*
 env
+!Writeup/easyReview
 !.gitignore
 !*.py
 !*.tex
@@ -8,3 +9,4 @@ env
 !*.png
 !*.txt
 !*.orig
+!*.lyx
