@@ -178,8 +178,6 @@ A downside of using the twin experiment method in this project is its inability 
 \section{Data Assimilation Setup}
 \label{sec:DAsetup}
 
-\comment{}{In this section also add a paragraph in which you mention your are running 3 different experiment (No DA, only-Hs, All), give the experiments names that you use throughout the thesis and with the names in the 1st column and use the other 3 columns to indicate which observations are assimilated in each experiment. Also mention that your observations cover the first 3 days of each window.}
-
 To perform the data assimilation \add{,} we use pyPDAF \citep{Chen2024}, which is a python interface for the 
 \replace{fortran}{Fortran}-based Parallel Data Assimilation Framework (PDAF). We will use the  \add{update step} from the ETKF method which comes builtin with PDAF. As previously stated, we do not have access to WW3, which makes a conventional  \replace{forecast}{prediction} step impossible. To get around this, at each analysis step we correct an entire 7-day forecast window, and in place of the forecast step we load data from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}. \add{So, in our setup, each 7-day window constituents a stand-alone DA problem with its own truth. In particular, improvements in one window are not propagated to the next.} 
 
