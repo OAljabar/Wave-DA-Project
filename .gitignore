@@ -1,6 +1,6 @@
 *.*
 env
-!Writeup/easyReview
+!Writeup/easyReview/*
 !.gitignore
 !*.py
 !*.tex
