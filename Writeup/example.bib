@@ -59,6 +59,17 @@
    year = {2017},
 }
 
+@article{Bishop2000,
+   abstract = {A suboptimal Kalman filter called the ensemble transform Kalman filter (ET KF) is introduced. Like other Kalman filters, it provides a framework for assimilating observations and also for estimating the effect of observations on forecast error covariance. It differs from other ensemble Kalman filters in that it uses ensemble transformation and a normalization to rapidly obtain the prediction error covariance matrix associated with a particular deployment of observational resources. This rapidity enables it to quickly assess the ability of a large number of future feasible sequences of observational networks to reduce forecast error variance. The ET KF was used by the National Centers for Environmental Prediction in the Winter Storm Reconnaissance missions of 1999 and 2000 to determine where aircraft should deploy dropwindsondes in order to improve 24-72-h forecasts over the continental United States. The ET KF may be applied to any well-constructed set of ensemble perturbations. The ET KF technique supercedes the ensemble transform (ET) targeting technique of Bishop and Toth. In the ET targeting formulation, the means by which observations reduced forecast error variance was not expressed mathematically. The mathematical representation of this process provided by the ET KF enables such things as the evaluation of the reduction in forecast error variance associated with individual flight tracks and assessments of the value of targeted observations that are distributed over significant time intervals. It also enables a serial targeting methodology whereby one can identify optimal observing sites given the location and error statistics of other observations. This allows the network designer to nonredundantly position targeted observations. Serial targeting can also be used to greatly reduce the computations required to identify optimal target sites. For these theoretical and practical reasons, the ET KF technique is more useful than the ET technique. The methodology is illustrated with observation system simulation experiments involving a barotropic numerical model of tropical cyclonelike vortices. These include preliminary empirical tests of ET KF predictions using ET KF, 3DVAR, and hybrid data assimilation schemes-the results of which look promising. To concisely describe the future feasible sequences of observations considered in adaptive sampling problems, an extension to Ide et al.'s unified notation for data assimilation is suggested.},
+   author = {Craig H Bishop and Brian J Etherton and Sharanya J Majumdar},
+   issue = {3},
+   journal = {Monthly Weather Review},
+   pages = {420-436},
+   title = {Adaptive Sampling with the Ensemble Transform Kalman Filter. Part I: Theoretical Aspects},
+   volume = {129},
+   year = {2000},
+}
+
 @article{Bretherton1968,
    abstract = {When a slowly varying wavetrain of small amplitude propagates in a general medium, changes of frequency and wavenumber are determined along definite paths known as rays. It is shown that, for a wide class of conservative systems in fluid dynamics changes in ampli­tude along the rays may be computed from conservation of wave action, which is defined as the wave energy divided by the intrinsic frequency. The intrinsic frequency is the frequency which would be measured by an observer moving with the local mean velocity of the medium. This result is the analogue for continuous systems of the adiabatic invariant for a classical simple harmonic oscillator. If the medium is time dependent or moving with a nonuniform mean velocity the intrinsic frequency is not normally constant, and wave energy is not conserved. Special cases include surface waves on a vertically uniform current in water of finite depth, internal gravity waves in a shear flow at large Richardson number, Alfvèn waves, sound waves, and inertial waves in a homogeneous rotating liquid in geostrophic mean motion.},
    author = {F P Bretherton and C J R Garrett},
@@ -112,6 +123,18 @@
    title = {Diagnosis of observation, background and analysis-error statistics in observation space},
    volume = {131},
    year = {2006},
+}
+
+@article{Evensen1992,
+abstract = {The formulation of the extended Kalman filter for a multilayer nonlinear quasi-geostrophic ocean circulation model is discussed. The nonlinearity in the ocean model leads to an approximative equation for error covariance propagation, where the transition matrix is dependent on the state trajectory. This nonlinearity complicates the dynamics of the error covariance propagation, and effects which are nonexistent in linear systems contribute significantly. The transition matrix can be split into two parts, where one part results in pure evolution of error covariances in the model velocity field, and the other part contains a statistical correction term caused by the nonlinearity in the model. This correction term leads to a linear unbounded instability, which is caused by the statistical linearization of the nonlinear error propagation equation. Different ways of handling this instability are discussed. Further, nonlinear small-scale instabilities also develop, since energy is accumulated at wavelengths 2Δx, owing to the numerical discretization. These small-scale oscillations are removed with a Shapiro filter, and the effect they have on the error covariance propagation is discussed. Some data assimilation experiments are performed using the full extended Kalman filter, to examine the properties of the filter. An experiment where only the first part of the transition matrix is used to propagate the error covariances is also performed. This simplified experiment actually performs better than the full extended Kalman filter because the unbounded instability associated with the statistical correction term is avoided.},
+author = {Evensen, Geir},
+title = {Using the extended Kalman filter with a multilayer quasi-geostrophic ocean model},
+journal = {Journal of Geophysical Research: Oceans},
+volume = {97},
+number = {C11},
+pages = {17905-17924},
+doi = {https://doi.org/10.1029/92JC01972},
+year = {1992}
 }
 
 @article{Evensen1994,
@@ -244,6 +267,21 @@
       url = "https://journals.ametsoc.org/view/journals/mwre/129/1/1520-0493_2001_129_0123_asekff_2.0.co_2.xml"
 }
 
+@article{Houtekamer2016,
+   abstract = {This paper reviews the development of the ensemble Kalman filter (EnKF) for atmospheric data assimilation. Particular attention is devoted to recent advances and current challenges. The distinguishing properties of three well-established variations of the EnKF algorithm are first discussed. Given the limited size of the ensemble and the unavoidable existence of errors whose origin is unknown (i.e., system error), various approaches to localizing the impact of observations and to accounting for these errors have been proposed. However, challenges remain; for example, with regard to localization of multiscale phenomena (both in time and space). For the EnKF in general, but higher-resolution applications in particular, it is desirable to use a short assimilation window. This motivates a focus on approaches for maintaining balance during the EnKF update. Also discussed are limited-area EnKF systems, in particular with regard to the assimilation of radar data and applications to tracking severe storms and tropical cyclones. It seems that relatively less attention has been paid to optimizing EnKF assimilation of satellite radiance observations, the growing volume of which has been instrumental in improving global weather predictions. There is also a tendency at various centers to investigate and implement hybrid systems that take advantage of both the ensemble and the variational data assimilation approaches; this poses additional challenges and it is not clear how it will evolve. It is concluded that, despite more than 10 years of operational experience, there are still many unresolved issues that could benefit from further research.},
+   author = {P. L. Houtekamer and Fuqing Zhang},
+   doi = {10.1175/MWR-D-15-0440.1},
+   issn = {15200493},
+   issue = {12},
+   journal = {Monthly Weather Review},
+   keywords = {Algorithms,Ensembles,Error analysis,Kalman filters,Numerical analysis/modeling},
+   pages = {4489-4532},
+   publisher = {American Meteorological Society},
+   title = {Review of the ensemble Kalman filter for atmospheric data assimilation},
+   volume = {144},
+   year = {2016},
+}
+
 @article{Hunt2007,
    abstract = {Data assimilation is an iterative approach to the problem of estimating the state of a dynamical system using both current and past observations of the system together with a model for the system's time evolution. Rather than solving the problem from scratch each time new observations become available, one uses the model to "forecast" the current state, using a prior state estimate (which incorporates information from past data) as the initial condition, then uses current data to correct the prior forecast to a current state estimate. This Bayesian approach is most effective when the uncertainty in both the observations and in the state estimate, as it evolves over time, are accurately quantified. In this article, we describe a practical method for data assimilation in large, spatiotemporally chaotic systems. The method is a type of "ensemble Kalman filter", in which the state estimate and its approximate uncertainty are represented at any given time by an ensemble of system states. We discuss both the mathematical basis of this approach and its implementation; our primary emphasis is on ease of use and computational speed rather than improving accuracy over previously published approaches to ensemble Kalman filtering. We include some numerical results demonstrating the efficiency and accuracy of our implementation for assimilating real atmospheric data with the global forecast model used by the US National Weather Service. © 2006 Elsevier Ltd. All rights reserved.},
    author = {Brian R. Hunt and Eric J. Kostelich and Istvan Szunyogh},
@@ -289,7 +327,7 @@
   keywords = {workshop, ocean waves},
   author = {J.-M. Lefèvre and L. Aouf},
   booktitle = {ECMWF Workshop on Ocean Waves},
-  pagesp = {175-188},
+  pages = {175-188},
   title = {Latest developments in Wave in Data Assimilation},
   year = {2012},
   month = {6},
@@ -303,6 +341,19 @@
   title = {Encounter Probability of Idividual Wave Height},
   year = {1998},
   language = {eng},
+}
+
+@article {Mesinger2006,
+      author = "Fedor Mesinger and Geoff DiMego and Eugenia Kalnay and Kenneth Mitchell and Perry C. Shafran and Wesley Ebisuzaki and Dušan Jović and Jack Woollen and Eric Rogers and Ernesto H. Berbery and Michael B. Ek and Yun Fan and Robert Grumbine and Wayne Higgins and Hong Li and Ying Lin and Geoff Manikin and David Parrish and Wei Shi",
+      title = "North American Regional Reanalysis",
+      journal = "Bulletin of the American Meteorological Society",
+      year = "2006",
+      publisher = "American Meteorological Society",
+      address = "Boston MA, USA",
+      volume = "87",
+      number = "3",
+      doi = "10.1175/BAMS-87-3-343",
+      pages=      "343 - 360",
 }
 
 @article{Miles1957,
@@ -323,6 +374,14 @@
    title = {Correspondence on site-specific alpha factor performance},
 }
 
+@online{NOAA2022,
+   author = {NOAA},
+   title = {WPC Surface Analysis Archive},
+   url = {https://www.wpc.ncep.noaa.gov/archives/web_pages/sfc/sfc_archive_maps.php?arcdate=03/12/2022&selmap=2022031218&maptype=namfntsfc},
+   urldate = {2024-07-08},
+   year = {2022},
+}
+
 @book{Nocedal2006,
 	edition = {Second},
 	title = {Numerical {O}ptimization},
@@ -341,6 +400,19 @@
 	year = {2010},
 }
 
+@article{Panchang2013,
+   abstract = {The 2004-2008 hurricane season in the Gulf of Mexico (GOM) saw several exceedances of what was regarded, prior to that period, as the 100-year significant wave heights (SWHs) that are used for the design of offshore oil and gas facilities. As a result, these facilities sustained considerable damage and disrupted U.S. energy supplies. The wave climatology in the GOM is therefore studied in detail. A 51-year database of SWHs was constructed by using a combination of wind and wave models, and both individual wave heights and statistical measures were validated, to the extent possible, using buoy data. Analyses of the modeled data show that there is an increasing trend in the annual maximum SWHs in the eastern part of the GOM; the maximum trend is approximately 5.6 cm/year, which is of the same magnitude as that reported for the U.S. west coast. The western part; on the other hand, shows a decreasing trend. The maximum estimated 100-year SWHs (denoted by SWH100) are 19.1 m, 22.6m and 26.7m for the Gumbel, Weibull, and the GEV distributions, respectively. The estimates obtained here using the Weibull distribution are comparable to those obtained independently by API (API—American Petroleum Institute, 2007, “Interim Guidance on Hurricane Conditions in the Gulf of Mexico,” API Bulletin No. 2INT-MET). However, the use of objective criteria to identify the optimal distribution suggests that the GEV estimates are to be preferred if the engineer wishes to emphasize the upper tail where extremes are likely to occur. The maximum increase in the SWH100 due to the 2004-2008 season is of the order of 0.9m to 2.7m (depending as the distribution). Information generated here is intended to supplement the design recommendations provided by API (American Petroleum Institute, 2007, “Interim Guidance on Hurricane Conditions in the Gulf of Mexico,” API Bulletin No. 2INT-MET). © 2013 by ASME.},
+   author = {Vijay Panchang and Chan Kwon Jeong and Zeki Demirbilek},
+   doi = {10.1115/1.4023205},
+   issn = {1528896X},
+   issue = {3},
+   journal = {Journal of Offshore Mechanics and Arctic Engineering},
+   pages = {1-15},
+   title = {Analyses of extreme wave heights in the gulf of mexico for offshore engineering applications},
+   volume = {135},
+   year = {2013},
+}
+
 @article{Phillips1957,
  title={On the generation of waves by turbulent wind},
  volume={2},
@@ -350,6 +422,46 @@
  author={Phillips, O. M.},
  year={1957},
  pages={417–445},
+}
+
+@article {Sacher2008,
+      author = "William Sacher and Peter Bartello",
+      title = "Sampling Errors in Ensemble Kalman Filtering. Part I: Theory",
+      journal = "Monthly Weather Review",
+      year = "2008",
+      publisher = "American Meteorological Society",
+      address = "Boston MA, USA",
+      volume = "136",
+      number = "8",
+      doi = "10.1175/2007MWR2323.1",
+      pages=      "3035 - 3049",
+      url = "https://journals.ametsoc.org/view/journals/mwre/136/8/2007mwr2323.1.xml"
+}
+
+@inproceedings{Sorensen2004,
+author = { Ole R. Sørensen and Henrik Kofoed-Hansen and Morten Rugbjerg and Lars S. Sørensen},
+title = {A third-generation spectral wave model using an un-structured ﬁnite volume technique},
+booktitle = {29th International Conference on Coastal Engineering},
+chapter = {},
+pages = {894-906},
+doi = {10.1142/9789812701916_0071},
+year = {2004},
+    abstract = { Abstract A new third-generation spectral wave model is presented for prediction of the wave climates in offshore and coastal areas. The essential topic of the present paper is new numerical techniques for solution of the governing equations. The discretisation in the geographical space and the spectral space is based on cell-centred finite volume technique. In the geographical space, an unstructured mesh is applied. Due to the high degree of flexibility, unstructured meshes are very efficient to deal with problems of different characteristic scales. The time integration is performed using a fractional step approach, where an efficient multisequence explicit method is applied for the propagation process, The model is verified by comparison with observations for two real field cases.},
+}
+
+@article{Tolman2013,
+   abstract = {For several decades, the Discrete Interaction Approximation (DIA) for nonlinear resonant four-wave interactions has been the engine of third-generation wind-wave models. The present study presents a Generalized Multiple DIA (GMD) which expands upon the DIA by (i) expanding the definition of the representative quadruplet, (ii) formulating the DIA for arbitrary water depths, (iii) providing complimentary deep and shallow water scaling terms and (iv) allowing for multiple representative quadruplets. The GMD is rigorously derived to be an extension of the DIA, and is backward compatible with it. The free parameters of the GMD are optimized holistically, by optimizing full model behavior in the WAVEWATCH III® wave model as reported in a companion paper. Here, a cascade of GMD configurations with increasing complexity, accuracy and cost is presented. First, the performance of these configurations is discussed using idealized test cases used to optimize the GMD. It is shown that in deep water, GMD configurations can be found which remove most of the errors of the DIA. The GMD is also capable of representing four-wave interactions in extremely shallow water, although some remaining spurious behavior makes applications of this part of the GMD less suitable for operational wave models. Finally, several GMD configurations are applied to an idealized hurricane case, showing that results from idealized test cases indeed are representative for real-world applications, and confirming that such GMD configurations are economically feasible in operational wind wave models. Finally, the DIA results in surprisingly large model errors in hurricane conditions. © 2013.},
+   author = {Hendrik L. Tolman},
+   doi = {10.1016/J.OCEMOD.2013.02.005},
+   issn = {1463-5003},
+   journal = {Ocean Modelling},
+   keywords = {Discrete interaction approximation,Numerical modeling,Quadruplets,Resonant nonlinear interactions,Wind waves},
+   month = {10},
+   pages = {11-24},
+   publisher = {Elsevier},
+   title = {A Generalized Multiple Discrete Interaction Approximation for resonant four-wave interactions in wind wave models},
+   volume = {70},
+   year = {2013},
 }
 
 @book{Vallis2017,

@@ -10,7 +10,7 @@
 
 \section{The need for Reliable Wave Forecasting}
 
-Offshore operations form an important part of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, as offshore operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. It is important to understand the risk posed by waves in this region since increased cyclone intensity is leading to increased extreme wave heights in the Gulf of Mexico \citep{Appendini2014}. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \cite{Wu2021}. 
+Offshore operations form an important part of many industries such as energy and research, and contribute to the economies of coastal countries round the world. Ocean waves pose a significant risk to offshore operations as they can lead to the loss of life and damage to equipment. This means that accurate wave predictions are a critical safety issue for offshore operations, as offshore operations can only be carried out safely when the waves are sufficiently calm. To provide these predictions the MetOcean Forecasting division of Fugro produces wave forecasts for a client undertaking offshore operations in the Gulf of Mexico. It is important to understand the risk posed by waves in this region since increased cyclone intensity is leading to increased extreme wave heights in the Gulf of Mexico \citep{Appendini2014}. To avoid unnecessary downtime, they produce ensemble forecasts and apply corrections using a proprietary method based on the alpha factor method described in \citet{Wu2021}. 
 
 This proprietary method is referred to by Fugro as a site-specific alpha factor and seeks to correct for the bias and uncertainty present in the forecast by defining the alpha factor
 
@@ -18,7 +18,7 @@ This proprietary method is referred to by Fugro as a site-specific alpha factor 
 \alpha = \frac{H_\text{max}}{H_\text{max,cor}},
 \end{equation}
 
-where $H_\text{max}$ is the maximum wave height with a $10^{-4}$ probability of exceedance during a given window. $H_\text{max,cor}$ is the maximum wave height with the same exceedance probability during the same window, after the forecast is corrected for bias and uncertainty. Following \cite{Liu1998}, the Rayleigh distribution is used to model the probability distribution of maximum wave height over a window as follows:
+where $H_\text{max}$ is the maximum wave height with a $10^{-4}$ probability of exceedance during a given window. $H_\text{max,cor}$ is the maximum wave height with the same exceedance probability during the same window, after the forecast is corrected for bias and uncertainty. Following \citet{Liu1998}, the Rayleigh distribution is used to model the probability distribution of maximum wave height over a window as follows:
 
 \begin{equation}
 \prob (H \leq H_\text{max}) = \left[ 1 - e^{\left( -2 \frac{H_\text{(max)}^2}{H_s^2} \right)} \right]^\frac{t}{T_p}.
@@ -35,7 +35,7 @@ where $\prob (H|H_s)$ is the Rayleigh distribution from equation \ref{eqn:raylei
 
 Once the value of $\alpha$ is found, it is used to scale the $H_s$ model output via $H_{s,\text{cor}} = \frac{H_s}{\alpha}$. So if the model predicts $H_s = 1.5$m and $\alpha = 0.75$, the scaled forecast value is $H_{s,\text{cor}} = 2$m. Qualitatively speaking, $\alpha$ will always be less than 1, since forecast uncertainty acts to broaden the distribution of maximum wave height. This means that $H_\text{max,cor}$ is always more than $H_\text{max}$, as illustrated in figure \ref{fig:Hcordist}.
 
-Fugro has conducted research into the performance of the site-specific alpha factor method, but has not made the report publicly available. However, from private correspondence with Fugro engineers \citep{Nikolova2024}, we learned that this method is overly cautious and systematically produces wave heights above those seen in the observational record. This conclusion was reached after examining the performance of the method in five strong storms between January and March 2022.
+Fugro has conducted research into the performance of the site-specific alpha factor method, but has not made the report publicly available. However, from private correspondence with Fugro engineers \citep{Nikolova2024}, we learned that this method is overly cautious and systematically produces wave heights above those seen in the observational records. This conclusion was reached after examining the performance of the method in five strong storms between January and March 2022.
 
 \begin{figure}
 \centering
@@ -55,18 +55,18 @@ As well as these forecasts, Fugro has a buoy based near to the client which prod
 
 Several studies have been completed previously investigating the effectiveness of DA methods to improve wave forecasts. In this section, some of these studies and their findings are summarised, and the differences between this study and previous ones are discussed.
 
-\cite{Caires2018} investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) \citep{Evensen2003} method to adjust the wind fields used as forcing in a wave model. They used hourly observations from six locations. Their results are shown in figure \ref{fig:caires2018fig30}.
+\citet{Caires2018} investigated the effect on wave forecasts of using an ensemble Kalman filter (EnKF) \citep{Evensen2003} method to adjust the wind fields used as forcing in a wave model. They used hourly observations from six locations. Their results are shown in figure \ref{fig:caires2018fig30}.
 
 An improvement is seen in forecasts of wave height and period, but it is relatively small compared to other studies and short lived, not extending past 24hrs in any instance. This may be due to the indirect relationship between the assimilated wind data and the forecasted wave variables. We hope that assimilating the forecasted variables directly will lead to improved performance over this wind-based approach.
 
 \begin{figure}
 \centering
 \includegraphics[width = \textwidth]{figures/caires2018fig30}
-\caption{RMSE in wave height (left) and period (right) from two different observation locations. Figure 30 from \cite{Caires2018}.}
+\caption{RMSE in wave height (left) and period (right) from two different observation locations. Figure 30 from \citet{Caires2018}.}
 \label{fig:caires2018fig30}
 \end{figure}
 
-Another possible reason for the relatively poor performance in this case is the small number of observations used. Observations were available hourly from only six different locations, while operational DA systems commonly assimilate upwards of $10^6$ observations at a time. This study is also limited in this regard, as data is only available from one buoy. A study which used many more observations is \cite{Houghton2022}, in which an optimal interpolation (OI) method \citep{Komen1994} was used to compare the effects of assimilating wave height and spectra. In this study, observations came from the global Sofar spotter buoy network, which contains over 600 buoys. A plot of their results is shown in figure \ref{fig:houghton2022fig3}.
+Another possible reason for the relatively poor performance in this case is the small number of observations used. Observations were available hourly from only six different locations, while operational DA systems commonly assimilate upwards of $10^6$ observations at a time. This study is also limited in this regard, as data is only available from one buoy. A study which used many more observations is \citet{Houghton2022}, in which an optimal interpolation (OI) method \citep{Komen1994} was used to compare the effects of assimilating wave height and spectra. In this study, observations came from the global Sofar spotter buoy network, which contains over 600 buoys. A plot of their results is shown in figure \ref{fig:houghton2022fig3}.
 
 \begin{figure}
 \centering
@@ -77,14 +77,14 @@ Another possible reason for the relatively poor performance in this case is the 
 
 Figure \ref{fig:houghton2022fig3} shows that both variables give very similar improvements in predictions of wave height, while spectral assimilation gives better results for other quantities such as period and direction. They also found that the spectral DA did particularly well in swell-dominated fields when compared to assimilating wave height. This shows that the type of observations assimilated can have a large effect on the performance of a DA system.
 
-In this project we assimilate two measures of period, $T_{m01}$ and $T_{m02}$. These variables are related to different moments of the spectrum (see equations \ref{eqn:moments} - \ref{eqn:mainvars}), so we hope that assimilating both $T_{m01}$ and $T_{m02}$ as well as wave height will have some of the benefits of spectral DA identified in \cite{Houghton2022}. Since assimilating a full wave spectrum involves much more data than bulk variables such as wave height and period, we hope also that our method will incur less computational cost than assimilating a full spectrum.
+In this project we assimilate two measures of period, $T_{m01}$ and $T_{m02}$. These variables are related to different moments of the spectrum (see equations \ref{eqn:moments} - \ref{eqn:mainvars}), so we hope that assimilating both $T_{m01}$ and $T_{m02}$ as well as wave height will have some of the benefits of spectral DA identified in \citet{Houghton2022}. Since assimilating a full wave spectrum involves much more data than bulk variables such as wave height and period, we hope also that our method will incur less computational cost than assimilating a full spectrum.
 
-To investigate the effect of the DA method used, \cite{Houghton2023} assimilated wave height observations from satellite altimeters and Sofar spotter buoys. They compared two different DA methods, OI and the ensemble-based local ensemble transform Kalman filter (LETKF) \citep{Hunt2007}. Plots of their results are included in figure \ref{fig:houghton2023fig6}.
+To investigate the effect of the DA method used, \citet{Houghton2023} assimilated wave height observations from satellite altimeters and Sofar spotter buoys. They compared two different DA methods, OI and the ensemble-based local ensemble transform Kalman filter (LETKF) \citep{Hunt2007}. Plots of their results are included in figure \ref{fig:houghton2023fig6}.
 
 \begin{figure}
 \centering
 \includegraphics[width = .8\textwidth]{figures/houghton2023fig6}
-\caption{Forecast bias and RMSE from altimeter observations (top) and buoy observations (bottom). Figure 6 from \cite{Houghton2023}.}
+\caption{Forecast bias and RMSE from altimeter observations (top) and buoy observations (bottom). Figure 6 from \citet{Houghton2023}.}
 \label{fig:houghton2023fig6}
 \end{figure}
 
@@ -93,7 +93,7 @@ They found that both methods reduced forecast error and bias out to 2.5 days lea
 \begin{figure}
 \centering
 \includegraphics[width = .8\textwidth]{figures/houghton2023fig3}
-\caption{An example $H_s$ increment from both LETKF and OI methods. Colours show value of increment, markers show the locations of observation buoys. Figure 3 from \cite{Houghton2023}.}
+\caption{An example $H_s$ increment from both LETKF and OI methods. Colours show value of increment, markers show the locations of observation buoys. Figure 3 from \citet{Houghton2023}.}
 \label{fig:houghton2023fig3}
 \end{figure}
 

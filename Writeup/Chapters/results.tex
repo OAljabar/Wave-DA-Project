@@ -1,30 +1,36 @@
 
 \chapter{Results}
-\label{Chapter5} 
+\label{chap:results}
 
-This chapter contains an analysis of the errors in the DA output as compared to the model output with no DA. We also examine the results of assimilating $H_s$ alone ($H_s$ DA) compared to assimilating $H_s$, $T_{m01}$ and $T_{m02}$ (all vars DA).
+In this chapter, the results of the DA experiments are presented and discussed. We have one experiment ($H_s$ DA) where $H_s$ alone is assimilated, and one experiment (all vars DA) where $H_s, T_{m01}$ and $T_{m02}$ are assimilated together. The results of these experiments are compared to one another and to the forecast data with no DA applied. We will examine properties of the results such as the increments, RMSE and ensemble spread, as well the forecasts of the $H_s$ maximum on 12/03/2022.
 
-For the purposes of a simple visual examination, we include timeseries of ensemble mean from each run, plotted alongside the truth. Figure \ref{fig:buoymeanseries9} shows this for variables $H_s$ and $T_{m01}$ at the buoy location from the 12Z 09/03/2022 model run. We see little change in $H_s$ during the assimilation window as the no DA forecast matches the truth very closely here. After the end of the window, we see that $H_s$ DA matches truth very well, while all vars DA is close to no DA.
+Throughout this chapter, plots of $H_s$ and $T_{m01}$ are included. The plots of $T_{m02}$ all look very similar to the equivalent plots of $T_{m01}$, so they are not required for a discussion of the results. Hence they are not included in this chapter to aid readability. For completeness, they are included in appendix \label{sec:t02plots} and may be referred to there.
 
-From the $T_{m01}$ plot, we see that $H_s$ is similar to no DA during the window while all vars DA is close to the truth. This is unsurprising as $T_{m01}$ is assimilated directly in all vars DA while $H_s$ is not. This means that any change to $T_{m01}$ from $H_s$ DA relies on cross covariance between the two variables, which is generally small. This indicates that the different variables being assimilated are having the effects we expect them to have. After the window, the performance is more variable: $H_s$ DA does well at 3-4 days, all runs match the truth closely between 4 and days, and none are very close after 5 days. The divergence at 3-4 days and after 5 days is to be expected as this is when the largest errors are present in the original forecasts: 3-4 days because of the large swell event and 5+ days because of the chaos inherent in wave forecasts.
+We begin with a visual examination of timeseries to see qualitatively what effect the DA has had. Figure \ref{fig:buoymeanseries9} shows a timeseries of $H_s$ at the buoy from all vars DA, $H_s$ DA, no DA and the truth. This is taken from the 7-day forecast window starting at 12Z 09/03/2022. Observations from the first three days (the `assimilation window') of this forecast window are assimilated, and the end of this period is marked with a dotted blue line.
 
-For comparison, figure \ref{fig:farmeanseries9} shows the same timeseries at $30\degrees$ N  $80\degrees$ W, which is outside the GoM in the northern Atlantic ocean. As this location is so far from the buoy, we do not expect to see any kind of improvement from the DA, and indeed this is what we see. All vars DA, $H_s$ DA and no DA are all a similar distance from the truth which indicates that DA has not improved the forecast. One thing to note is that there is often a large difference between the no DA line and both the $H_s$ DA and all vars DA lines, meaning that the increments $\vect{d}^a_b = \x_a - \x_b$ are quite large. This is physically unrealistic as we would not expect the ocean state at the buoy location to have any effect on the ocean state at $30\degrees$ N  $80\degrees$ W. This is explored further in section \ref{sec:increments}.
+The DA has little effect during the assimilation window, since the no DA forecast lies very close to the truth here. They diverge after the end of the assimilation window (at 3 days leadtime), and $H_s$ DA closely tracks the truth while all vars DA is closer to no DA. This is likely due to the effects of the different variables assimilated cancelling each other out. The four runs come back together at 4-5 days leadtime and all four diverge after 5 days leadtime.
 
-The divergence of the different runs after the swell event tells us that the DA system has captured the dynamical chaos of the physical wave system.
+These periods when the runs diverge reflect when we expect to see large forecast errors. 3-4 days leadtime contains the swell event which we have seen is associated with large forecast errors, and 5+ days leadtimes is at the end of forecast window when the error due to dynamical chaos is largest. That $H_s$ DA  matches the truth well at 3-4 days and not at 5+ days can be explained by the fact that 5+ days is further from the assimilation window. This means that any correction at 5+ days relies on cross-covariances in time, which are weak as seen in section \ref{sec:bgerrors}.
+
+As well as the buoy location, we also examine the equivalent timeseries at a location far from the buoy. Figure \ref{fig:farmeanseries9} shows the same as \ref{fig:buoymeanseries9} at $30\degrees$ N  $80\degrees$ W, which is outside the Gulf of Mexico in the Atlantic ocean near Florida. Here we see no noticable improvement from DA, as all vars DA, $H_s$ DA and no DA all diverge from the truth by similar amounts. This is intuitively unspurprising since we would not expect observations at the buoy to be useful in predicting the waves so far away.
+
+We see here that the increments (difference between DA and no DA) are quite large. This is reflective of the fact that the innovations (difference between truth and no DA) are large in this case, since increments are a linear combination of innovations as in equation \ref{eqn:analysisupdate}. This also tells us that we have large covariances between this point and the buoy, which lines up with the findings of section \ref{sec:bgerrors}. As discussed in that section, these long-distance covariances seem to be somewhat spurious, though further research is needed to determine to exactly what extent.
+
+\textit{The divergence of the different runs after the swell event tells us that the DA system has captured the dynamical chaos of the physical wave system.}
 
 \begin{figure}
 \centering
-\includegraphics[width = .7\textwidth]{figures/buoyhsseries9}
-\includegraphics[width = .7\textwidth]{figures/buoyt01series9}
-\caption{Timeseries of $H_s$ (top) and $T_{m01}$ (bottom) at buoy location from 12Z 09/03/2022 model run. No DA ensemble mean is shown in red, $H_s$ DA ensemble is shown in blue, all vars DA ensemble mean is shown in green and truth is shown in black. Blue dotted line indicates the end of the assimilation window.}
+\includegraphics[width = .85\textwidth]{figures/buoyhsseries9}
+%\includegraphics[width = .7\textwidth]{figures/buoyt01series9}
+\caption{Timeseries of $H_s$ at buoy location from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
 \label{fig:buoymeanseries9}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width = .7\textwidth]{figures/farhsseries9}
-\includegraphics[width = .7\textwidth]{figures/fart01series9}
-\caption{Timeseries of $H_s$ (top) and $T_{m01}$ (bottom) at $30\degrees$N $80\degrees$ W from 12Z 09/03/2022 model run. No DA ensemble mean is shown in red, $H_s$ DA ensemble is shown in blue, all vars DA ensemble mean is shown in green and truth is shown in black. Blue dotted line indicates the end of the assimilation window.}
+\includegraphics[width = .85\textwidth]{figures/farhsseries9}
+%\includegraphics[width = .7\textwidth]{figures/fart01series9}
+\caption{Timeseries of $H_s$ at $30\degrees$N $80\degrees$ W from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
 \label{fig:farmeanseries9}
 \end{figure}
 
@@ -44,7 +50,7 @@ Figure \ref{fig:hsinc} shows the increments in $H_s$ ensemble mean at 12Z 12/03/
 \label{fig:hsinc}
 \end{figure}
 
-Figure \ref{fig:t01inc} shows the same as \ref{fig:hsinc} but for the increments and innovations in $T_{m01}$. We see again that all vars DA show larger increments overall, and here all vars DA does a better job of matching the sign of innovation across the wider domain. It captures the strip of negative innovations seen extending through the central GoM, which is missed by $H_s$ DA. However just East of the buoy, $H_s$ DA has positive increments matching the innovation, while all vars DA is strongly negative.
+Figure \ref{fig:t01inc} shows the same as \ref{fig:hsinc} but for the increments and innovations in $T_{m01}$. The equivalent plots of $T_{m02}$ are shown in figure \ref{fig:t02inc}. We see again that all vars DA show larger increments overall, and here all vars DA does a better job of matching the sign of innovation across the wider domain. It captures the strip of negative innovations seen extending through the central GoM, which is missed by $H_s$ DA. However just East of the buoy, $H_s$ DA has positive increments matching the innovation, while all vars DA is strongly negative.
 
 \begin{figure}
 \centering
@@ -57,7 +63,9 @@ Overall, all vars DA has generally larger increments across the whole domain and
 
 \section{RMSE}
 
-Figure \ref{fig:rmsebyday} shows the RMSE of the ensemble mean from no DA, $H_s$ DA and all vars DA. The mean is taken over a 24-hour period from 12Z 12/03/2022 to 12Z 13/03/2022. This period was chosen because it contains the highest waves in the forecast period, which are associated with higher errors. Forecasts of this period are available from multiple start dates, giving a range of leadtimes. Errors are plotted for $H_s$ and $T_{m01}$. $T_{m02}$ is not included as it has a very similar form to $T_{m01}$.
+The root mean square error (RMSE) is a very important measure of the error in a forecast. It tells us how much the forecast value diverges from the truth over a given region or time window, and is overall a good measure for the accuracy of a forecast. Here we present the RMSE of the forecast as a function of both leadtime and space, and analyse it in the context of our knowledge of the DA increments and forecast error covariances.
+
+Figure \ref{fig:rmsebyday} shows the RMSE of the ensemble mean from no DA, $H_s$ DA and all vars DA. The equivalent plot of $T_{m02}$ is shown in figure \ref{fig:t02rmsebyday}. The mean is taken over a 24-hour period from 12Z 12/03/2022 to 12Z 13/03/2022. This period was chosen because it contains the highest waves in the forecast period, which are associated with higher errors. Forecasts of this period are available from multiple start dates, giving a range of leadtimes. Errors are plotted for $H_s$ and $T_{m01}$. %$T_{m02}$ is not included as it has a very similar form to $T_{m01}$.
 
 \begin{figure}
 \centering
@@ -85,7 +93,7 @@ At 2-3 days leadtime, both $H_s$ DA and all vars DA show significant improvement
 
 At 4-5 days leadtime, all vars DA shows reduced RMSE in the western GoM and increased RMSE further from the buoy in the eastern GoM. The change in RMSE outside the GoM is smaller relative to that seen within the GoM, but the magnitude of RMSE change over the whole domain is generally larger than that seen at 2-3 days. This is probably due in part to the fact that the no DA RMSE is larger. $H_s$ DA shows smaller RMSE changes overall than all vars DA, and there is no significant reduction near the buoy.
 
-Figure \ref{fig:t01errmaps} shows the spatial distribution of RMSE in $T_{m01}$ ensemble mean over the period from 12Z 12/03/2022 to 12Z 13/03/2022. At 2-3 days leadtime, both $H_s$ DA and all vars DA show improvements over no DA in the vicinity of the buoy with with some increased errors in the eastern GoM and in the Atlantic. The general scale of error reduction/increase is the same in both cases. All vars DA also has regions of increased errors in the western GoM.
+Figure \ref{fig:t01errmaps} shows the spatial distribution of RMSE in $T_{m01}$ ensemble mean over the period from 12Z 12/03/2022 to 12Z 13/03/2022.The equivalent plots of $T_{m02}$ are shown in figure \ref{fig:t02errmaps}. At 2-3 days leadtime, both $H_s$ DA and all vars DA show improvements over no DA in the vicinity of the buoy with with some increased errors in the eastern GoM and in the Atlantic. The general scale of error reduction/increase is the same in both cases. All vars DA also has regions of increased errors in the western GoM.
 
 At 4-5 days leadtime, all vars DA shows improvement through most of the western GoM, with some increased errors again in the eastern GoM and in the Atlantic. $H_s$ DA shows little change in RMSE through most of the domain, with the exception of a large increase in the northeastern GoM.
 
@@ -131,7 +139,7 @@ All vars DA shows a greater reduction in $T_{m01}$ ensemble spread overall. This
 
 Figure \ref{fig:hsspreadmaps} shows the spatial distribution of $H_s$ ensemble spread at 12Z 11/03/2022, from 1 day and 5 days leadtime. At both leadtimes, All vars DA shows a greater reduction in ensemble spread than $H_s$ DA across most of the domain. The only exception to this is the vicinity of the buoy at 1 day leadtime, when $H_s$ DA shows a greater reduction. This is similar to what we saw in the timeseries, when $H_s$ DA had greater spread reduction outside of the assimilation window. This reflects the fact that the entire 7-day forecast window is updated in one step by the DA system, so the dimensions of space and time within a forecast window are treated equivalently. As a result of this, is it not surprising to see parallels in the spatial and temporal distributions of ensemble spread. The greatest reductions in spread are where the spread of no DA is greatest.
 
-Figure \ref{fig:t01spreadmaps} shows the same as \ref{fig:hsspreadmaps} but for $T_{m01}$. At 1 day leadtime, the pattern of reductions from both all vars DA and $H_s$ DA closely match the pattern of standard deviation from no DA, and the reductions from all vars DA are stronger overall. At 5 days leadtime, the reduction from all vars DA generally matches the pattern of standard deviation from no DA, with a peak concentrated on the western side of the Yucatan peninsula. This peak is also present in $H_s$ DA, which shows little reduction in spread elsewhere.
+Figure \ref{fig:t01spreadmaps} shows the same as \ref{fig:hsspreadmaps} but for $T_{m01}$. The equivalent plots of $T_{m02}$ are shown in figure \ref{fig:t02spreadmaps}. At 1 day leadtime, the pattern of reductions from both all vars DA and $H_s$ DA closely match the pattern of standard deviation from no DA, and the reductions from all vars DA are stronger overall. At 5 days leadtime, the reduction from all vars DA generally matches the pattern of standard deviation from no DA, with a peak concentrated on the western side of the Yucatan peninsula. This peak is also present in $H_s$ DA, which shows little reduction in spread elsewhere.
 
 Overall, all vars DA shows greater reduction in ensemble spread at most times and locations, except near the buoy during the assimilation window. The reductions in spread are greatest where the no DA ensemble spread is greatest, which is good as this reduces the maximum uncertainty in the forecast.
 
@@ -139,7 +147,7 @@ Overall, all vars DA shows greater reduction in ensemble spread at most times an
 \centering
 \includegraphics[width = \textwidth]{figures/hsspreadmap1}
 \includegraphics[width = \textwidth]{figures/hsspreadmap5}
-\caption{Ensemble standard deviation in $H_s$ at 12Z 11/03/2022, taken from 12Z 06/03/2022 (top) and 12Z 10/03/2022 (bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
+\caption{Ensemble standard deviation in $H_s$ at 12Z 11/03/2022, taken from 12Z 10/03/2022 (1 day leadtime, top) and 12Z 06/03/2022 (5 days leadtime, bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
 \label{fig:hsspreadmaps}
 \end{figure}
 
@@ -147,13 +155,13 @@ Overall, all vars DA shows greater reduction in ensemble spread at most times an
 \centering
 \includegraphics[width = \textwidth]{figures/t01spreadmap1}
 \includegraphics[width = \textwidth]{figures/t01spreadmap5}
-\caption{Ensemble standard deviation in $T_{m01}$ at 12Z 11/03/2022, taken from 12Z 06/03/2022 (top) and 12Z 10/03/2022 (bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
+\caption{Ensemble standard deviation in $T_{m01}$ at 12Z 11/03/2022, taken from 12Z 10/03/2022 (1 day leadtime, top) and 12Z 06/03/2022 (5 days leadtime, bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
 \label{fig:t01spreadmaps}
 \end{figure}
 
 It is not desirable to focus solely on reducing the ensemble spread, as this may lead to the ensemble being overconfident. As described in section \ref{sec:DApractice}, it is detrimental to the forecast to have ensemble spread smaller than the forecast errors as this can lead to too much confidence being placed in an inaccurate forecast. To test whether this problem has arisen, we plot the ensemble standard deviation against the RMSE.
 
-Figure \ref{fig:hsspreaderr} shows a scatter plot of ensemble mean against RMSE at the buoy location. RMSE is calculated from the ensemble mean and averaged over a 6 hour rolling window in leadtime. Data from all forecast windows from $H_s$ DA and all vars DA is included, with $H_s$ DA represented by circles and all vars DA represented by triangles. The leadtime of each data point within its forecast window is shown by its colour. Lines of best fit are calculated for both $H_s$ DA and all vars DA, and plotted along with the 1:1 line.
+Figure \ref{fig:spreaderr} shows a scatter plot of ensemble mean against RMSE at the buoy location. The equivalent plot of $T_{m02}$ is shown in figure \ref{fig:t02spreaderr}. RMSE is calculated from the ensemble mean and averaged over a 6 hour rolling window in leadtime. Data from all forecast windows from $H_s$ DA and all vars DA is included, with $H_s$ DA represented by circles and all vars DA represented by triangles. The leadtime of each data point within its forecast window is shown by its colour. Lines of best fit are calculated for both $H_s$ DA and all vars DA, and plotted along with the 1:1 line.
 
 We see from the lines of best fit that both DA runs have RMSE generally below the ensemble spread, with all vars DA being lower than $H_s$ DA overall. Data points above the 1:1 line correspond to overconfident ensembles, so for both variables from both DA runs, the number of data points above the line was counted and shown in table \ref{tab:conffreq}. The equivalent counts from no DA are also included. The total number of data points in each run is 984, so we see that all vars DA gives overconfident $H_s$ ensembles about 22\% of the time and overconfident $T_{m01}$ ensembles about 30\% of the time. $H_s$ DA gives overconfident $H_s$ ensembles about 30\% of the time and overconfident $T_{m01}$ ensembles about 25\% of the time. The colours on the plot show that most of the occasions where RMSE is significantly more than spread come late in the forecast window (leadtime > 4 days) with few exceptions.
 
@@ -166,7 +174,7 @@ Overconfident ensembles are most important to avoid when the error is large, sin
 \includegraphics[width = .49\textwidth]{figures/hsspreaderrall}
 \includegraphics[width = .49\textwidth]{figures/t01spreaderrall}
 \caption{Left: Scatter plot of $H_s$ RMSE against $H_s$ ensemble standard deviation at the buoy location. All vars DA shown with triangles, $H_s$ DA shown with circles and leadtime shown by colour. Lines of best fit shown for all vars DA (dotted) and $H_s$ DA (dashed) as well as 1:1 line (solid). Right: the same for RMSE and ensemble spread in $T_{m01}$.}
-\label{fig:hsspreaderr}
+\label{fig:spreaderr}
 \end{figure}
 
 \begin{table}

@@ -1,0 +1,56 @@
+% Appendix Template
+
+\chapter{Results - $T_{m02}$} % Main appendix title
+
+\label{sec:t02plots} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+
+This appendix contains plots of the DA results for $T_{m02}$. As the results for $T_{m01}$ and $T_{m02}$ are so similar, these plots are not included in chapter \ref{chap:results} to aid readability, but are included here for completeness. Each figure shown here is an equivalent to some figure in chapter \ref{chap:results}, the number of which is specified in the caption.
+
+\begin{figure}
+\centering
+\includegraphics[width = .9\textwidth]{figures/t02inc12}
+\caption{$T_{m02}$ ensemble mean increments at 12Z 12/03/2022 from all vars DA (top left) and $H_s$ DA (top right), and $H_s$ innovations from the same time (bottom). Taken from 12Z 10/03/2022 forecast run. The buoy location is marked with a cross. Equivalent to figure \ref{fig:t01inc}.}
+\label{fig:t02inc}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = .5\textwidth]{figures/buoyt02byday}
+\caption{RMSE in $T_{m02}$ ensemble mean at the buoy location as a function of leadtime. RMSE is calculated over a 24hr period. Results shown for no DA (solid line), $H_s$ DA (dashed line) and all vars DA (black dotted line). Blue dotted line indicates the end of the assimilation window. Equivalent to figure \ref{fig:rmsebyday}.}
+\label{fig:t02rmsebyday}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/t02errmap2-3}
+\includegraphics[width = \textwidth]{figures/t02errmap4-5}
+\caption{Maps of RMSE in $T_{m02}$ ensemble mean from the period 12Z 12/03/2022 to 13/03/2022, with leadtime 2-3 days (top) and 4-5 days (bottom). Middle panels show RMSE from no DA, side panels show absolute RMSE reduction compared to no DA from all vars DA (left) and $H_s$ DA (right). The buoy location is marked with a cross. Equivalent to figure \ref{fig:t01errmaps}.}
+\label{fig:t02errmaps}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.49\textwidth}
+\includegraphics[width = \textwidth]{figures/t02spreadseries6}
+\end{subfigure}
+\begin{subfigure}{.49\textwidth}
+\includegraphics[width = \textwidth]{figures/t02spreadseries10}
+\end{subfigure}
+\caption{Timeseries of ensemble standard deviation in $T_{m02}$ at the buoy location. Taken from 12Z 06/03/2022 (left) and 12Z 10/03/2022 (right) model runs. Equivalent to figure \ref{fig:DAensspread}.}
+\label{fig:t02ensspread}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = \textwidth]{figures/t02spreadmap1}
+\includegraphics[width = \textwidth]{figures/t02spreadmap5}
+\caption{Ensemble standard deviation in $T_{m02}$ at 12Z 11/03/2022, taken from 12Z 10/03/2022 (1 day leadtime, top) and 12Z 06/03/2022 (5 days leadtime, bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right). Equivalent to figure \ref{fig:t01spreadmaps}.}
+\label{fig:t02spreadmaps}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width = .49\textwidth]{figures/t02spreaderrall}
+\caption{Scatter plot of $T_{m02}$ RMSE against $T_{m02}$ ensemble standard deviation at the buoy location. All vars DA shown with triangles, $H_s$ DA shown with circles and leadtime shown by colour. Lines of best fit shown for all vars DA (dotted) and $H_s$ DA (dashed) as well as 1:1 line (solid). Equivalent to figure \ref{fig:spreaderr}.}
+\label{fig:t02spreaderr}
+\end{figure}

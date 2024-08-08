@@ -13,7 +13,7 @@ This chapter is intended to describe the details of the experimental setup used 
 \section{Model Description and Domain}
 \label{sec:model}
 
-The forecast data used in this project comes from Fugro, and this section contains a description of the process used to generate this data. The setup of the WAVEWATCH III (WW3) model used by Fugro is discussed, as well as other aspects such as the model domain and frequency of forecasts. This information is useful to understand the form that the forecast data takes.
+The forecast data used in this project comes from Fugro, and this section contains a description of the process used to generate this data. The setup of the WAVEWATCH III (WW3) model used by Fugro is discussed, as well as other aspects such as the model domain and frequency of forecasts.
 
 Waves are modelled by Fugro using WW3 \citep{WW3DG2019}, which uses as its base spectrum a wavenumber-direction spectrum $F(k,\theta)$, rather than the frequency-direction spectrum described in section \ref{sec:wavespectra}. The spectrum is discretised using 29 sampled wavenumbers $k$ and 24 angles $\theta$. The wavenumber-direction spectrum is related to the frequency-direction spectrum by the Jacobian transform
 
@@ -35,7 +35,7 @@ $S_{in}$ is dominated by an exponential wind-wave growth term, so $S_{in}$ is eq
 
 $S_{ds}$ is generally dominated by wave breaking, and it represents a sink of wave energy. Similar to $S_{in}$, it is equal to a negative coefficient multiplied by $\sigma N(k,\theta)$. The balance between $S_{in}$ and $S_{ds}$ determines the overall growth or decay of wave energy.
 
-$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. There are many options for the form of this term within WW3, reflecting the many posited theories of nonlinear wave-wave interactions. A general overview of the topic is available in \citet{Janssen2004}, chapter 4.
+$S_{nl}$ represents interactions between waves due to nonlinear processes, which results in energy transfer between waves of different frequencies. The exact mechanisms behind this are poorly understood, with many theories proposed, and a general discussion of the topic is given in \citet{Janssen2004}, chapter 4. Reflecting this, WW3 gives many options for how the nonlinear source term should be calculated. The option used by Fugro is based on the generalised multiple discrete interaction approximation from \citet{Tolman2013}.
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
@@ -72,7 +72,9 @@ Forecasts are produced at 12Z each day, and run up to seven days ahead. Seven of
 
 In this section we present a general overview of the background state in the domain, coming from the forecast data which spans a period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022. This cold front is particularly important to consider as these events are a very common cause of high waves in the region, and in our examination of the results of this study we are particularly interested in forecasts of the waves associated with the cold front.
 
-Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the Gulf of Mexico has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front.
+Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. This is normal for the region according to \citet{Appendini2014}, in which a 30-year wave hindcast was constructed for the GoM using the MIKE 21 SW wave model \citep{Sorensen2004} forced by winds from the North American regional reanalysis \citep{Mesinger2006}. In that study, it was found that mean $H_s$ in the GoM is generally in the range 1m - 1.5m, with lower values < 1m in the shallow coastal waters.
+
+The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the Gulf of Mexico has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front.
 
 \begin{figure}
 \centering
@@ -90,6 +92,8 @@ Figure \ref{fig:hdirtimemean} shows the significant wave height and direction av
 
 There is a large peak in significant wave height on the 12/03/2022, related to a cold front passing through the region. A map of $H_s$ in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is in line with \citet{Appendini2014}, a study into the wave climatology of the GoM. In that paper, cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
 
+The height of the waves during this event is up to 6m. This is not unusual according to \citet{Panchang2013}, in which wave height extremes in the GoM are analysed. The authors discuss what they call the SWH100, being the maximum estimated significant wave height in a 100 year period. They estimate SWH100 using multiple methods and in each case find that SWH100 is >10m in much of the central Gulf. The proximity of large $H_s$ values to the Southern coast of the GoM is slightly more unusual to see, as \citet{Panchang2013} finds SWH100 to be $\sim$ 7m much of the Southern GoM.The $H_s$ values seen here are still within this limit, but not by as much, indicating that the magnitude of wave heights forecast in this region may be unusual from a climatological standpoint.
+
 \begin{figure}
 \centering
 \begin{subfigure}{.45\textwidth}
@@ -101,11 +105,11 @@ There is a large peak in significant wave height on the 12/03/2022, related to a
 \centering
 \includegraphics[width = \textwidth]{figures/0312chart}
 \end{subfigure}
-\caption{Left: $H_s$ (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
+\caption{Left: $H_s$ (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive \citep{NOAA2022}.}
 \label{fig:wavesandchart}
 \end{figure}
 
-Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the preceding 48 hours. The high waves associated with the cold front at 18Z have a period of $\sim$ 8s, which is higher than the period in the rest of the GoM at that time and also higher than the waves accross the entire GoM in the 48 hours prior.
+Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the preceding 48 hours. The high waves associated with the cold front at 18Z have a period of $\sim$ 8s, which is higher than the period in the rest of the GoM at that time and also higher than the waves across the entire GoM in the 48 hours prior. This is also high compared to climatology, since \citet{Appendini2014} finds the average period in the region to be $\sim$ 6m.
 
 \begin{figure}
 \centering
@@ -114,16 +118,18 @@ Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the
 \label{fig:t01maps}
 \end{figure}
 
+In summary, we have seen that the wave heights during the forecast window were normal for the region, with the exception of those induced by a cold front on 12/03/2022. The waves associated with this cold front had longer period than most waves in the region, and the wave heights seen in the Southern GoM were somewhat climatologically unusual. We view this cold front event as particularly worthy of analysis, since it is this kind of event that poses a danger to offshore operations. This is especially true looking forward since \cite{Appendini2014} determined that extreme wave heights in the region are becoming higher over time.
+
 %----------------------------------------------------------------------------------------
 %	SECTION 3
 %----------------------------------------------------------------------------------------
 
-\section{ADCP Observations}
+\section{Buoy Observations}
 \label{sec:observations}
 
-This section begins with a discussion of the buoy which took the observations used in this study, including how the direct measurements of things like wave-induced current are converted into the bulk variables we assimilate. The observation data is plotted and examined, and patterns and relations between the different variables are identified.
+This section gives an overview of the buoy observations used in this study. The observations are a crucial part of DA as they give information about the true state of the system which can be used to improve forecasts. The equipments and methods used to generate the observations are discussed, as well as patterns and properties of the observational data.
 
-Our observations come from an acoustic doppler current profiler (ACDP) buoy, which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \cite{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+Our observations come from an acoustic doppler current profiler (ACDP) buoy (cite), which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \citet{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
 
 \begin{align*}
 	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\

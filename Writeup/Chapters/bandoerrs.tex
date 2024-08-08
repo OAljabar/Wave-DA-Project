@@ -138,7 +138,7 @@ Another thing that is visible from the $o-b$ plot is a bias in either the $H_s$ 
 \label{fig:hsominusb}
 \end{figure}
 
-The histogram approach may be quantified more precisely following \cite{Desroziers2006}, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
+The histogram approach may be quantified more precisely following \citet{Desroziers2006}, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
 
 \begin{equation}
 \mathbb{E}\left[\vect{d^o_b}\left( \vect{d^o_b} \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
@@ -153,16 +153,16 @@ Taking traces and dividing by the number of observations, we get a good estimate
 
 In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mat{H P}^f \mat{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
 
-Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on wave height, shown in figure \ref{fig:houghton2023fig2}.
+Another available method is that used in \citet{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on wave height, shown in figure \ref{fig:houghton2023fig2}.
 
 \begin{figure}
 \centering
 \includegraphics[width = .7\textwidth]{figures/houghton2023fig2}
-\caption{Observation difference standard deviation as a function of wave height. Figure 2 from \cite{Houghton2023}}
+\caption{Observation difference standard deviation as a function of wave height. Figure 2 from \citet{Houghton2023}}
 \label{fig:houghton2023fig2}
 \end{figure}
 
-In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height.
+In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \citet{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height.
 
 Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks just before the peak in $H_s$ and drops back to lower values as $H_s$ is at its highest value. Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.
 
@@ -182,7 +182,7 @@ Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks 
 
 Repeating this process with the observations of $T_{m01}$ and $T_{m02}$ yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for $T_{m01}$ and $T_{m02}$ also fall aproximately on straight lines, though the fit is not as good as for $H_s$. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. This suggests that we should model the error standard deviation in $H_s$ as being equal to 10\% of $H_s$, and the error standard deviation in $T_{m01}$ and $T_{m02}$ as 3.5\% of $T_{m01}$ and $T_{m02}$ respectively. 
 
-Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
+Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \citet{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
 
 The terms in \ref{eqn:obserrestimate} were calculated to be
 

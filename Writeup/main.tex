@@ -42,7 +42,7 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 \usepackage{subcaption}
 
-%\usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{mathpazo} % Use the Palatino font by default
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
@@ -51,6 +51,7 @@ headsepline, % Uncomment to get a line under the header
 \addbibresource{example.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{tocbibind}
 
 
 %----------------------------------------------------------------------------------------
@@ -182,11 +183,17 @@ headsepline, % Uncomment to get a line under the header
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
-\section*{Abstract}
 \addchaptertocentry{Abstract} % Add the abstract to the table of contents
-The ensemble transform Kalman filter (ETKF) is used to assimilate observations of wave height and two measures of period into wave forecasts. The forecasts are produced by operationally by Fugro for a client in the Gulf of Mexico, and the observations come from a buoy belonging to the client in the Southern part of the Gulf. The data assimilation (DA) method used differs from the conventional ETKF method since the lack of access to a forecast model precludes any possibilty of cycling. Instead the update step of ETKF is used to correct an entire forecast window at once before loading forecast data from the next window. Observations are assimilated from the first three days of each forecast window (the `assimilation window'). One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
 
-The background errors are visualised using timeseries of ensemble mean and variance and maps of forrecast error covariances. The ensemble variance is seen to be strongly related to the mean, with peaks in variance typically preceding peaks in the mean. The forecast error covariances are seen to have nozero values at short distances and also sometimes at larger distances. Patterns of wind forcing and travelling waves are offered as physical explanations for these long distance covariances, and the possibility of spurious covariances arising from sampling error is also discussed.
+Waves are a distinctive visual feature of the ocean surface, and their accurate forecasting is critical for ensuring safety in offshore operations. One company producing these forecasts is Fugro, who produce regional forecasts of quantities such as wave height for a client performing offshore operations in the Gulf of Mexico. In this study, we aim to use data assimilation to improve the accuracy of these forecasts.
+
+Data assimilation (DA) refers to a range of statistical methods for integrating observations into a forecast, with the aim of making the forecast more accurate. The observations come from a buoy operated by the client, positioned near their offshore site in the Southern part of the Gulf. Observations of significant wave height ($H_s$) and two measures of period ($T_{m01},T_{m02}$) are assimilated. One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
+
+The DA method used borrows the analysis step of the ensemble transform Kalman filter (ETKF) method. The conventional ETKF consists of update steps in which observations from a given time are assimilated, alternating with forecast steps in which the forecast model is used to evolve the state forward to the next observation time. Since we do not have access to the forecast model in this study, we are unable to perform the forecast step and instead we use a single analysis step to update an entire 7-day forecast window simultaneously.
+
+%The data assimilation (DA) method used differs from the conventional ETKF method since the lack of access to a forecast model precludes any possibilty of cycling. Instead the update step of ETKF is used to correct an entire forecast window at once before loading forecast data from the next window. Observations are assimilated from the first three days of each forecast window (the `assimilation window'). One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
+
+Since the errors in the forecast and observations are central in determining the working of DA, these errors are investigated prior to performing the assimilation. The forecast errors are visualised using timeseries of ensemble mean and variance and maps of forrecast error covariances. The ensemble variance is seen to be strongly related to the mean, with peaks in variance typically preceding peaks in the mean. The forecast error covariances are seen to have nozero values at short distances and also sometimes at larger distances. Patterns of wind forcing and travelling waves are offered as physical explanations for these long distance covariances, and the possibility of spurious covariances arising from sampling error is also discussed.
 
 The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. Motivated by this, a scaled error approach is used in the DA, where observation errors are set at at a constant percentage of the observed value. A minimum error threshold is set for the two measures of period in an attempt to avoid fitting the observations too closely and producing unrealistic increments elsewhere.
 
@@ -211,7 +218,7 @@ The ensemble spread after DA is examined in comparison to the spread before DA, 
 
 \listoffigures % Prints the list of figures
 
-%\listoftables % Prints the list of tables
+\listoftables % Prints the list of tables
 
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
@@ -222,14 +229,17 @@ The ensemble spread after DA is examined in comparison to the spread before DA, 
 \textbf{DA} & Data Assimilation\\
 \textbf{EnKF} & Ensemble Kalman Filter\\
 \textbf{ETKF} & Ensemble Transform Kalman Filter\\
+\textbf{GEFS} & Global Ensemble Forecast System\\
 \textbf{GoM} & Gulf of Mexico\\
 \textbf{LETKF} & Local Ensemble Transform Kalman Filter\\
+\textbf{NOAA} & National Oceanic and Atmospheric Administration\\
 \textbf{OI} & Optimal Interpolation\\
 \textbf{OSSE} & Observing System Simulation Experiment\\
 \textbf{PDAF} & Parallel Data Assimilation Framework\\
 \textbf{WW3} & WAVEWATCH III
 
 \end{abbreviations}
+\addchaptertocentry{List of Abbreviations}
 
 
 %----------------------------------------------------------------------------------------
@@ -274,7 +284,7 @@ The ensemble spread after DA is examined in comparison to the spread before DA, 
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
-%\include{Appendices/AppendixA}
+\include{Appendices/t02plots}
 %\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 
