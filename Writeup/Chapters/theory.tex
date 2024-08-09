@@ -171,7 +171,7 @@ We call the vector spaces containing $\x$ and $\y$ the state space and observati
 
 \comment{In our case, we have three variables on a $181 \times 210$ grid, so the dimension of our state space is a relatively modest 114030. We have only one observation location measuring the same three variables, so the dimension of the observation space here is only 3.}{What about leadtime dimension? See earlier comment.}
 
-In our case $\mathcal{H}$ is linear, that is, there is a matrix $\mat{H} \in \mathbb{R}^{n \times p}$ such that $\mathcal{H}(\x) = \mat{H}\x$, and so $\prob(\y|\x) = N(\mat{H}\x,\mat{R})$. We can then express the distribution of \comment{$\x$}{This must be $\x_\text{true}$. Comment also applies to the following conditional probability distributions.} given some set of observations $\y$ using Bayes' theorem:
+In our case $\mathcal{H}$ is linear, that is, there is a matrix $\mat{H} \in \mathbb{R}^{n \times p}$ such that $\mathcal{H}(\x) = \mat{H}\x$, and so $\prob(\y|\x) = N(\mat{H}\x,\mat{R})$. We can then express the distribution of $\x$. (This must be $\x_\text{true}$. Comment also applies to the following conditional probability distributions.) given some set of observations $\y$ using Bayes' theorem:
 
 \begin{equation}
     \prob(\x|\y) = \prob(\y|\x) \frac{\prob(\x)}{\prob(\y)}.
