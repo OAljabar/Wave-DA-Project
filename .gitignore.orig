@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+*.*
+env
+!.gitignore
+!*.py
+!*.tex
+!*.bib
+!*.pdf
+!*.png
+!*.txt
+!*.orig
+=======
+* 
+!*.py 
+!*.pdf 
+!*.tex
+!*.bib 
+!*.png
+
+env
+env.run
+*~
+
+
+>>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d

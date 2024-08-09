@@ -41,19 +41,17 @@ headsepline, % Uncomment to get a line under the header
 \usepackage[utf8]{inputenc} % Required for inputting international characters
 \usepackage[T1]{fontenc} % Output font encoding for international characters
 \usepackage{subcaption}
-\usepackage{easyreview}
 
-\usepackage{mathpazo} % Use the Palatino font by default
+%\usepackage{mathpazo} % Use the Palatino font by default
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{easyReview}
 
 \usepackage[backend=bibtex,style=authoryear-comp,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
 \addbibresource{example.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
-\usepackage{tocbibind}
-\usepackage{easyReview}
 
 
 %----------------------------------------------------------------------------------------
@@ -65,11 +63,9 @@ headsepline, % Uncomment to get a line under the header
 \newcommand{\mat}[1]{\mathbf{#1}}
 \newcommand{\x}{\vect{x}}
 \newcommand{\y}{\vect{y}}
-\newcommand{\intd}{\,\text{d}}
 \newcommand{\prob}{\mathbb{P}}
 \newcommand{\norm}[2][]{\left\lVert#2\right\rVert_{#1}}
 \newcommand{\degrees}{^{\circ}}
-\newcommand{\T}{\mathrm{T}}
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -101,7 +97,7 @@ headsepline, % Uncomment to get a line under the header
 \university{\href{http://www.university.com}{University of Reading}} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
 \department{\href{http://department.university.com}{Department of Meteorology}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
 \group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
-%\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+\faculty{\href{http://faculty.university.com}{Faculty Name}} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
 
 \AtBeginDocument{
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
@@ -125,7 +121,7 @@ headsepline, % Uncomment to get a line under the header
 \vspace*{.06\textheight}
 {\scshape\LARGE \univname\\\deptname\par}\vspace{1.5cm} % University name
 
-\includegraphics[width=.4\textwidth]{figures/unilogo}
+\includegraphics[width=.4\textwidth]{Figures/unilogo}
 
 \HRule \\[0.4cm] % Horizontal line
 {\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
@@ -154,27 +150,27 @@ headsepline, % Uncomment to get a line under the header
 %	DECLARATION PAGE
 %----------------------------------------------------------------------------------------
 
-%\begin{declaration}
-%\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
-%\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
-%
-%\begin{itemize} 
-%\item This work was done wholly or mainly while in candidature for a research degree at this University.
-%\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
-%\item Where I have consulted the published work of others, this is always clearly attributed.
-%\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
-%\item I have acknowledged all main sources of help.
-%\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
-%\end{itemize}
-% 
-%\noindent Signed:\\
-%\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
-% 
-%\noindent Date:\\
-%\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
-%\end{declaration}
-%
-%\cleardoublepage
+\begin{declaration}
+\addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+\noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
+
+\begin{itemize} 
+\item This work was done wholly or mainly while in candidature for a research degree at this University.
+\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+\item Where I have consulted the published work of others, this is always clearly attributed.
+\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+\item I have acknowledged all main sources of help.
+\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
+\end{itemize}
+ 
+\noindent Signed:\\
+\rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+ 
+\noindent Date:\\
+\rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+\end{declaration}
+
+\cleardoublepage
 
 %----------------------------------------------------------------------------------------
 %	QUOTATION PAGE
@@ -186,31 +182,19 @@ headsepline, % Uncomment to get a line under the header
 %	ABSTRACT PAGE
 %----------------------------------------------------------------------------------------
 
-\addchaptertocentry{Abstract} % Add the abstract to the table of contents
-Waves are a distinctive visual feature of the ocean surface, and their accurate forecasting is critical for ensuring safety in offshore operations. One company producing these forecasts is Fugro, who produce regional forecasts of quantities such as wave height for a client performing offshore operations in the Gulf of Mexico. In this study, we aim to use data assimilation to improve the accuracy of these forecasts.
-
-Data assimilation (DA) refers to a range of statistical methods for integrating observations into a forecast, with the aim of making the forecast more accurate. The observations come from a buoy operated by the client, positioned near their offshore site in the Southern part of the Gulf. Observations of significant wave height ($H_s$) and two measures of period ($T_{m01},T_{m02}$) are assimilated. One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
-
-The DA method used borrows the analysis step of the ensemble transform Kalman filter (ETKF) method. The conventional ETKF consists of update steps in which observations from a given time are assimilated, alternating with forecast steps in which the forecast model is used to evolve the state forward to the next observation time. Since we do not have access to the forecast model in this study, we are unable to perform the forecast step and instead we use a single analysis step to update an entire 7-day forecast window simultaneously.
-
-%The data assimilation (DA) method used differs from the conventional ETKF method since the lack of access to a forecast model precludes any possibilty of cycling. Instead the update step of ETKF is used to correct an entire forecast window at once before loading forecast data from the next window. Observations are assimilated from the first three days of each forecast window (the `assimilation window'). One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
-
-Since the errors in the forecast and observations are central in determining the working of DA, these errors are investigated prior to performing the assimilation. The forecast errorse mean, with peaks in variance typically preceding peaks in the mean. The forecast error covariances are seen to have nozero values at short distances and also sometimes at larger distances. Patterns of wind forcing and travelling waves are offered as physical explanations for these long distance covariances, and the possibility of spurious covariances arising from sampling error is also discussed.
-
-The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. Motivated by this, a scaled error approach is used in the DA, where observation errors are set at at a constant percentage of the observed value, with a constant minimum error threshold applied to the observations of wave period.
-
-Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend further after te end of the window in all vars DA. The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing.
-
-In conclusion, we find that the DA method used here does somewhat improve wave forecasts, with all vars DA generally outperforming $H_s$ DA. It is hoped that this study will inform future wave DA work in the Gulf of Mexico, including a potential operational implementation by Fugro.
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+The Thesis Abstract is written here (and usually kept to just this page). The page is kept centered vertically so can expand into the blank space above the title too\ldots
+\end{abstract}
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
-%
-%\begin{acknowledgements}
-%\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-%The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
-%\end{acknowledgements}
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
+\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
@@ -220,7 +204,7 @@ In conclusion, we find that the DA method used here does somewhat improve wave f
 
 \listoffigures % Prints the list of figures
 
-\listoftables % Prints the list of tables
+%\listoftables % Prints the list of tables
 
 %----------------------------------------------------------------------------------------
 %	ABBREVIATIONS
@@ -229,22 +213,11 @@ In conclusion, we find that the DA method used here does somewhat improve wave f
 \begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
 
 \textbf{DA} & Data Assimilation\\
-\textbf{EnKF} & Ensemble Kalman Filter\\
-\textbf{ETKF} & Ensemble Transform Kalman Filter\\
-\textbf{GEFS} & Global Ensemble Forecast System\\
-\textbf{GoM} & Gulf of Mexico\\
-$\mathbf{H_s}$ & Significant Wave Height\\
-\textbf{LETKF} & Local Ensemble Transform Kalman Filter\\
-\textbf{NOAA} & National Oceanic and Atmospheric Administration\\
-\textbf{OI} & Optimal Interpolation\\
-\textbf{OSSE} & Observing System Simulation Experiment\\
-\textbf{PDAF} & Parallel Data Assimilation Framework\\
-$\mathbf{T_{m01}}$ & Mean Period\\
-$\mathbf{T_{m02}}$ & Mean Zero-Crossing Period\\
-\textbf{WW3} & WAVEWATCH III
+\textbf{WW3} & WAVEWATCH III\\
+\textbf{LETKF} & Local Ensemble Transform Kalman Filter
 
 \end{abbreviations}
-\addchaptertocentry{List of Abbreviations}
+
 
 %----------------------------------------------------------------------------------------
 %	SYMBOLS
@@ -275,10 +248,18 @@ $\mathbf{T_{m02}}$ & Mean Zero-Crossing Period\\
 
 \include{Chapters/introduction}
 \include{Chapters/theory}
+<<<<<<< HEAD
+%\include{Chapters/expsetup} 
+%\include{Chapters/results}
+
+=======
 \include{Chapters/expsetup}
 \include{Chapters/bandoerrs}
 \include{Chapters/results}
-\include{Chapters/conclusions}
+>>>>>>> 3e074fb1d698192361013067b62dd7ab66811914
+%\include{Chapters/Chapter4} 
+%\include{Chapters/Chapter5} 
+
 %----------------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
 %----------------------------------------------------------------------------------------
@@ -288,7 +269,7 @@ $\mathbf{T_{m02}}$ & Mean Zero-Crossing Period\\
 % Include the appendices of the thesis as separate files from the Appendices folder
 % Uncomment the lines as you write the Appendices
 
-\include{Appendices/t02plots}
+\include{Appendices/AppendixA}
 %\include{Appendices/AppendixB}
 %\include{Appendices/AppendixC}
 

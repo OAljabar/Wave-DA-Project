@@ -1,3 +1,12 @@
+*.*
 env
-env.run
-*~
+!Writeup/easyReview/*
+!.gitignore
+!*.py
+!*.tex
+!*.bib
+!*.pdf
+!*.png
+!*.txt
+!*.orig
+!*.lyx
