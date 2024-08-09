@@ -1,4 +1,3 @@
-% Chapter 1
 
 \chapter{Background and Observation Errors} % Main chapter title
 
@@ -54,7 +53,7 @@ Figure \ref{fig:covhshs12-0} shows the spatial covariance of $H_s$ at 12Z 12/03/
 \begin{figure}
 \centering
 \includegraphics[width = .5\textwidth]{figures/covhshs12-0}
-\caption{Colours showing spatial covariance of $H_s$ at 12Z 12/03/2022. Arrows showing wind averaged over prior 24 hours.}
+\caption{Colours showing spatial covariance of $H_s$ at 12Z 12/03/2022. Arrows showing wind averaged over prior 24 hours. Cross marks location of buoy.}
 \label{fig:covhshs12-0}
 \end{figure}
 
@@ -62,9 +61,9 @@ This suggests that the wind forcing plays a role in determining the nature of th
 
 The wind forcing can also induce covariances at longer distances. Figure \ref{fig:covhshs11-0} shows the same as \ref{fig:covhshs12-0} but at 12Z 11/03/2022. We see positive covariance near the buoy as before, but there is also a patch of positive covariance in the northeastern GoM, which is a long way from the buoy. This is likely because the wind in this region is weak, similar to the wind in the vicinity of the buoy. Here we also see some areas of negative covariance in regions of strong winds.
 
-It is also possible that these long distance covariances are physcially unrealistic. As discussed in section \ref{sec:DApractice}, an inherent limitation in estimating the background error from the ensemble is that a finite ensemble size leads to sampling error in $\mat{P}^f$. This can cause spurious covariances to arise at long distances \citep{Hunt2007}, which can be fixed with localisation. This possibilty is not explored in this study, partly due to the fact that some of the long-distance covariances appear to be genuine, but this is something that should be included in future work on the topic.
+It is also possible that these long distance covariances are physically unrealistic. As discussed in section \ref{sec:DApractice}, an inherent limitation in estimating the background error from the ensemble is that a finite ensemble size leads to sampling error in $\mat{P}^f$. This can cause spurious covariances to arise at long distances \citep{Hunt2007}, which can be fixed with localisation. This possibilty is not explored in this study, partly due to the fact that some of the long-distance covariances appear to be genuine, but this is something that should be included in future work on the topic.
 
-The scale of covariance seen here is much smaller than that seen in figure \ref{fig:covhshs12-0}. From figure \ref{fig:hsensseries} we see that the variance in $H_s$ at 12Z 11/03/2022 is much smaller than the variance at 12Z 12/03/2022, which likely explains the differing scales in covariance.
+The magnitude of covariance seen here is much smaller than that seen in figure \ref{fig:covhshs12-0}. From figure \ref{fig:hsensseries} we see that the variance in $H_s$ at 12Z 11/03/2022 is much smaller than the variance at 12Z 12/03/2022, which likely explains the differing scales in covariance.
 
 \begin{figure}
 \centering
@@ -73,7 +72,17 @@ The scale of covariance seen here is much smaller than that seen in figure \ref{
 \label{fig:covhshs11-0}
 \end{figure}
 
-Another thing that can cause long-distance covariances is travelling swell waves. Figure \ref{fig:covhshs13-1} shows the $H_s$ covariance at 18Z 13/03/2022 with a one day lag. This means the $H_s$ ensemble at the buoy is sampled at 18Z 13/03/2022 and the $H_s$ ensemble elsewhere in the domain is sampled at 18Z 12/03/2022, to show the correlation with earlier sea states. We see a large region of positive covariance spanning the Western GoM and much of the Northern part also. The arrows show the wave direction at 18Z 13/03/2022, and this tells us that waves from the Northwestern GoM travel West and South towards the buoy. This means they are able to influence the sea state at the buoy, which explains the positive covariance.
+Another thing that can cause long-distance covariances is travelling swell waves. Figure \ref{fig:covhshs13-1} shows the $H_s$ covariance at 18Z 13/03/2022 with a one day lag. In other words, expressing $H_s$ as a function of space and time $H_s = H_s(x,y,t)$ we plot
+
+\[
+\text{cov}\left( H_s(x_0,y_0,t_0), H_s(x,y,t_0 - 1 \text{day} \right)
+\]
+
+for each $x$ and $y$. Here $(x_0,y_0)$ is the position of the buoy, and $t_0$ is 18Z 13/03/2022. This means the $H_s$ ensemble at the buoy is sampled at 18Z 13/03/2022 and the $H_s$ ensemble elsewhere in the domain is sampled at 18Z 12/03/2022, to show the correlation with earlier sea states.
+
+We see a large region of positive covariance spanning the Western GoM and much of the Northern part also. The arrows show the wave direction at 18Z 13/03/2022, and this tells us that waves from the Northwestern GoM travel West and South towards the buoy. This means they are able to influence the sea state at the buoy, which explains the positive covariance.
+
+Another notable aspect of figure \ref{fig:covhshs13-1} is the general magnitude of covariance seen. The maximum covariance seen in figure \ref{fig:covhshs13-1} is 0.03, compared to 0.20 in figure \ref{fig:covhshs12-0}. This is explained by the one day lag used to generate figure \ref{fig:covhshs13-1}. We expect the covariances between two points to decrease the further apart those two points are in time, and this is what we see. This means that we expect the observations assimilated to have more of an impact on the state at times near the observation time.
 
 \begin{figure}
 \centering
@@ -127,43 +136,38 @@ where $\delta \y_i$ represents the error in the $i^\text{th}$ observation. To si
 \end{cases}
 \]
 
-It is not obvious how to estimate this error variance, and several methods are avilable for doing so. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
+It is not obvious how to estimate this error variance, and several methods are avilable for doing so. We now outline two methods, following two different papers, which give different estimates for $\text{var} \left( \delta \y_i \right)$. In this study, we make use of both methods combined to estimate the observation error variance.
+
+\subsubsection{Constant Error Variance}
+\label{sec:consterrs}
+
+A simple method is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error (\cite{Desroziers2005}, equation 1), so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
 
 Another thing that is visible from the $o-b$ plot is a bias in either the $H_s$ forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this is not possible (see section \ref{sec:twinexp} for details).
 
-\comment{}{What is the time period covered by figure 4.1? Also add the time period to the captions of the other figures.}
 \begin{figure}
 \centering
-\includegraphics[width = .8\textwidth]{Figures/hsominusb}
+\includegraphics[width = .8\textwidth]{figures/hsominusb}
 \caption{Observation - background histogram for significant wave height.}
 \label{fig:hsominusb}
 \end{figure}
 
-<<<<<<< HEAD
-\replace{The histogram approach may be quantified more precisely following}{A more rigorous approach to estimate observational error variances is provided in} \cite{Desroziers2006} \add{using that}\remove{, by defining $d^o_b = \y - \mathbf{H}\x_b$ and using the relation}
-=======
-The histogram approach may be quantified more precisely following \cite{Desroziers2006}, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
->>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
+The histogram approach may be quantified more precisely following \citet{Desroziers2005}, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
 
 \begin{equation}
 \mathbb{E}\left[\vect{d^o_b}\left( \vect{d^o_b} \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
 \end{equation}
 
-\add{here $d^o_b = \y - \mathbf{H}\x_b$.}
-\comment{Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is}{You should mention that either H here is over a single type of observations, or in your trace you're only summing over a single type of observation. Also mention the time period or periods over which the sums run.}
+Taking traces and dividing by the number of observations, we get a good estimate for the average observation error variance which is
 
-\comment{}{This equation is missing something on the left hand side of the equation.}
 \begin{equation}
-\frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
+\frac{1}{\text{\# observations}} \sum_i \text{var} \left( \delta \y_i \right) \approx \frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
 \label{eqn:obserrestimate}
 \end{equation}
 
-<<<<<<< HEAD
-In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mathbf{H} \mathbf{P}^f \mathbf{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
-
-\comment{Another available method}{Before moving on to this method you should write up the results from the Desroziers method.} is that used in \cite{Houghton2023}. They used a \replace{colocation}{collocation} study to estimate the error in wave height observations from a distributed network of drifting \replace{s}{S}ofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of \remove{of} \comment{differences from each bin was computed}{Add that they considered this difference as observational error (shouldn't this be the sum of observational errors?). That consequently the standard deviation of differences as observational error standard deviation (shouldn't it be sqrt(2) times the obs. error standard deviation?). And that the observational error here includes both instrumental and representativeness errors. Explain what what representativeness error are (see janjic\_representation\_2018).}. They found a strong dependence of error on wave height.
-=======
 In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mat{H P}^f \mat{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
+
+\subsubsection{Scaling Error Variance}
 
 Another available method is that used in \cite{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on wave height, shown in figure \ref{fig:houghton2023fig2}.
 
@@ -173,9 +177,10 @@ Another available method is that used in \cite{Houghton2023}. They used a coloca
 \caption{Observation difference standard deviation as a function of wave height. Figure 2 from \cite{Houghton2023}}
 \label{fig:houghton2023fig2}
 \end{figure}
->>>>>>> 178e9fa99a454d0e484281b36f2006070e91787d
 
-In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, \comment{we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately}{Make clear that you found this using a standard linear regression and compare with values in literature like Houghton (2023).} \comment{9.6\%}{add confidence interval to this estimate.} of the wave height.
+Because of this, they estimated the observation error variance not as a constant value, as in section \ref{sec:consterrs}, but as a constant multiple of the observations themselves - in their case 6.5\%. We now apply a similar method to our observations.
+
+In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \cite{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height.
 
 Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks just before the peak in $H_s$ and drops back to lower values as $H_s$ is at its highest value. Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.
 
@@ -195,10 +200,10 @@ Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks 
 
 Repeating this process with the observations of $T_{m01}$ and $T_{m02}$ yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for $T_{m01}$ and $T_{m02}$ also fall aproximately on straight lines, though the fit is not as good as for $H_s$. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. This suggests that we should model the error standard deviation in $H_s$ as being equal to 10\% of $H_s$, and the error standard deviation in $T_{m01}$ and $T_{m02}$ as 3.5\% of $T_{m01}$ and $T_{m02}$ respectively. 
 
-Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2006}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
+Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2005}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
 
 The terms in \ref{eqn:obserrestimate} were calculated to be
-\comment{}{Notice the space between units and units should be non-italic}.
+
 \[
 \frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} = 0.29 s^2, \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.17 s^2
 \]
@@ -209,14 +214,14 @@ So the observation error variance is estimated to be $0.12 s^2$ and the standard
 \centering
 \begin{subfigure}{.45\textwidth}
 \centering
-\includegraphics[width = \textwidth]{Figures/tm01ominusb}
+\includegraphics[width = \textwidth]{figures/tm01ominusb}
 \end{subfigure}
 \begin{subfigure}{.45\textwidth}
 \centering
-\includegraphics[width = \textwidth]{Figures/tm02ominusb}
+\includegraphics[width = \textwidth]{figures/tm02ominusb}
 \end{subfigure}
 \caption{Observation minus background histograms for $T_{m01}$ (left) and $T_{m02}$ (right).}
 \label{fig:periodominusb}
 \end{figure}
 
-In this section, we have found that the observation error standard deviations in all variables are strong functions of the observed values, with the error in $H_s$ being approximately 9.6\% of the observed value and the error in both periods being approximately 3.5\% of the observation. Motivated by this, we will set the $H_s$ error to be 10\% of the observed value in the assimilation of wave height alone. For the assimilation of all variables, there is more risk of fitting the observations too closely are we are assimilating more observations. Because of this, we increase the scales of error standard deviation from those found above to 12\% for wave height and 7\% for the periods. We also implement a minimum error threshold of $0.35s$ for the periods.
+In this section, we have found that the observation error standard deviations in all variables are strong functions of the observed values, with the error in $H_s$ being approximately 9.6\% of the observed value and the error in both periods being approximately 3.5\% of the observation. Motivated by this, we will set the $H_s$ error to be 10\% of the observed value in the assimilation of wave height alone. For the assimilation of all variables, there is more risk of fitting the observations too closely as we are assimilating more observations. Because of this, we increase the scales of error standard deviation from those found above to 12\% for wave height and 7\% for the periods. We also implement a minimum error threshold of $0.35s$ for the periods.
