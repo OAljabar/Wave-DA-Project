@@ -40,7 +40,7 @@ From the forecasted spectra, other variables such as wave height, period and mea
 
 The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which we hope will lead to better DA results.
 
-As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS). A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members.
+As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS) \citep{NOAA2023}. A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members.
 
 
 Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution global rectangular grid, and two higher resolution nested grids covering the Gulf of Mexico. There is  a $0.1\degrees$ resolution grid spanning the  entire Gulf, from $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.

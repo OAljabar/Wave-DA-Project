@@ -134,7 +134,12 @@ where $\delta \y_i$ represents the error in the $i^\text{th}$ observation. To si
 \end{cases}
 \]
 
-It is not obvious how to estimate this error variance, and several methods are available for doing so. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this error, say 50\%. An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may \comment{be estimated to be approximately 50cm}{Why is 50\% a good estimate?}.
+\subsection{Constant Error Variance}
+\label{sec:consterrs}
+
+It is not obvious how to estimate this error variance, and several methods are available for doing so. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error \citep{Desroziers2006}, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this spread. It is reasonable to assume that the contributions from background and obsevation errors are similarly sized, so the observation error can be estimated to be 50\% of the totl spread.
+
+An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may \comment{be estimated to be approximately 50cm}{Why is 50\% a good estimate?}.
 
 Another thing that is visible from the $o-b$ plot is a bias in either the $H_s$ forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this is not possible (see section \ref{sec:twinexp} for details).
 
@@ -160,7 +165,7 @@ Taking traces and dividing by the number of observations, we get a good estimate
 
 In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mat{H P}^f \mat{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
 
-\subsubsection{Scaling Error Variance}
+\subsection{Scaling Error Variance}
 
 Another available method is that used in \citet{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on wave height, shown in figure \ref{fig:houghton2023fig2}.
 
