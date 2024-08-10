@@ -47,9 +47,9 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{amsmath}
 \usepackage{amsfonts}
 
-\usepackage[backend=bibtex,style=authoryear-comp,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+\usepackage[round]{natbib} % Use the bibtex backend with the authoryear citation style (which resembles APA)
 
-\addbibresource{example.bib} % The filename of the bibliography
+%\addbibresource{example.bib} % The filename of the bibliography
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 \usepackage{tocbibind}
@@ -295,7 +295,8 @@ $\mathbf{T_{m02}}$ & Mean Zero-Crossing Period\\
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
 
-\printbibliography[heading=bibintoc]
+\bibliographystyle{ametsoc2014}
+\bibliography{example}
 
 %----------------------------------------------------------------------------------------
 
