@@ -36,7 +36,7 @@ $S_{nl}$ represents interactions between waves due to nonlinear processes, which
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
-From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height $H_s$, and two measures of the dominant wave period $T_{m01}$ and $T_{m02}$. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
+From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height $H_s$, and two measures of the wave period $T_{m01}$ and $T_{m02}$. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
 
 The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which we hope will lead to better DA results.
 
@@ -85,7 +85,7 @@ The central part of the domain has largely east-southeasterly waves over both pe
 \centering
 \includegraphics[width = \textwidth]{figures/hdir13-19}
 \end{subfigure}
-\caption{Left: $H_s$ (colours) and wave direction (arrows) averaged between 12Z 06/03/2022 and 12Z 12/03/2022. Right: The same averaged between 12Z 13/03/2022 and 12Z 19/03/2022}
+\caption{Left: Significant wave height (colours) and wave direction (arrows) averaged between 12Z 06/03/2022 and 12Z 12/03/2022. Right: The same averaged between 12Z 13/03/2022 and 12Z 19/03/2022}
 \label{fig:hdirtimemean}
 \end{figure}
 
@@ -104,7 +104,7 @@ The height of the waves during this event is up to 6m. This is not unusual accor
 \centering
 \includegraphics[width = \textwidth]{figures/0312chart}
 \end{subfigure}
-\caption{Left: \comment{$H_s$}{I would replace Hs in captions with significant wave height} (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA WPC surface analysis archive}
+\caption{Left: Significant wave height (colours) and direction (arrows) in the GoM at 18Z on 12/03/2022. Right: Surface analysis chart valid for 18Z on 12/03/2022, taken from NOAA weather prediction centre (WPC) surface analysis archive \citep{NOAA2022}.}
 \label{fig:wavesandchart}
 \end{figure}
 
@@ -117,7 +117,7 @@ Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the
 \label{fig:t01maps}
 \end{figure}
 
-In summary, we have seen that the wave heights during the forecast window were normal for the region, with the exception of those induced by a cold front on 12/03/2022. The waves associated with this cold front had longer period than most waves in the region, and the wave heights seen in the Southern GoM were somewhat climatologically unusual. We view this cold front event as particularly worthy of analysis, since it is this kind of event that poses a danger to offshore operations. This is especially true looking forward since \cite{Appendini2014} determined that extreme wave heights in the region are becoming higher over time.
+In summary, we have seen that the wave heights during the forecast window were normal for the region, with the exception of those induced by a cold front on 12/03/2022. The waves associated with this cold front had longer period than most waves in the region, and the wave heights seen in the Southern GoM were somewhat climatologically unusual. We view this cold front event as particularly worthy of analysis, since it is this kind of event that poses a danger to offshore operations. This is especially true looking forward since \citet{Appendini2014} determined that extreme wave heights in the region are becoming higher over time.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3
@@ -128,16 +128,16 @@ In summary, we have seen that the wave heights during the forecast window were n
 
 This section gives an overview of the buoy observations used in this study. The observations are a crucial part of DA as they give information about the true state of the system which can be used to improve forecasts. The equipments and methods used to generate the observations are discussed, as well as patterns and properties of the observational data.
 
-Our observations come from an acoustic Doppler current profiler (ADCP) buoy (cite dissertation), which estimates the spectrum by measuring the wave induced velocity and surface height variations. According to \citet{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
+Our observations come from an acoustic Doppler current profiler (ADCP) buoy \citep{Boyd2006}, which estimates the spectrum by measuring the wave induced surface height variations and velocity at different depths. According to \citet{Vallis2017}, the velocity and surface height anomaly induced by a simple wave with wave vector $\mathbf{k} = \left(k_x,k_y\right)$, frequency $\sigma$ and amplitude $a$ is
 
 \begin{align*}
-	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
-	v &= a \frac {k_y} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D) \\
-	w &= -i a \frac k \sigma g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \sinh k(z + D) \\
-	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)}
+	u &= a \frac {k_x} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D), \\
+	v &= a \frac {k_y} {\sigma} g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \cosh k(z + D), \\
+	w &= -i a \frac k \sigma g \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)} \sinh k(z + D), \\
+	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)},
 \end{align*}
 
-where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, a timeseries of surface height variance $\overline{\eta^2}$ can be calculated. This is related to the wave spectrum by equation \ref{eqn:waveenergy}, so a Fourier transform of $\overline{\eta^2}$ gives the direction-integrated spectrum $S(\sigma) = \int F(\sigma,\theta) \intd\theta$. Other variables are then deduced from this spectrum, including $H_s$, $T_{m01}$ and $T_{m02}$ as described above.
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, the cross-covariance between the velocities measured at different depths may be combined to give an estimate of the direction-integrated spectrum $S(\sigma) = \int F(\sigma,\theta) \intd\theta$. Further details are given in \citet{Boyd2006}, chapter V, in which the direction-integrated spectrum is notated $E(\omega)$.
 
 We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
 
@@ -153,16 +153,16 @@ Figure \ref{fig:buoyseries} shows a timeseries of observed $H_s$ and $T_{m01}$ f
 \begin{figure}[h]
 \centering
 \includegraphics[width = \textwidth]{figures/buoyseries}
-\caption{Timeseries of observed $H_s$ (top) and $T_{m01}$ (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
+\caption{Timeseries of observed significant wave height (top) and $T_{m01}$ (bottom) over a three-month period from 01/12/2021 to 01/03/2022}
 \label{fig:buoyseries}
 \end{figure}
 
-Figure \ref{fig:obsdensityplot} shows a \comment{density plot}{Explain in more detail what you mean by density here. Is it a probability density, i.e. will it integrate to one or is it a relative frequency?} of observed $H_s$ and wave direction at the buoy location. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from \comment{a northeasterly direction}{In the previous section you called this southwesterly wave. This might be confusing. I would suggest changing to "waves from the northeast". Check this throughout}. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
+Figure \ref{fig:obsdensityplot} shows a density plot of observed $H_s$ and wave direction at the buoy location. The colour of each region on the plot shows the number of observations in that region. There is a clear peak in frequency corresponding to waves of height $\sim$ 0.5m coming from a northeasterly direction. Some higher waves (up to $\sim$ 5m) are present coming from a north-northwesterly direction. This lines up with the direction of waves produced by the cold front on 12/03/2022, suggesting that the waves produced by this kind of event consistently reach the buoy from a north-northwesterly direction. Since the buoy is near the coast in the southern part of the gulf, it is sheltered from the south so there are virtually no waves coming from this direction.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width = .6\textwidth]{figures/obsdensityplot}
-\caption{Density plot of $H_s$ (radial axis) and wave direction at the buoy location.}
+\caption{Density plot of significant wave height (radial axis) and wave direction at the buoy location.}
 \label{fig:obsdensityplot}
 \end{figure}
 
@@ -173,15 +173,15 @@ Figure \ref{fig:obsdensityplot} shows a \comment{density plot}{Explain in more d
 \section{Twin Experiment}
 \label{sec:twinexp}
 
-A twin experiment, also known as an observing system simulation experiment (OSSE), is a popular methodology often used for evaluating the impact of new observing systems when observational data is not yet available \citep{Zeng2020}. Even though we do have observations available, we use the OSSE methodology because (domain wide truth is not avilable in a realistic setup.)
+A twin experiment, also known as an observing system simulation experiment (OSSE), is a popular methodology often used for evaluating the impact of new observing systems when observational data is not yet available \citep{Zeng2020}. Even though we do have observations available, we use the OSSE methodology because the `truth' is available across the entire domain, which is not the case when assimilating real observations. This is desirable because it allows forecast error to be calculated away from the positions and times of observations.
 
-In an OSSE, data from a model run (often called the `nature run', here called the `truth') is assimilated in place of real observational data. \comment{Here we select one of the 31 ensemble members}{Is it the same ensemble member in each window. Does the member change drastically between windows?} to represent the truth, and DA is applied to the remaining 30 ensemble members.
+In an OSSE, data from a model run (often called the `nature run', here called the `truth') is assimilated in place of real observational data. Here we select one of the 31 ensemble members to represent the truth, and DA is applied to the remaining 30 ensemble members. The same ensemble member is selected for each forecast window, to maximise continuity in the generated observations. Since the forecast windows overlap, the `truth' contains multiple values for each time depending on the forecast window, and these values may differ slightly. (maybe plot) This is not a problem for this study, since each forecast window is treated as its own DA problem with its own `truth' (see section \ref{sec:DAsetup} for further discussion).
 
 The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:obserrors}
 
-(add into first paragraph) An advantage of this method in this context is that the `truth' is available away from the location of observations. This means that forecast error can be calculated over the whole model domain, which allows the effectiveness of DA to improve forecasts away from observation locations to be evaluated.
+A limitation of the OSSE method is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so when generating the observations as described in the previous paragraph it is not possible for the DA to correct these biases.
 
-A downside of using the twin experiment method in this project is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. \comment{Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so it is not possible for the DA to correct these biases.}{Theoretically, you could add a bias to the the truth and see whether the DA can correct it. For simplicity, we haven't looked into a bias correcting scheme. You might want to mention that bias correcting DA schemes exist (the MetOffice has one) and then add some references to papers using them. }
+It is possible to add an artificial bias when generating the observations, but this is not pursued in this project in the interests of simplicity. (Theoretically, you could add a bias to the the truth and see whether the DA can correct it. For simplicity, we haven't looked into a bias correcting scheme. You might want to mention that bias correcting DA schemes exist (the MetOffice has one) and then add some references to papers using them.)
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
@@ -191,19 +191,29 @@ A downside of using the twin experiment method in this project is its inability 
 \label{sec:DAsetup}
 
 To perform the data assimilation , we use pyPDAF \citep{Chen2024}, which is a python interface for the 
-Fortran-based Parallel Data Assimilation Framework (PDAF). We will use the update step from the ETKF method which comes builtin with PDAF. As previously stated, we do not have access to WW3, which makes a conventional  \replace{forecast}{prediction} step impossible. To get around this, at each analysis step we correct an entire 7-day forecast window, and in place of the forecast step we load data from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}. \add{So, in our setup, each 7-day window constituents a stand-alone DA problem with its own truth. In particular, improvements in one window are not propagated to the next.} 
+Fortran-based Parallel Data Assimilation Framework (PDAF). We will use the analysis step from the ETKF method which comes builtin with PDAF. As previously stated, we do not have access to WW3, which makes a conventional forecast step impossible.
 
-\comment{This approach requires augmenting the state vector to include components from each leadtime within the forecast window.}{Preceding this sentence add information that you're using an ensemble smoother. That this implies that you are assimilating observations from different times and that because of this you have work with 4D vectors. I wouldn't call it augmenting, because you're concatenating. Next to this, I still think it is a good idea to write out the state vector here} %$()\x^{(n)})^\T=[(\x^{(n)})^\T(t=0),\dots,(\x^{(n)})^\T(7days)]$.}
- In this way, leadtime is treated the same as the two spatial coordinates by the DA system. At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable.
+To get around this, at each analysis step we correct an entire 7-day forecast window, and in place of the forecast step we load data from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}. So, in our setup, each 7-day forecast window is treated as a stand-alone DA problem with its own truth. One ramification of this is that improvements in one window are not propagated to the next.
 
-\comment{}{It would be better to depict every window as a bar divided into a part with assimilated observations and forecast with the bars staggered to reflect that the windows are one day apart and also add truth and observations taken from truth to the figure.}
+Since observations are assimilated from multiple times, this requires the use of 4D state vectors as mentioned in section \ref{sec:DAintro}. This means the state vector contains components from each timestep within a forecast window i.e. 
+
+\[
+\x = \begin{pmatrix} \x (t = 0) \\ \x (t = 1 \, \text{hrs}) \\ \x (t = 2 \, \text{hrs}) \\ \vdots \\ \x (t = 7 \, \text{days}) \end{pmatrix}.
+\]
+
+In this way, leadtime within a forecast window is treated the same as the two spatial coordinates by the DA system. Since there are 169 timesteps in each window, and we have three state variables on a $181 \times 210$ grid, the dimension of the state space is approximately $2 \times 10^7$.
+
+At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable. This means assimilating observations of the three state variables ($H_s$, $T_{m01}$ and $T_{m02}$) from the first 73 timesteps of each window, so the dimension of the observations space is 219.
+
+Since extremes of $H_s$ are the most dangerous wave events likely to be faced in offshore operations, $H_s$ is considered to be the most important variable out of the three assimilated. This gives motivation to perform two DA experiments: one in which which $H_s$ alone is assimilated, referred to as $H_s$ DA, and one in which the three variables are assimilated together, called all vars DA.
+
 \begin{figure}[h]
 \centering
 \includegraphics[width = \textwidth]{figures/ETKFschematic}
-\caption{Schematic of the forecast and analysis steps from the \comment{ETKF scheme}{Don't call it ETKF scheme}.}
+\caption{Schematic of the forecast and analysis steps from the data assimilation method used in this study.}
 \label{fig:ETKFschematic}
 \end{figure}
 
 \section{Chapter Summary}
 
-In this chapter, we have seen............
+In this chapter, we have seen details of the experimental design used in this study, including the methods used to generate the forecasts and observations used and the methods of the DA experiments performed. Descriptions of the background state given by the forecast data and the nature of the observations used are also given. In subsequent chapters, the scientific findings of this study will be presented and analysed, including the nature of the background and observation errors and the results of the two DA experiments.

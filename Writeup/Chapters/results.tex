@@ -22,7 +22,7 @@ We see here that the increments (difference between DA and no DA) are quite larg
 \centering
 \includegraphics[width = .85\textwidth]{figures/buoyhsseries9}
 %\includegraphics[width = .7\textwidth]{figures/buoyt01series9}
-\caption{Timeseries of $H_s$ at buoy location from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
+\caption{Timeseries of significant wave height at buoy location from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
 \label{fig:buoymeanseries9}
 \end{figure}
 \comment{}{Figures in this section: use linestyle to separate lines not only be colour.}
@@ -31,7 +31,7 @@ We see here that the increments (difference between DA and no DA) are quite larg
 \centering
 \includegraphics[width = .85\textwidth]{figures/farhsseries9}
 %\includegraphics[width = .7\textwidth]{figures/fart01series9}
-\caption{Timeseries of $H_s$ at $30\degrees$N $80\degrees$ W from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
+\caption{Timeseries of significant wave height at $30\degrees$N $80\degrees$ W from 12Z 09/03/2022 model run. Truth is shown in black, and all vars DA, $H_s$ DA and no DA ensemble means are shown in dark blue, light blue and orange respectively. Blue dotted line indicates the end of the assimilation window.}
 \label{fig:farmeanseries9}
 \end{figure}
 
@@ -47,7 +47,7 @@ Figure \ref{fig:hsinc} shows the increments in $H_s$ ensemble mean at 12Z 12/03/
 \begin{figure}
 \centering
 \includegraphics[width = .9\textwidth]{figures/hsinc12}
-\caption{$H_s$ ensemble mean increments at 12Z 12/03/2022 from all vars DA (top left) and $H_s$ DA (top right), and $H_s$ innovations from the same time (bottom). Taken from 12Z 10/03/2022 forecast run. The buoy location is marked with a cross.}
+\caption{Significant wave height ensemble mean increments at 12Z 12/03/2022 from all vars DA (top left) and $H_s$ DA (top right), and significant wave height innovations from the same time (bottom). Taken from 12Z 10/03/2022 forecast run. The buoy location is marked with a cross.}
 \label{fig:hsinc}
 \end{figure}
 \comment{}{Fig \ref{fig:hsinc} I think that by innovation you actually mean  -error here. Is that correct?}
@@ -57,7 +57,7 @@ Figure \ref{fig:t01inc} shows the same as \ref{fig:hsinc} but for the increments
 \begin{figure}
 \centering
 \includegraphics[width = .9\textwidth]{figures/t01inc12}
-\caption{$T_{m01}$ ensemble mean increments at 12Z 12/03/2022 from all vars DA (top left) and $H_s$ DA (top right), and $H_s$ innovations from the same time (bottom). Taken from 12Z 10/03/2022 forecast run. The buoy location is marked with a cross.}
+\caption{$T_{m01}$ ensemble mean increments at 12Z 12/03/2022 from all vars DA (top left) and $H_s$ DA (top right), and $T_{m01}$ innovations from the same time (bottom). Taken from 12Z 10/03/2022 forecast run. The buoy location is marked with a cross.}
 \label{fig:t01inc}
 \end{figure}
 
@@ -79,7 +79,7 @@ Figure \ref{fig:rmsebyday} shows the RMSE of the ensemble mean from no DA, $H_s$
 \centering
 \includegraphics[width = \textwidth]{figures/buoyt01byday}
 \end{subfigure}
-\caption{RMSE in $H_s$ (left) and $T_{m01}$ (right) \add{analysis} ensemble mean at the buoy location as a function of leadtime. RMSE is calculated over a 24hr period. Results shown for no DA (solid line), $H_s$ DA (dashed line) and all vars DA (black dotted line). Blue dotted line indicates the end of the assimilation window.}
+\caption{RMSE in significant wave height (left) and $T_{m01}$ (right) \add{analysis} ensemble mean at the buoy location as a function of leadtime. RMSE is calculated over a 24hr period. Results shown for no DA (solid line), $H_s$ DA (dashed line) and all vars DA (black dotted line). Blue dotted line indicates the end of the assimilation window.}
 \label{fig:rmsebyday}
 \end{figure}
 
@@ -103,7 +103,7 @@ Overall, all vars DA does better than $H_s$ DA at predicting both $H_s$ and $T_{
 \centering
 \includegraphics[width = \textwidth]{figures/hserrmap2-3}
 \includegraphics[width = \textwidth]{figures/hserrmap4-5}
-\caption{Maps of RMSE in $H_s$ ensemble mean from the period 12Z 12/03/2022 to 13/03/2022, with leadtime 2-3 days (top) and 4-5 days (bottom). Middle panels show RMSE from no DA, side panels show absolute RMSE reduction compared to no DA from all vars DA (left) and $H_s$ DA (right). The buoy location is marked with a cross.}
+\caption{Maps of RMSE in significant wave height ensemble mean from the period 12Z 12/03/2022 to 13/03/2022, with leadtime 2-3 days (top) and 4-5 days (bottom). Middle panels show RMSE from no DA, side panels show absolute RMSE reduction compared to no DA from all vars DA (left) and $H_s$ DA (right). The buoy location is marked with a cross.}
 \label{fig:hserrmaps}
 \end{figure}
 
@@ -133,7 +133,7 @@ All vars DA shows a greater reduction in $T_{m01}$ ensemble spread overall. This
 \includegraphics[width = \textwidth]{figures/hsspreadseries10}
 \includegraphics[width = \textwidth]{figures/t01spreadseries10}
 \end{subfigure}
-\caption{Timeseries of ensemble standard deviation in $H_s$ (top) and $T_{m01}$ (bottom) at the buoy location\replace{. Taken from}{for} 12Z 06/03/2022 (left) and 12Z 10/03/2022 (right) model runs.}
+\caption{Timeseries of ensemble standard deviation in significant wave height (top) and $T_{m01}$ (bottom) at the buoy location for 12Z 06/03/2022 (left) and 12Z 10/03/2022 (right) model runs.}
 \label{fig:DAensspread}
 \end{figure}
 
@@ -147,7 +147,7 @@ Overall, all vars DA shows greater reduction in ensemble spread at most times an
 \centering
 \includegraphics[width = \textwidth]{figures/hsspreadmap1}
 \includegraphics[width = \textwidth]{figures/hsspreadmap5}
-\caption{Ensemble standard deviation in $H_s$ at 12Z 11/03/2022, taken from 12Z 10/03/2022 (1 day leadtime, top) and 12Z 06/03/2022 (5 days leadtime, bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
+\caption{Ensemble standard deviation in significant wave height at 12Z 11/03/2022, taken from 12Z 10/03/2022 (1 day leadtime, top) and 12Z 06/03/2022 (5 days leadtime, bottom) model runs. Middle panel shows standard deviation from no DA, side panels show standard deviation reduction from all vars DA (left) and $H_s$ DA (right).}
 \label{fig:hsspreadmaps}
 \end{figure}
 
@@ -173,7 +173,7 @@ Overconfident ensembles are most important to avoid when the error is large, sin
 \centering
 \includegraphics[width = .49\textwidth]{figures/hsspreaderrall}
 \includegraphics[width = .49\textwidth]{figures/t01spreaderrall}
-\caption{Left: Scatter plot of $H_s$ RMSE against $H_s$ ensemble standard deviation at the buoy location. All vars DA shown with triangles, $H_s$ DA shown with circles and leadtime shown by colour. Lines of best fit shown for all vars DA (dotted) and $H_s$ DA (dashed) as well as 1:1 line (solid). Right: the same for RMSE and ensemble spread in $T_{m01}$.}
+\caption{Left: Scatter plot of significant wave height RMSE against significant wave height ensemble standard deviation at the buoy location. All vars DA shown with triangles, $H_s$ DA shown with circles and leadtime shown by colour. Lines of best fit shown for all vars DA (dotted) and $H_s$ DA (dashed) as well as 1:1 line (solid). Right: the same for RMSE and ensemble spread in $T_{m01}$.}
 \label{fig:spreaderr}
 \end{figure}
 
@@ -197,7 +197,7 @@ $H_s$ DA & 115 & 214 \\ \hline
 All Vars DA & 100 & 135 \\ \hline
 \end{tabular}
 }
-\caption{Left: Frequency of overconfident $H_s$ and $T_{m01}$ ensembles from no DA, $H_s$ DA and all vars DA. Right: The same but the ensemble must meet a minimum RMSE threshold of 0.1m for $H_s$ and 0.2s for $T_{m01}$ to be counted.}
+\caption{Left: Frequency of overconfident significant wave height and $T_{m01}$ ensembles from no DA, $H_s$ DA and all vars DA. Right: The same but the ensemble must meet a minimum RMSE threshold of 0.1m for significant wave height and 0.2s for $T_{m01}$ to be counted.}
 \label{tab:conffreq}
 \end{table}
 
@@ -216,7 +216,7 @@ Note on the scatter plots that the points are arranged discretely at integer num
 \centering
 \includegraphics[width = \textwidth]{figures/peakbuoy4}
 \end{subfigure}
-\caption{ Scatter plots of timing and magnitude of maximum $H_s$ at buoy location from period 12Z 12/03/2022 to 12Z 13/03/2022. Generated from model run starting 12Z 10/03/2022 (left) and 12Z 08/03/2022 (right). Truth is shown in black, and the no DA, $H_s$ DA and all vars DA ensemble members are shown in red, blue and green respectively.}
+\caption{ Scatter plots of timing and magnitude of maximum significant wave height at buoy location from period 12Z 12/03/2022 to 12Z 13/03/2022. Generated from model run starting 12Z 10/03/2022 (left) and 12Z 08/03/2022 (right). Truth is shown in black, and the no DA, $H_s$ DA and all vars DA ensemble members are shown in red, blue and green respectively.}
 \label{fig:peakerrors}
 \end{figure}
 
@@ -240,7 +240,7 @@ $H_s$ DA & 2.7 & 0.40 \\ \hline
 All Vars DA & 1.9 & 0.46 \\ \hline
 \end{tabular}
 %}
-\caption{RMSE of magnitude and timing of the $H_s$ maximum from the ensembles plotted in figure \ref{fig:peakerrors}.}
+\caption{RMSE of magnitude and timing of the significant wave height maximum from the ensembles plotted in figure \ref{fig:peakerrors}.}
 \label{tab:hsmax}
 \end{table}
 
