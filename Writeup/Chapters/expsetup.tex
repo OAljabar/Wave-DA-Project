@@ -2,7 +2,7 @@
 
 \chapter{Experimental Design} % Main chapter title
 
-\label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{chap:expsetup} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
 This chapter is intended to describe the details of the experimental design used in this project. It contains a description of the wave model used to generate the forecasts, as well as an overview of the background state and the observations available to us. Finally a description is given of the twin experiment method used in this project, as well as the data assimilation setup.
 
@@ -36,22 +36,20 @@ $S_{nl}$ represents interactions between waves due to nonlinear processes, which
 
 In shallow water, processes such as wave-bottom interactions, wave breaking and reflection off shorelines become important, so additional source terms are included to describe this.
 
-From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables we will be focusing on in this study are significant wave height $H_s$, and two measures of the wave period $T_{m01}$ and $T_{m02}$. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
+From the forecasted spectra, other variables such as wave height, period and mean direction are derived. The three variables focused on in this study are significant wave height $H_s$, and two measures of the wave period $T_{m01}$ and $T_{m02}$. These are related to the spectrum via the spectral moments (equations \ref{eqn:moments}, \ref{eqn:mainvars}).
 
-The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which we hope will lead to better DA results.
+The reason for assimilating both $T_{m01}$ and $T_{m02}$ is that they are defined from different spectral moments, so assimilating both will provide more information about the spectrum than either one alone, which is expected to lead to better DA results.
 
 As forcing, WW3 uses just the 10 metre wind, and this comes from the National Oceanic and Atmospheric Association's (NOAA) global ensemble forecasting system (GEFS) \citep{NOAA2023}. A 31 member ensemble is taken from GEFS, and the $u$ and $v$ wind fields at 10m are used to force WW3. Each GEFS ensemble member provides forcing for one of the 31 WW3 ensemble members.
-
 
 Fugro use a nested domain to produce the forecasts, running WW3 on a $0.5\degrees$ resolution global rectangular grid, and two higher resolution nested grids covering the Gulf of Mexico. There is  a $0.1\degrees$ resolution grid spanning the  entire Gulf, from $15.0 - 33.0\degrees$N and $79.1 - 100\degrees$W, and a $0.05\degrees$ grid spanning from $18 - 22.5\degrees$N and $90.5 - 96.5\degrees$W. These domains are shown on a map in figure \ref{fig:domain}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width = .8\textwidth]{figures/modelDomain}
-\caption{Model domains shown on map.}
+\caption{Model domains shown on a map. The white rectangle shows the outer domain, the red rectangle shows the inner domain and the buoy is marked with a yellow pin.}
 \label{fig:domain}
 \end{figure}
-\comment{}{All figures: Figures usually precede first reference in the text.}
 
 Forecasts are produced at 12Z each day, and run up to seven days ahead. Fugro have provided us with pre-computed forecast data for seven of these daily runs, with start dates spanning from 06/03/2022 to 12/03/2022. A schematic of this process is shown in figure \ref{fig:fugrosetup}. As stated in section \ref{sec:kalmanfilters}, we are unable to run the forecast model in this project, so each 7-day forecast window is treated separately with a single analysis step.
 
@@ -69,9 +67,9 @@ Forecasts are produced at 12Z each day, and run up to seven days ahead. Fugro ha
 \section{Background State}
 \label{sec:background}
 
-The background state refers to the state of the system before DA, which in our case is given by the pre-computed forecast data from Fugro. In this section we present a general overview of the background state in the domain, across the period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022. This cold front is particularly important to consider as these events are a very common cause of high waves in the region, and in our examination of the results of this study we are particularly interested in forecasts of the waves associated with the cold front.
+The background state refers to the state of the system before DA, which in our case is given by the pre-computed forecast data from Fugro. This section contains a general overview of the background state in the domain, across the period from 06/03/2022 to 19/03/2022. We identify the broad features of the waves in this window, and also discuss the effect of a cold front that passed through the region on 12/03/2022. This cold front is particularly important to consider as these events are a very common cause of high waves in the region, and in our examination of the results of this study we are particularly interested in forecasts of the waves associated with the cold front.
 
-Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. This is normal for the region according to \citet{Appendini2014}, in which a 30-year wave hindcast was constructed for the GoM using the MIKE 21 SW wave model \citep{Sorensen2004} forced by winds from the North American regional reanalysis \citep{Mesinger2006}. In that study, it was found that mean $H_s$ in the GoM is generally in the range 1m - 1.5m, with lower values < 1m in the shallow coastal waters.
+Figure \ref{fig:hdirtimemean} shows the significant wave height and direction averaged over the first six days and last six days of the forecast period. $H_s$ is mostly between 1m and 2m in the central gulf, with lower significant wave heights of < 1m in sheltered coastal areas such as the western side of Florida and the Yucatan peninsula. This is normal for the region according to \citet{Appendini2014}, in which a 30-year wave hindcast was constructed for the GoM using the MIKE 21 SW wave model \citep{Sorensen2004} forced by winds from the North American regional reanalysis \citep{Mesinger2006}. In that study, it was found that mean $H_s$ in the GoM is generally in the range 1m - 1.5m, with lower values < 1m in the shallow coastal waters.
 
 The central part of the domain has largely east-southeasterly waves over both periods, which diverge after they pass between Yucatan and Cuba. The two periods are separated by the passage of strong cold front (figure \ref{fig:wavesandchart}) and there is a slight shift to more easterly waves after the front has passed. This change is likely related to the wind backing associated with the front. The southern part of the Gulf of Mexico has slightly higher waves, around 1 - 1.5m, in the six day period after the passage of the front.
 
@@ -89,9 +87,9 @@ The central part of the domain has largely east-southeasterly waves over both pe
 \label{fig:hdirtimemean}
 \end{figure}
 
-There is a large peak in significant wave height on the 12/03/2022, related to a cold front passing through the region. A map of $H_s$ in the GoM at 18:00 on 06/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is again in line with \citet{Appendini2014}, in which cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
+There is a large peak in significant wave height on the 12/03/2022, related to a cold front passing through the region. A map of $H_s$ in the GoM at 18:00 on 12/03/2022 is shown in figure \ref{fig:wavesandchart}, along with a surface chart from the same time. The cold front is visible on the chart, and high waves are present in a large region behind the front. This is again in line with \citet{Appendini2014}, in which cold fronts are identified as a common driver of high waves between October and April, with the most intense peaks occuring between December and March.
 
-The height of the waves during this event is up to 6m. This is not unusual according to \citet{Panchang2013}, in which wave height extremes in the GoM are analysed. The authors discuss what they call the SWH100, being the maximum estimated significant wave height in a 100 year period. They estimate SWH100 using multiple methods and in each case find that SWH100 is >10m in much of the central Gulf. The proximity of large $H_s$ values to the Southern coast of the GoM is slightly more unusual to see, as \citet{Panchang2013} finds SWH100 to be $\sim$ 7m much of the Southern GoM.The $H_s$ values seen here are still within this limit, but not by as much, indicating that the magnitude of wave heights forecast in this region may be unusual from a climatological standpoint.
+The height of the waves during this event is up to 6m. This is not unusual according to \citet{Panchang2013}, in which wave height extremes in the GoM are analysed. The authors discuss what they call the SWH100, being the maximum estimated significant wave height in a 100 year period. They estimate SWH100 using multiple methods and in each case find that SWH100 is >10m in much of the central Gulf. The proximity of large $H_s$ values to the Southern coast of the GoM is slightly more unusual to see, as \citet{Panchang2013} finds SWH100 to be $\sim$ 7m much of the Southern GoM. The $H_s$ values seen here are still below this, but not by as much, indicating that the magnitude of significant wave heights forecast in this region may be unusual from a climatological standpoint.
 
 \begin{figure}
 \centering
@@ -117,7 +115,7 @@ Figure \ref{fig:t01maps} shows $T_{m01}$ at 18Z 12/03/2022 and averaged over the
 \label{fig:t01maps}
 \end{figure}
 
-In summary, we have seen that the wave heights during the forecast window were normal for the region, with the exception of those induced by a cold front on 12/03/2022. The waves associated with this cold front had longer period than most waves in the region, and the wave heights seen in the Southern GoM were somewhat climatologically unusual. We view this cold front event as particularly worthy of analysis, since it is this kind of event that poses a danger to offshore operations. This is especially true looking forward since \citet{Appendini2014} determined that extreme wave heights in the region are becoming higher over time.
+In summary, we have seen that the significant wave heights during the forecast window were normal for the region, with the exception of those induced by a cold front on 12/03/2022. The waves associated with this cold front had longer period than most waves in the region, and the significant wave heights seen in the Southern GoM were somewhat climatologically unusual. We view this cold front event as particularly worthy of analysis, since it is this kind of event that poses a danger to offshore operations. This is especially true looking forward since \citet{Appendini2014} determined that extreme wave heights in the region are becoming higher over time.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 3
@@ -137,9 +135,9 @@ Our observations come from an acoustic Doppler current profiler (ADCP) buoy \cit
 	\eta &= a \exp{i(\mathbf{k}\cdot\mathbf{x} - \sigma t)},
 \end{align*}
 
-where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, the cross-covariance between the velocities measured at different depths may be combined to give an estimate of the direction-integrated spectrum $S(\sigma) = \int F(\sigma,\theta) \intd\theta$. Further details are given in \citet{Boyd2006}, chapter V, in which the direction-integrated spectrum is notated $E(\omega)$.
+where only the real part of each expression should be taken. Note that the horizontal velocity $(u,v)$ is always in the same direction as the wave vector $\mathbf{k}$. From the ADCP measurements, the cross-covariance between the velocities measured at different depths may be combined to give an estimate of the direction-integrated spectrum $S(\sigma) = \int F(\sigma,\theta) \intd\theta$. Further details are given in \citet{Boyd2006}, chapter V, in which the direction-integrated spectrum is notated $E(\omega)$. Bulk wave variables such as those assimilated in this study can then be derived from the spectral moments as described in section \ref{sec:wavespectra}
 
-We have observations available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in wave height late on the 12th of March is clearly visible on the plot.
+Observations are available over a roughly 6 month period spanning from October 2021 to April 2022, which includes the period for which forecasts are available. A timeseries of the observed significant wave height from the forecast period is included in figure \ref{fig:obshsseries}. The peak in significant wave height late on the 12th of March is clearly visible on the plot.
 
 \begin{figure}[h]
 \centering
@@ -148,7 +146,7 @@ We have observations available over a roughly 6 month period spanning from Octob
 \label{fig:obshsseries}
 \end{figure}
 
-Figure \ref{fig:buoyseries} shows a timeseries of observed $H_s$ and $T_{m01}$ from a longer period. We see that outside of specific peaks, $H_s$ is generally < 1m. This is consistent with the model background state which showed $H_s$ in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in $H_s$ followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in $H_s$ are associated with peaks in $T_{m01}$. This points to a positive correlation between $H_s$ and $T_{m01}$ which is dicussed further in section \ref{sec:bgerrors}.
+Figure \ref{fig:buoyseries} shows a timeseries of observed $H_s$ and $T_{m01}$ from a longer period. It shows that outside of specific peaks, $H_s$ is generally < 1m. This is consistent with the model background state which showed $H_s$ in the buoy region to be < 1m for much of the forecast period. The peaks generally consist of a sharp increase in $H_s$ followed by a more gradual decrease down to the baseline level. This is consistent with the slightly higher waves seen in the model background state in the buoy region after the passage of the front. As seen in the background state, the peaks in $H_s$ are associated with peaks in $T_{m01}$. This points to a positive correlation between $H_s$ and $T_{m01}$ which is dicussed further in section \ref{sec:bgerrors}.
 
 \begin{figure}[h]
 \centering
@@ -173,15 +171,13 @@ Figure \ref{fig:obsdensityplot} shows a density plot of observed $H_s$ and wave 
 \section{Twin Experiment}
 \label{sec:twinexp}
 
-A twin experiment, also known as an observing system simulation experiment (OSSE), is a popular methodology often used for evaluating the impact of new observing systems when observational data is not yet available \citep{Zeng2020}. Even though we do have observations available, we use the OSSE methodology because the `truth' is available across the entire domain, which is not the case when assimilating real observations. This is desirable because it allows forecast error to be calculated away from the positions and times of observations.
+A twin experiment, also known as an observing system simulation experiment (OSSE), is a popular methodology often used for evaluating the impact of new observing systems when observational data is not yet available \citep{Zeng2020}. Even though we do have observations available, the OSSE methodology is used because it makes the `truth' available across the entire domain, which is not the case when assimilating real observations. This is desirable because it allows forecast error to be calculated away from the positions and times of observations.
 
-In an OSSE, data from a model run (often called the `nature run', here called the `truth') is assimilated in place of real observational data. Here we select one of the 31 ensemble members to represent the truth, and DA is applied to the remaining 30 ensemble members. The same ensemble member is selected for each forecast window, to maximise continuity in the generated observations. Since the forecast windows overlap, the `truth' contains multiple values for each time depending on the forecast window, and these values may differ slightly. (maybe plot) This is not a problem for this study, since each forecast window is treated as its own DA problem with its own `truth' (see section \ref{sec:DAsetup} for further discussion).
+In an OSSE, data from a model run (often called the `nature run', here called the `truth') is assimilated in place of real observational data. Here we select one of the 31 ensemble members to represent the truth, and DA is applied to the remaining 30 ensemble members. The same ensemble member is selected for each forecast window, to maximise continuity in the generated observations. Since the forecast windows overlap, the `truth' contains multiple values for each time depending on the forecast window, and these values may differ slightly. This is not a problem for this study, since each forecast window is treated as its own DA problem with its own `truth' (see section \ref{sec:DAsetup} for further discussion).
 
-The observations are generated by sampling values from the truth at predefined observation locations and times. Here we sample hourly values from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:obserrors}
+The observations are generated by sampling values from the truth at predefined observation locations and times. Hourly values are sampled from the nearest gridpoint to the buoy to match the real observations that are available. To represent observation error, some random noise is added to the sampled values. This noise is drawn from a normal distribution with standard deviation equal to the error standard deviation derived in section \ref{sec:obserrors}
 
-A limitation of the OSSE method is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. Since the data that we assimilate in this project is also from model output, it will be subject to all the same biases as the forecast data so when generating the observations as described in the previous paragraph it is not possible for the DA to correct these biases.
-
-It is possible to add an artificial bias when generating the observations, but this is not pursued in this project in the interests of simplicity. (Theoretically, you could add a bias to the the truth and see whether the DA can correct it. For simplicity, we haven't looked into a bias correcting scheme. You might want to mention that bias correcting DA schemes exist (the MetOffice has one) and then add some references to papers using them.)
+A limitation of the OSSE method is its inability to correct biases in the model. Figure \ref{fig:hsominusb} shows a possible bias in the forecasted values of $H_s$, which would be desirable to try to correct with DA. Since the data assimilated in this project is also from model output, it will be subject to all the same biases as the forecast data so when generating the observations as described in the previous paragraph it is not possible for the DA to correct these biases. It is possible to add an artificial bias when generating the observations, but this is not pursued in this project in the interests of simplicity.
 
 %----------------------------------------------------------------------------------------
 %	SECTION 5
@@ -193,7 +189,7 @@ It is possible to add an artificial bias when generating the observations, but t
 To perform the data assimilation , we use pyPDAF \citep{Chen2024}, which is a python interface for the 
 Fortran-based Parallel Data Assimilation Framework (PDAF). We will use the analysis step from the ETKF method which comes builtin with PDAF. As previously stated, we do not have access to WW3, which makes a conventional forecast step impossible.
 
-To get around this, at each analysis step we correct an entire 7-day forecast window, and in place of the forecast step we load data from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}. So, in our setup, each 7-day forecast window is treated as a stand-alone DA problem with its own truth. One ramification of this is that improvements in one window are not propagated to the next.
+To get around this, at each analysis step an entire 7-day forecast window is corrected, and in place of the forecast step data is loaded from the next forecast window. A schematic of the process is included in figure \ref{fig:ETKFschematic}. So, in our setup, each 7-day forecast window is treated as a stand-alone DA problem with its own truth. One ramification of this is that improvements in one window are not propagated to the next.
 
 Since observations are assimilated from multiple times, this requires the use of 4D state vectors as mentioned in section \ref{sec:DAintro}. This means the state vector contains components from each timestep within a forecast window i.e. 
 
@@ -201,11 +197,11 @@ Since observations are assimilated from multiple times, this requires the use of
 \x = \begin{pmatrix} \x (t = 0) \\ \x (t = 1 \, \text{hrs}) \\ \x (t = 2 \, \text{hrs}) \\ \vdots \\ \x (t = 7 \, \text{days}) \end{pmatrix}.
 \]
 
-In this way, leadtime within a forecast window is treated the same as the two spatial coordinates by the DA system. Since there are 169 timesteps in each window, and we have three state variables on a $181 \times 210$ grid, the dimension of the state space is approximately $2 \times 10^7$.
+In this way, leadtime within a forecast window is treated the same as the two spatial coordinates by the DA system. Since there are 169 timesteps in each window, and three state variables on a $181 \times 210$ grid, the dimension of the state space is approximately $2 \times 10^7$.
 
-At each analysis step, we will assimilate observations from the first three days of the forecast window. This allows us to investigate errors at times after the assimilation window and assess the capability of DA to improve the forecast at future time when observations are unavailable. This means assimilating observations of the three state variables ($H_s$, $T_{m01}$ and $T_{m02}$) from the first 73 timesteps of each window, so the dimension of the observations space is 219.
+At each analysis step, observations are assimilated from the first three days of the forecast window. This time period is referred to as the `assilimation window'. This allows the calculation of errors at times after the assimilation window and the assessment of the capability of DA to improve forecasts. This means assimilating observations of the three state variables ($H_s$, $T_{m01}$ and $T_{m02}$) from the first 73 timesteps of each window, so the dimension of the observation space is 219.
 
-Since extremes of $H_s$ are the most dangerous wave events likely to be faced in offshore operations, $H_s$ is considered to be the most important variable out of the three assimilated. This gives motivation to perform two DA experiments: one in which which $H_s$ alone is assimilated, referred to as $H_s$ DA, and one in which the three variables are assimilated together, called all vars DA.
+Since extremes of $H_s$ are the most dangerous wave events likely to be faced in offshore operations, $H_s$ is considered to be the most important variable out of the three assimilated. This gives motivation to perform two DA experiments: one in which $H_s$ alone is assimilated, referred to as $H_s$ DA, and one in which the three variables are assimilated together, called all vars DA.
 
 \begin{figure}[h]
 \centering

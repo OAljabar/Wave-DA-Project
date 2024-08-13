@@ -26,7 +26,7 @@
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
 %oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
 english, % ngerman for German
-singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+onehalfspacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
 %nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
 %liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
@@ -60,7 +60,7 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \newcommand{\vect}[1]{\mathbf{#1}}
-\newcommand{\uvec}[1]{\hat{\mathbf{#1}}}
+\newcommand{\uvec}[1]{\mathbf{#1}}
 \newcommand{\mat}[1]{\mathbf{#1}}
 \newcommand{\x}{\vect{x}}
 \newcommand{\y}{\vect{y}}
@@ -70,6 +70,14 @@ headsepline, % Uncomment to get a line under the header
 \newcommand{\degrees}{^{\circ}}
 \newcommand{\T}{\mathrm{T}}
 
+\newif\ifabbreviation
+\pretocmd{\thebibliography}{\abbreviationfalse}{}{}
+\AtBeginDocument{\abbreviationtrue}
+\DeclareRobustCommand\acroauthor[2]{%
+  \ifabbreviation #2\else #1 (\mbox{#2})\fi}
+
+\let \cleardoublepage \clearpage
+
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %----------------------------------------------------------------------------------------
@@ -77,7 +85,7 @@ headsepline, % Uncomment to get a line under the header
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
 	inner=2.5cm, % Inner margin
-	outer=3.8cm, % Outer margin
+	outer=3.4cm, % Outer margin
 	bindingoffset=.5cm, % Binding offset
 	top=1.5cm, % Top margin
 	bottom=1.5cm, % Bottom margin
@@ -106,6 +114,8 @@ headsepline, % Uncomment to get a line under the header
 \hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
 \hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
 \hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+\hypersetup{allcolors=black}
+\hypersetup{colorlinks=false}
 }
 
 \begin{document}
@@ -186,30 +196,28 @@ headsepline, % Uncomment to get a line under the header
 %----------------------------------------------------------------------------------------
 
 \addchaptertocentry{Abstract} % Add the abstract to the table of contents
-Waves are a distinctive visual feature of the ocean surface, and their accurate forecasting is critical for ensuring safety in offshore operations. One company producing these forecasts is Fugro, who produce regional forecasts of quantities such as wave height for a client performing offshore operations in the Gulf of Mexico. In this study, we aim to use data assimilation to improve the accuracy of these forecasts.
+Waves are a distinctive visual feature of the ocean surface, and their accurate forecasting is critical for ensuring safety in offshore operations. One company producing these forecasts is Fugro, who produce regional forecasts of quantities such as significnat wave height for a client performing offshore operations in the Gulf of Mexico. The aim of this study is to use data assimilation to improve the accuracy of these forecasts.
 
-Data assimilation (DA) refers to a range of statistical methods for integrating observations into a forecast, with the aim of making the forecast more accurate. The observations come from a buoy operated by the client, positioned near their offshore site in the Southern part of the Gulf. Observations of significant wave height ($H_s$) and two measures of period ($T_{m01},T_{m02}$) are assimilated. One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
+Data assimilation (DA) refers to a range of statistical methods for integrating observations into a forecast, with the aim of making the forecast more accurate. The observations come from a buoy operated by the client, positioned near their offshore site in the Southern part of the Gulf. Observations of significant wave height ($H_s$) and two measures of wave period ($T_{m01},T_{m02}$) are assimilated. One DA experiment ($H_s$ DA) is performed where only significant wave height is assimilated, and another (all vars DA) is performed where significant wave height is assimilated alongside the two measures of wave period.
 
-The DA method used borrows the analysis step of the ensemble transform Kalman filter (ETKF) method. The conventional ETKF consists of update steps in which observations from a given time are assimilated, alternating with forecast steps in which the forecast model is used to evolve the state forward to the next observation time. Since we do not have access to the forecast model in this study, we are unable to perform the forecast step and instead we use a single analysis step to update an entire 7-day forecast window simultaneously.
+The DA method used borrows the analysis step of the ensemble transform Kalman filter (ETKF) method. The conventional ETKF consists of update steps in which observations from a given time are assimilated, alternating with forecast steps in which the forecast model is used to evolve the state forward to the next observation time. Since access to the forecast model is unavailable in this study, the forecast step cannot be performed and instead a single analysis step is used to update an entire 7-day forecast window simultaneously.
 
 %The data assimilation (DA) method used differs from the conventional ETKF method since the lack of access to a forecast model precludes any possibilty of cycling. Instead the update step of ETKF is used to correct an entire forecast window at once before loading forecast data from the next window. Observations are assimilated from the first three days of each forecast window (the `assimilation window'). One DA experiment ($H_s$ DA) is performed where only wave height is assimilated, and another (all vars DA) is performed where wave height is assimilated alongside the two measures of period.
 
-Since the errors in the forecast and observations are central in determining the working of DA, these errors are investigated prior to performing the assimilation. The forecast errorse mean, with peaks in variance typically preceding peaks in the mean. The forecast error covariances are seen to have nozero values at short distances and also sometimes at larger distances. Patterns of wind forcing and travelling waves are offered as physical explanations for these long distance covariances, and the possibility of spurious covariances arising from sampling error is also discussed.
+Since the errors in the forecast and observations are central in determining the working of DA, these errors are investigated prior to performing the assimilation. The forecast errors are seen to be closely related to the ensemble mean, and forecast error covariances are often confined to short distances, with some exceptions discussed. The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. This motivates a scaled error approach in the DA, where observation errors are set at at a constant percentage of the observed value.
 
-The observation errors are examined using a colocation study and found to be a strong linear function of the observations themselves. Motivated by this, a scaled error approach is used in the DA, where observation errors are set at at a constant percentage of the observed value, with a constant minimum error threshold applied to the observations of wave period.
+Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend further in time in all vars DA. The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing.
 
-Both $H_s$ DA and all vars DA are found to reduce forecast RMSE by around 50\% during the assimilation window, and improvements extend further after te end of the window in all vars DA. The ensemble spread after DA is examined in comparison to the spread before DA, and to the RMSE. Both DA experiments show a greater overall reduction in spread than in RMSE, thus increasing overconfidence in the ensembles. The errors in forecasts of the maximum significant wave height associated with a cold front on 12/03/2022 are examined, and it is found that at 1-2 days after assimilation, $H_s$ DA improves forecasts of the height of the peak while all vars DA improves forecasts of its timing.
-
-In conclusion, we find that the DA method used here does somewhat improve wave forecasts, with all vars DA generally outperforming $H_s$ DA. It is hoped that this study will inform future wave DA work in the Gulf of Mexico, including a potential operational implementation by Fugro.
+In conclusion, the DA method used here does improve multiple aspects of wave forecasts, with all vars DA generally outperforming $H_s$ DA. It is hoped that this study will inform future wave DA work in the Gulf of Mexico, including a potential operational implementation by Fugro.
 
 %----------------------------------------------------------------------------------------
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
-%
-%\begin{acknowledgements}
-%\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
-%The acknowledgments and the people to thank go here, don't forget to include your project advisor\ldots
-%\end{acknowledgements}
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+I would like to thank my supervisors Ivo Pasmans, Sarah Dance, Irina Nikolova and Henrique Coelho for their advice and guidance, which was invaluable in completing this dissertation. I would also like to thank my friends and family for offering endless moral support and motivation throughout the project.
+\end{acknowledgements}
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES

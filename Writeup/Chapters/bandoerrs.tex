@@ -1,7 +1,7 @@
 
 \chapter{Background and Observation Errors} % Main chapter title
 
-\label{Chapter4} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\label{chap:bandoerrs} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 This chapter contains a discussion of the background and observation errors in our DA system. Though the background errors are determined directly from the ensemble when using the ETKF method, understanding the form they take is crucial to understanding how the DA system works. This is because, according to equation \ref{eqn:analysisupdate}, the DA increments always lie in the column space of the background error covariance matrix. This means that the background errors determine how information from the observations can be propagated around the domain by DA.
 
@@ -14,23 +14,21 @@ The observation errors are also important to understanding a DA system since the
 \section{Background Errors}
 \label{sec:bgerrors}
 
-In our case the background error covariance matrix is approximated by the forecast error covariance matrix $\mat{P}^f$, defined in equation \ref{eqn:ferrorcov}. The elements of $\mat{P}^f$ are the ensemble covariances at each pair of gridpoints,
+In our case the background error covariance matrix is approximated by the forecast error covariance matrix $\mat{P}^f$, defined in equation \ref{eqn:ferrorcov}. The elements of $\mat{P}^f$ are the ensemble covariances at each pair of gridpoints and timesteps,
 
 \begin{equation}
 \mat{P}^f_{ij} = \text{cov}\left( \x^f_i, \x^f_j \right),
 \end{equation}
 
-where $\x^f_i$ refers here to the ensemble values in component $i$ of the state vector. The diagonal elements are then the ensemble variance at each gridpoint:
+where $\x^f_i$ refers here to the ensemble values in component $i$ of the state vector. The diagonal elements are then the ensemble variance at each gridpoint and timestep:
 
 \begin{equation}
 \mat{P}^f_{ii} = \text{var}\left( \x^f_i \right).
 \end{equation}
 
-\comment{The ensemble variance is a good measure of the general scale of the background error, since in our DA method the diagonal elements of the forecast error covariance matrix are simply the ensemble variances at each gridpoint and timestep.}{Something is missing here. I think you're referring that the diagonal element corresponding to the grid point where the observation is located is a good indication of the contribution of the contribution of the background error covariance to the total error variance in the model prediction.}
+Figure \ref{fig:hsensseries} shows a timeseries of $H_s$ ensemble mean and variance at the buoy location from the forecast starting 12Z 10/03/2022. A peak on the 12th is apparent as in figure \ref{fig:wavesandchart}. Figure \ref{fig:hsensseries} also shows that the variance is a strong function of the mean. The variance in $H_s$ peaks just before the peak in the mean and drops back to a lower value as the mean reaches its peak. This means that the background error in $H_s$ is highest just before the peak in $H_s$.
 
-Figure \ref{fig:hsensseries} shows a timeseries of $H_s$ ensemble mean and variance at the buoy location from the forecast starting 12Z 10/03/2022. We see the peak on the 12th as seen in figure \ref{fig:wavesandchart}. We also see that the variance is a strong function of the mean. The variance in $H_s$ peaks just before the peak in the mean\remove{,} and drops back to a lower value as the mean reaches its peak. This is notable since the diagonal elements of our forecast error covariance matrix $\mat{P}^f$ are \comment{simply the ensemble variances at each gridpoint and timestep, so ensemble variance is a good measure of the magnitude of the background error. This means that the background error in $H_s$ is highest just before the peak in $H_s$.}{1) This is a repetition of what was set in the previous paragraph. 2) Could this mean that the largest source of uncertainty is the arrival time of the peak?}
-
-Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for $T_{m01}$. Again we see a peak in the variance just before the peak in the mean. In this case the peak in $T_{m01}$ is preceded by a dip, and this dip is also associated with a peak in the ensemble variance. This means that the background error \add{variance} in $T_{m01}$ is high for a period of $\sim 24$ hours, as opposed to $\sim 12$ hours for $H_s$.
+Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for $T_{m01}$. Again it shows a peak in the variance just before the peak in the mean. In this case the peak in $T_{m01}$ is preceded by a dip, and this dip is also associated with a peak in the ensemble variance. This means that the background error variance in $T_{m01}$ is high for a period of $\sim 24$ hours, as opposed to $\sim 12$ hours for $H_s$.
 
 \begin{figure}[h]
 	\centering
@@ -48,7 +46,7 @@ Figure \ref{fig:t01ensseries} shows the same as  \ref{fig:hsensseries} but for $
 
 We now present maps of the ensemble covariances in order to illustrate the forms these covariances can take and gain insight into the workings of our DA system. Covariances in space will be considered, as well as cross-covariances between different variables and lagged in time. Arrows showing wind/wave direction will be used to explain the form the covariances take.
 
-Figure \ref{fig:covhshs12-0} shows the spatial covariance of $H_s$ at 12Z 12/03/2022. The colours on the map show the covariance between $H_s$ at each point in the domain and $H_s$ at the buoy (marked with a cross). The arrows show the direction and magnitude of the wind, averaged over the preceding 24 hours. We see that the strongest covariances are confined to the western GoM and do not extend very far from the buoy. From the wind arrows we see that the wind in the region of strong covariance is very low, similar to the wind at the buoy, and that the wind in regions of weak covariance is high.
+Figure \ref{fig:covhshs12-0} shows the spatial covariance of $H_s$ at 12Z 12/03/2022. The colours on the map show the covariance between $H_s$ at each point in the domain and $H_s$ at the buoy (marked with a cross). The arrows show the direction and magnitude of the wind, averaged over the preceding 24 hours. The strongest covariances are confined to the western GoM and do not extend very far from the buoy. From the wind arrows, the wind in the region of strong covariance is very low, similar to the wind at the buoy, and that the wind in regions of weak covariance is high.
 
 \begin{figure}
 \centering
@@ -57,13 +55,11 @@ Figure \ref{fig:covhshs12-0} shows the spatial covariance of $H_s$ at 12Z 12/03/
 \label{fig:covhshs12-0}
 \end{figure}
 
-This suggests that the wind forcing plays a role in determining the nature of the ensemble covariances. This is unsurprising since according to \citet{Lefevre2012}, ocean wave prediction is primarily a forcing problem, and so we expect the nature of the forcing to play a major role in determining the properties of the waves. This is our motivation for averaging the wind values over the preceding 24 hour window, since the wind forcing takes time to have an impact on the waves.
+This suggests that the wind forcing plays a role in determining the nature of the ensemble covariances. This is unsurprising since according to \citet{Lefevre2012}, ocean wave prediction is primarily a forcing problem, and so we expect the nature of the forcing to play a major role in determining the properties of the waves. This is the motivation for averaging the wind values over the preceding 24 hour window, since the wind forcing takes time to have an impact on the waves.
 
-The wind forcing can also induce covariances at longer distances. Figure \ref{fig:covhshs11-0} shows the same as \ref{fig:covhshs12-0} but at 12Z 11/03/2022. We see positive covariance near the buoy as before, \comment{but there is also a patch of positive covariance in the northeastern GoM, which is a long way from the buoy}{Notice that that the covariances are much smaller. These small, long-distance covariances might actually be present on the 12th, just not visible in figure. This is the most important observation to take from the figure. After that, one can speculate what the small long-distance covariances in figure \ref{fig:covhshs12-0} and \ref{fig:covhshs11-0} are.} but there is also a patch of positive covariance in the northeastern GoM, which is a long way from the buoy. This is likely because the wind in this region is weak, similar to the wind in the vicinity of the buoy. Here we also see some areas of negative covariance in regions of strong winds.
+The wind forcing can also induce covariances at longer distances. Figure \ref{fig:covhshs11-0} shows the same as \ref{fig:covhshs12-0} but at 12Z 11/03/2022. The difference in magnitude of the covariance from figure \ref{fig:covhshs11-0} is notable. This could be explained by the fact that the variance in $H_s$ at 12Z 11/03/2022 is much smaller than the variance at 12Z 12/03/2022, as seen in figure \ref{fig:hsensseries}. In figure \ref{fig:covhshs11-0}, nonzero covariances are visible far from the buoy in the Northern GoM. These covariances could also be present in figure \ref{fig:covhshs12-0}, but washed out due to the larger overall magnitude of covariance in that figure. The pattern of winds gives a plausible explanation for these long-ditance covariances: the region of positive covariance in the Northeast has weak winds, similar to the vicinity of the buoy, and the region of negative covariance in the Northwest has strong winds.
 
-It is also possible that these long distance covariances are physcially unrealistic. As discussed in section \ref{sec:DApractice}, an inherent limitation in estimating the background error from the ensemble is that a finite ensemble size leads to sampling error in $\mat{P}^f$. This can cause spurious covariances to arise at long distances \citep{Hunt2007}, which can be fixed with localisation. This possibilty is not explored in this study, partly due to the fact that some of the long-distance covariances appear to be genuine, but this is something that should be included in future work on the topic.
-
-The scale of covariance seen here is much smaller than that seen in figure \ref{fig:covhshs12-0}. From figure \ref{fig:hsensseries} we see that the variance in $H_s$ at 12Z 11/03/2022 is much smaller than the variance at 12Z 12/03/2022, which likely explains the differing scales in covariance.
+It is also possible that these long distance covariances are physcially unrealistic. As discussed in section \ref{sec:DApractice}, an inherent limitation in estimating the background error from the ensemble is that a finite ensemble size leads to sampling error in $\mat{P}^f$. This can cause spurious covariances to arise at long distances \citep{Hunt2007}, which can be fixed with localisation. This possibilty is not explored in this study, partly due to the fact that plausible physical explanations exist for the long-distance covariances, but this is something that should be included in future work on the topic.
 
 \begin{figure}[h]
 	\centering
@@ -75,10 +71,10 @@ The scale of covariance seen here is much smaller than that seen in figure \ref{
 Another thing that can cause long-distance covariances is travelling swell waves. Figure \ref{fig:covhshs13-1} shows the $H_s$ covariance at 18Z 13/03/2022 with a one day lag. In other words, expressing $H_s$ as a function of space and time $H_s = H_s(x,y,t)$ we plot
 
 \[
-\text{cov}\left( H_s(x_0,y_0,t_0), H_s(x,y,t_0 - 1 \text{day} \right)
+\text{cov}\left( H_s(x_0,y_0,t_0), H_s(x,y,t_0 - 1 \, \text{day}) \right)
 \]
 
-for each $x$ and $y$. Here $(x_0,y_0)$ is the position of the buoy, and $t_0$ is 18Z 13/03/2022. This means the $H_s$ ensemble at the buoy is sampled at 18Z 13/03/2022 and the $H_s$ ensemble elsewhere in the domain is sampled at 18Z 12/03/2022, to show the correlation with earlier sea states. We see a large region of positive covariance spanning the Western GoM and much of the Northern part also. The arrows show the wave direction at 18Z 13/03/2022, and this tells us that waves from the Northwestern GoM travel West and South towards the buoy. This means they are able to influence the sea state at the buoy, which explains the positive covariance.
+for each $x$ and $y$. Here $(x_0,y_0)$ is the position of the buoy, and $t_0$ is 18Z 13/03/2022. This means the $H_s$ ensemble at the buoy is sampled at 18Z 13/03/2022 and the $H_s$ ensemble elsewhere in the domain is sampled at 18Z 12/03/2022, to show the correlation with earlier sea states.  There is a large region of positive covariance spanning the Western GoM and much of the Northern part also. The arrows mark the wave direction at 18Z 13/03/2022, and this shows that waves from the Northwestern GoM travel West and South towards the buoy. This means they are able to influence the sea state at the buoy, which explains the positive covariance.
 
 Another notable aspect of figure \ref{fig:covhshs13-1} is the general magnitude of covariance seen. The maximum covariance seen in figure \ref{fig:covhshs13-1} is 0.03, compared to 0.20 in figure \ref{fig:covhshs12-0}. This is explained by the one day lag used to generate figure \ref{fig:covhshs13-1}. We expect the covariances between two points to decrease the further apart those two points are in time, and this is what we see. This means that we expect the observations assimilated to have more of an impact on the state at times near the observation time.
 
@@ -105,14 +101,12 @@ So far we have only examined the covariance of $H_s$ with itself. There are also
 \label{fig:covhst0112-0}
 \end{figure}
 
-Figure \ref{fig:covhst0112-0} shows the cross-covariance between $H_s$ at the buoy and $T_{m01}$ elsewhere at 12Z 12/03/2022. We see that there is a large area of positive covariance to the Northwest of the buoy, with the wave direction (left plot) pointing mostly towards the buoy in this region. This suggests that the positive covariance may be related to travelling swell waves, since large swell waves with long period in the region Northwest of the buoy could travel towards the buoy and lead to higher waves there. However more investigation is required to determine if this is actually the case.
+Figure \ref{fig:covhst0112-0} shows the cross-covariance between $H_s$ at the buoy and $T_{m01}$ elsewhere at 12Z 12/03/2022. There is a large area of positive covariance to the Northwest of the buoy, with the wave direction (left plot) pointing mostly towards the buoy in this region. This suggests that the positive covariance may be related to travelling swell waves, since large swell waves with long period in the region Northwest of the buoy could travel towards the buoy and lead to higher waves there. However more investigation is required to determine if this is actually the case.
 
 There are also small patches of strong negative covariance, directly East of the buoy and also South in the 
-Pacific ocean. Since there is no obvious difference in the winds in each region to explain this, these negative covariances could be spurious. \comment{This is especially true of the negative covariance seen in the Pacific, since there is no way for the waves here to interact directly with the waves at the buoy.}{This duplicates what you said two paragraphs ago. I would merge these paragraphs into one explaining what is driving Hs at buoy location.}
+Pacific ocean. Since there is no obvious difference in the winds in each region to explain this, these negative covariances could be spurious. This is especially true of the negative covariance seen in the Pacific, since there is no way for the waves here to interact directly with the waves at the buoy.
 
-\comment{Note also that the scale of positive covariance seen here (approximately 0.15) is smaller than the scale of covariance seen between $H_s$ and itself at the same time (figure \protect\ref{fig:covhshs12-0}, approximately 0.2). This means that observations of $H_s$ will have less impact on $T_{m01}$ than observations of $T_{m01}$ will and vice versa, which is what we intuitively expect.}{I don't think you can see this, as these two covariances have different units.}
-
-In this section, we have presented maps showing the forms that the forecast error covariances can take, and attempted to explain them by referring to physical explanations from winds and wave directions, and also to sampling error. However, the physical explanations discussed here are quite simple and surface-level, and more investigation would be useful to explain the form of the covariance. Since understanding the physical mechanisms behind the covariances is not completely central to this project's goal of explaining DA performance, it is not explored further here, but it would be a good avenue for future work.
+In this section, we have presented maps showing the forms that the forecast error covariances can take, and attempted to explain them by referring to physical explanations from winds and wave directions, and also to sampling error. However, the physical explanations discussed here are quite simple and surface-level, and more investigation would be useful to explain the form of the covariance. Since understanding the physical mechanisms behind the covariances is not completely central to this section's goal of explaining DA performance, it is not explored further here, but it would be a good avenue for future work.
 
 \section{Diagnosis of Observation Errors}
 \label{sec:obserrors}
@@ -125,7 +119,7 @@ The observation error covariance matrix $\mat{R}$ contains the observation error
 \mat{R}_{ij} = \text{cov}\left( \delta \y_i, \delta \y_j \right),
 \]
 
-where $\delta \y_i$ represents the error in the $i^\text{th}$ observation. To simplify the computation, we assume that the observation error covariance matrix $\mathbf{R}$ is diagonal, essentially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. The formula for $\mat{R}$ becomes
+where $\delta \y_i$ represents the error in the $i^\text{th}$ observation. To simplify computation, the observation error covariance matrix $\mathbf{R}$ is assumed to be diagonal, essentially ignoring covariances between observations taken at different times. This also makes determining $\mathbf{R}$ easier since all that is required is to estimate the observation error variance at each point. The formula for $\mat{R}$ becomes
 
 \[
 \mat{R}_{ij} = \begin{cases}
@@ -134,51 +128,21 @@ where $\delta \y_i$ represents the error in the $i^\text{th}$ observation. To si
 \end{cases}
 \]
 
-\subsection{Constant Error Variance}
-\label{sec:consterrs}
-
-It is not obvious how to estimate this error variance, and several methods are available for doing so. A simple one is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error \citep{Desroziers2006}, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this spread. It is reasonable to assume that the contributions from background and obsevation errors are similarly sized, so the observation error can be estimated to be 50\% of the totl spread.
-
-An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. From the plot we see that the spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may \comment{be estimated to be approximately 50cm}{Why is 50\% a good estimate?}.
-
-Another thing that is visible from the $o-b$ plot is a bias in either the $H_s$ forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this is not possible (see section \ref{sec:twinexp} for details).
-
-\begin{figure}
-\centering
-\includegraphics[width = .8\textwidth]{figures/hsominusb}
-\caption{Observation - background histogram for significant wave height, from the forecast window 06/03/2022 to 19/03/2022.}
-\label{fig:hsominusb}
-\end{figure}
-
-A more rigorous approach to estimate observational error variances is provided in \cite{Desroziers2006}, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
-
-\begin{equation}
-\mathbb{E}\left[\vect{d^o_b}\left( \vect{d^o_b} \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
-\end{equation}
-
-Taking traces and dividing by the number of observations, we get a good estimate for the observation error variance which is
-
-\begin{equation}
-\frac{1}{\text{\# observations}} \sum_i \text{var} \left( \delta \y_i \right) \approx \frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}
-\label{eqn:obserrestimate}
-\end{equation}
-
-In our case, the observation operator is very simple and simply selects the forecast values from the appropriate location and times, so the diagonal elements of $\mat{H P}^f \mat{H}^\top$ are simply the ensemble forecast variances at the observation location and times.
-
 \subsection{Scaling Error Variance}
+\label{sec:scaleerrs}
 
-Another available method is that used in \citet{Houghton2023}. They used a colocation study to estimate the error in wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on wave height, shown in figure \ref{fig:houghton2023fig2}.
+It is not obvious how to estimate this error variance, and several methods are available for doing so. One possible method is that used in \citet{Houghton2023}. They used a colocation study to estimate the error in significant wave height observations from a distributed network of drifting sofar spotter buoys. Pairs of simultaneous observations from locations within 50km of each other were collected and binned according to the average significant wave height of each pair. The difference of each pair was taken, and the standard deviation of the differences from each bin was computed. They found a strong dependence of error on significant wave height, shown in figure \ref{fig:houghton2023fig2}.
 
 \begin{figure}
 \centering
 \includegraphics[width = .7\textwidth]{figures/houghton2023fig2}
-\caption{Observation difference standard deviation in significant wave height as a function of significant wave height. Figure 2 from \citet{Houghton2023}}
+\caption{Observation error standard deviation in significant wave height as a function of significant wave height. Figure 2 from \citet{Houghton2023}}
 \label{fig:houghton2023fig2}
 \end{figure}
 
-Because of this, they estimated the observation error variance not as a constant value, as in section \ref{sec:consterrs}, but as a constant multiple of the observations themselves - in their case 6.5\%. We now apply a similar method to our observations.
+Because of this, they estimated the observation error variance not as a constant value, as in section \ref{sec:consterrs}, but as a constant multiple of the observations themselves - in their case 6.5\%. A similar method is now applied to our observations.
 
-In our case, we only have observations from one buoy and they are available hourly, so we take the pairs to be observations one hour apart. We then calculate the standard deviation using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \citet{Houghton2023}, we find a strong linear relationship between errors and wave height, with the error standard deviation being approximately 9.6\% of the wave height. This value was calculated by applying a standard linear regression to the data points plotted in figure \ref{fig:hsobsstd} and is smaller than that in \citet{Houghton2023}. (explain and find other values in lit)
+In our case, the observations come from one buoy and they are available hourly, so the pairs are taken to be observations one hour apart. The error standard deviation is calculated using the method described above to obtain the plot in figure \ref{fig:hsobsstd}. As in \citet{Houghton2023}, there is a strong linear relationship between errors and significant wave height, with the error standard deviation being approximately 9.6\% of the significant wave height. This value was calculated by applying a standard linear regression to the data points plotted in figure \ref{fig:hsobsstd} and is larger than that in \citet{Houghton2023}.
 
 Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks just before the peak in $H_s$ and drops back to lower values as $H_s$ is at its highest value. Since ensemble variance is a good measure of the magnitude of the background error, the background error is large compared to observational error just before the peak. This means that observations from this period will be given higher weighting than most. During and shortly after the peak, the opposite is true: background error is small compared to observational error, so observations from this period will be given lower weighting.
 
@@ -196,19 +160,48 @@ Recall from figure \ref{fig:hsensseries} that the ensemble variance $H_s$ peaks 
 \label{fig:periodobsstd}
 \end{figure}
 
-Repeating this process with the observations of $T_{m01}$ and $T_{m02}$ yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for $T_{m01}$ and $T_{m02}$ also fall aproximately on straight lines, though the fit is not as good as for $H_s$. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both. This suggests that we should model the error standard deviation in $H_s$ as being equal to 10\% of $H_s$, and the error standard deviation in $T_{m01}$ and $T_{m02}$ as 3.5\% of $T_{m01}$ and $T_{m02}$ respectively. 
+Repeating this process with the observations of $T_{m01}$ and $T_{m02}$ yields the plots shown in figure \ref{fig:periodobsstd}. The error distributions for $T_{m01}$ and $T_{m02}$ also fall aproximately on straight lines, though the fit is not as good as for $H_s$. The gradients are also shallower, with the error standard deviations being approximately 3.5\% of the observed variable for both.
 
-Since the errors in period are such a small percentage of the observations, it is possible that at low periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we set a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This threshold is determined using the method from \cite{Desroziers2005}, using only the observations of wave height with a value of less than 5 seconds, as these are the observations which may lead to small errors.
+Since the error standard deviations match the linear model well, this motivates modelling the error standard deviation in $H_s$ as being equal to 10\% of $H_s$, and the error standard deviation in $T_{m01}$ and $T_{m02}$ as 3.5\% of $T_{m01}$ and $T_{m02}$ respectively. Since the errors in period are such a small percentage of the observations, it is possible that at short periods the error may become very small, which would lead the to DA system fitting the observations too closely and producing physically unrealistic increments. To avoid this, we choose a minimum error threshold $\varepsilon_0$ and set the observation error standard deviation equal to this threshold whenever the scaling method gives a value less than $\varepsilon_0$. This requires estimating a constant scale for the error variance, and methods for doing that are described in the next section.
 
-The terms in \ref{eqn:obserrestimate} were calculated to be
+\subsection{Constant Error Variance}
+\label{sec:consterrs}
 
-\[
-\frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} = 0.29 s^2, \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.17 s^2
-\]
+A simple way to get a constant estimate of error variance is to plot a histogram of observation - ensemble mean, called an $o - b$ plot. The spread in $o - b$ comes from a combination of observation and background error \citep{Desroziers2005}, so a simple way of estimating the observation error is to assume that observation error accounts for a constant proportion of this spread. It is reasonable to assume that the contributions from background and obsevation errors are similarly sized, so the observation error can be estimated to be 50\% of the total spread.
 
-So the observation error variance is estimated to be $0.12 s^2$ and the standard deviation threshold is set at $0.35s$. Examining the $o-b$ histograms for $T_{m01}$ and $T_{m02}$ in figure \ref{fig:periodominusb} confirms that this is a sensible value to choose.
+An $o - b$ histogram for significant wave height is shown in figure \ref{fig:hsominusb}. The spread on the histogram is approximately 1m, so the standard deviation of observational errors in significant wave height may be estimated to be approximately 50cm.
+
+Another thing that is visible from the $o-b$ plot is a bias in either the $H_s$ forecasts or observations. The peak of the histogram is centred at around 30cm, which means that the forecast model tends to predict significant wave heights that are about 30cm less than those observed. If this bias is a result of the model, it would be desirable to investigate the capability of DA to reduce this bias. However, with the twin experiment method that is used in this project, this would require introducing an artificial bias to the observations, which is not done in this study (see section \ref{sec:twinexp} for details).
 
 \begin{figure}
+\centering
+\includegraphics[width = .8\textwidth]{figures/hsominusb}
+\caption{Observation - background histogram for significant wave height, from the forecast window 06/03/2022 to 19/03/2022.}
+\label{fig:hsominusb}
+\end{figure}
+
+\citet{Desroziers2005} provides a more rigorous approach to estimating observational error variances, by defining $\vect{d^o_b} = \y - \mathbf{H}\x_b$ and using the relation
+
+\begin{equation}
+\mathbb{E}\left[\vect{d^o_b}\left( \vect{d^o_b} \right)^\top \right] = \mathbf{H} \mathbf{P}^f \mathbf{H}^\top + \mathbf{R}
+\end{equation}
+
+Taking traces and dividing by the number of observations gives a good estimate for the average observation error variance $\overline{\text{var} \left( \delta \y_i \right)}$ which is
+
+\begin{equation}
+\overline{\text{var} \left( \delta \y_i \right)} = \frac{\text{Tr}(\mat{R})}{\text{\# observations}} \approx \frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} - \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}}.
+\label{eqn:obserrestimate}
+\end{equation}
+
+In our case, the observation operator is very simple and just selects the forecast values from the appropriate location and times, so the diagonal elements of $\mat{H P}^f \mat{H}^\top$ are simply the forecast ensemble variances at the observation location and times. To determine the minimum error threshold, the estimate in equation \ref{eqn:obserrestimate} is evaluated using only the observations of period with a value of less than 5 seconds, as these are the observations which may lead to excessively small errors. The terms on the right hand side of \ref{eqn:obserrestimate} are found to be
+
+\[
+\frac{\mathbb{E}\left[ \sum_{i} \left( \vect{d^o_b} \right)_i^2 \right]}{\text{\# observations}} = 0.29 \, \text{s}^2, \quad \frac{\text{Tr}\left( \mathbf{H} \mathbf{P}^f \mathbf{H}^\top \right)}{\text{\# observations}} = 0.17 \, \text{s}^2
+\]
+
+So the observation error variance is estimated to be $0.29 \, \text{s}^2 - 0.17 \, \text{s}^2 = 0.12 \, \text{s}^2$ and the standard deviation threshold is set at $\sqrt{0.12 \, \text{s}^2} = 0.35 \text{s}$. Examining the $o-b$ histograms for $T_{m01}$ and $T_{m02}$ in figure \ref{fig:periodominusb} confirms that this is a sensible value to choose.
+
+\begin{figure}[h]
 \centering
 \begin{subfigure}{.45\textwidth}
 \centering
@@ -222,4 +215,10 @@ So the observation error variance is estimated to be $0.12 s^2$ and the standard
 \label{fig:periodominusb}
 \end{figure}
 
-In this section, we have found that the observation error standard deviations in all variables are strong functions of the observed values, with the error in $H_s$ being approximately 9.6\% of the observed value and the error in both periods being approximately 3.5\% of the observation. Motivated by this, we will set the $H_s$ error to be 10\% of the observed value in the assimilation of wave height alone. For the assimilation of all variables, there is more risk of fitting the observations too closely are we are assimilating more observations. Because of this, we increase the scales of error standard deviation from those found above to 12\% for wave height and 7\% for the periods. We also implement a minimum error threshold of $0.35s$ for the periods.
+In this section, we have found that the observation error standard deviations in all variables are strong functions of the observed values, with the error in $H_s$ being approximately 9.6\% of the observed value and the error in both periods being approximately 3.5\% of the observation.
+
+Motivated by this, the $H_s$ error is set to 10\% of the observed value in the assimilation of significant wave height alone. For the assimilation of all variables, there is more risk of fitting the observations too closely as more observations are assimilated. Because of this, the scales of error standard deviation are increased from those found above to 12\% for significant wave height and 7\% for the periods. A minimum error threshold of $0.35s$ is implemented for the periods.
+
+\section{Chapter Summary}
+
+In this chapter we have given characterisations of the background and observation errors. Knowledge of these errors is vital to DA as between them they control a large part of the workings of a DA system. The results shown in this chapter are intended to aid understanding of the results of the DA experiments, which are presented in the next chapter.

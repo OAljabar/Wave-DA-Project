@@ -2,13 +2,13 @@
 
 \chapter{Theory} % Main chapter title
 
-\label{Chapter2} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\label{chap:theory} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 
 This chapter outlines the theoretical aspects of this study, covering both the linear wave theory used in the wave model and the theory behind data assimilation methods. The aim is to give the reader an overview of all the theory needed to understand the methods and results of the study.
 
 \section{Ocean Waves}
 
-Ocean waves are a distinctive visual feature of the ocean surface, and very important to offshore operations such as wind farms. This section will describe some of the physical processes influencing ocean waves, as well as the theory of linear waves and wave energy spectra as as modelled by the WAVEWATCH III (WW3) model used in this project \citep{WW3DG2019}.
+Ocean waves are a distinctive visual feature of the ocean surface, and very important to offshore operations such as wind farms, oil and gas rigs and undersea cable maintenance. This section will describe some of the physical processes influencing ocean waves, as well as the theory of linear waves and wave energy spectra as as modelled by the WAVEWATCH III (WW3) model used in this project \citep{WW3DG2019}.
 
 \subsection{Physical Processes}
 
@@ -36,12 +36,12 @@ This section will outline the linear wave theory relevant to this project, as de
 Parameters describing linear waves include the wavenumber $k$, direction $\theta$ and frequency $\omega$. The first two describe the wave vector $\vect{k}$, which has magnitude $k$ and direction $\theta$,
 
 \begin{equation}
-\vect{k} = - k \sin \theta \uvec{\imath} - k \cos \theta \uvec{\jmath},
+\vect{k} = - k \sin \theta \uvec{i} - k \cos \theta \uvec{j},
 \end{equation}
 
-where  $\uvec{\imath},\uvec{\jmath}$ are unit vectors pointing East and North respectively. \comment{}{Make bold if you can}. Note that $\theta$ measures the wave direction in the meteorological convention i.e. the direction the wave is coming from. This means that $\theta = 0 \degrees$ corresponds to a \replace{N}{n}ortherly wave, $\theta = 90\degrees$ corresponds to an \replace{E}{e}asterly wave and so on, and is the same convention used in WW3.
+where $\uvec{i},\uvec{j}$ are unit vectors pointing East and North respectively. Note that $\theta$ measures the wave direction in the meteorological convention i.e. the direction the wave is coming from. This is the same convention used in WW3, and means that $\theta = 0 \degrees$ corresponds to a northerly wave, $\theta = 90\degrees$ corresponds to an easterly wave and so on.
 
-Here, $\omega$ denotes the absolute frequency measured in a fixed frame of reference. If the medium is subject to currents, this will differ from the relative frequency $\sigma$ measured in a frame of reference moving with the mean current, due to the Doppler effect. This difference is quantified by the equation
+Here, $\omega$ denotes the absolute frequency measured in a fixed frame of reference. If the medium is subject to currents, this will differ from the relative frequency $\sigma$ measured in a frame of reference moving with the mean current due to the Doppler effect. This difference is quantified by the equation
 
 \begin{equation}
     \omega = \sigma + \vect{k} \cdot \vect{U},
@@ -85,11 +85,11 @@ c_g = \frac{\partial\sigma}{\partial k} = \frac{1}{2}c \left(1 + \frac{2kD}{\sin
 The phase speed is the speed at which the wave peaks and troughs move, whereas the group speed is the speed at which wave groups move. The group speed is then the speed at which energy is transported by the wave. The wave travels in the direction of the wave vector $\vect{k}$ so the group and phase velocities are given by
 
 \begin{align*}
-\vect{c}& = - c \sin\ \theta \uvec{\i} - c \cos \theta \uvec{\j}, \\
-\vect{c}_g& = - c_g \sin \theta \uvec{\i} - c_g \cos \theta \uvec{\j}.
+\vect{c}& = - c \sin\ \theta \uvec{i} - c \cos \theta \uvec{j}, \\
+\vect{c}_g& = - c_g \sin \theta \uvec{i} - c_g \cos \theta \uvec{j}.
 \end{align*}
 
-We can now use scale analysis to see that $\omega$ and $\sigma$ generally have similar values. The ratio between $\vect{k}\cdot\vect{U}$ and $\sigma$ in equation \ref{eqn:doppler} is
+Scale analysis can now be used to see that $\omega$ and $\sigma$ generally have similar values. The ratio between $\vect{k}\cdot\vect{U}$ and $\sigma$ in equation \ref{eqn:doppler} is
 
 \[
 \frac{\vect{k}\cdot\vect{U}}{\sigma} \sim \frac{kU}{\sigma} = \frac U c,
@@ -115,19 +115,19 @@ This is related to the wave energy per unit surface area $E$ via $E = \rho g \ov
 \Delta E = \rho g \int_{\Delta \sigma} S(\sigma) \intd\sigma.
 \end{equation}
 
-$S$ is a helpful diagnostic from which information about the appearance of the waves can be inferred. A widely spread spectrum implies irregular waves with many different frequency components whereas a tight spectrum implies regular waves with one dominant frequency. Low frequency waves correspond to swell, while high frequency waves correspond to a wind sea. An example of a direction-integrated spectrum is plotted in figure \ref{fig:examplespec}. This spectrum comes from a point in the GoM that is far from any shorelines. We can see two peaks on the spectrum, one at about 0.3 Hz which corresponds to wind waves and one at about 0.2 Hz, which corresponds to swell. The wide spread of this spectrum indicates that the waves probably have an irregular appearance.
+$S$ is a helpful diagnostic from which information about the appearance of the waves can be inferred. A widely spread spectrum implies irregular waves with many different frequency components whereas a tight spectrum implies regular waves with one dominant frequency. Low frequency waves correspond to swell, while high frequency waves correspond to a wind sea. An example of a direction-integrated spectrum is plotted in figure \ref{fig:examplespec}. This spectrum comes from a point in the GoM that is far from any shorelines. Two peaks are apparent on the spectrum, one at about 0.3 Hz which corresponds to wind waves and one at about 0.2 Hz, which corresponds to swell. The wide spread of this spectrum indicates that the waves probably have an irregular appearance.
 
 \begin{figure}
 \centering
 \includegraphics[width = 0.7\textwidth]{Figures/examplespec}
-\caption{An example spectrum from a point in the gulf of Mexico. Calculated from WW3 spectral forecast data.}
+\caption{An example direction-integrated spectrum from a point in the gulf of Mexico. Calculated from WW3 spectral forecast data.}
 \label{fig:examplespec}
 \end{figure}
 
 Here, we also define the wave spectral moments which are derived from the direction-integrated spectrum:
 
 \begin{equation}
-m_k = \int S(\sigma) \sigma^k \intd\sigma, \quad m = \dots,-1,0,1,\dots .
+m_i = \int S(\sigma) \sigma^i \intd\sigma, \quad i = \dots,-1,0,1,\dots .
 \label{eqn:moments}
 \end{equation}
 
@@ -164,7 +164,7 @@ We take a vector $\x \in \mathbb{R}^n$ to represent the state of the system. Thi
 \x = \begin{pmatrix} \x (t = 0) \\ \x (t = 1) \\ \vdots \\ \x (t = T) \end{pmatrix}.
 \]
 
-An augmented state vector is used in this study. Given a first guess $\x_b$, we assume that the state of the system has a normal distribution $\prob(\x) = N(\x_b,\mat{B})$. $\x_b$ here is called the background state, and is usually taken to be the state of the model before DA is applied. $\mat{B}$ is called the background error covariance matrix. Since the true background error covariance matrix is generally unknown, it must be estimated, and methods of achieving this are discussed later.
+An augmented state vector is used in this study. Given a first guess $\x_b$, we assume that the state of the system has a normal distribution $\prob(\x) = N(\x_b,\mat{B})$. $\x_b$ here is called the background state, and is usually taken to be the state of the model before DA is applied. $\mat{B}$ is called the background error covariance matrix. Since the true background error covariance matrix is generally unknown, it must be estimated, and methods of achieving this are discussed in section \ref{sec:kalmanfilters}.
 
 We take a vector $\y \in \mathbb{R}^p$ to represent a set of observations, and assume $\y$ is related to $\x$ via an observation operator $\mathcal{H}: \mathbb{R}^n \rightarrow \mathbb{R}^p$ and an error term $\varepsilon$,
 
@@ -172,11 +172,11 @@ We take a vector $\y \in \mathbb{R}^p$ to represent a set of observations, and a
 \y = \mathcal{H}(\x_\text{true}) + \varepsilon,
 \]
 
-where $\x_\text{true}$ is the unknown true state of the atmosphere. The error term $\varepsilon$ is assumed to be normally distributed with mean zero and covariance $\mat{R}$: $\varepsilon \sim N(0,\mat{R})$. The matrix $\mat{R}$ is referred to as the observation error covariance matrix.
+where $\x_\text{true}$ is the unknown true state of the atmosphere. The error term $\varepsilon$ is assumed to be normally distributed with mean zero and covariance $\mat{R}$ i.e. $\varepsilon \sim N(0,\mat{R})$. The matrix $\mat{R}$ is referred to as the observation error covariance matrix.
 
-We call the vector spaces containing $\x$ and $\y$ the state space and observation space respectively. In most operational contexts, the dimensions of these spaces are very large: $\x$ has at least one component for each variable involved in the assimilation at each model gridpoint, so typically $n \sim 10^8$. $\y$ has at least one component for each observed variable at each observation location, so $p \sim 10^6$. This means that considerable computational resources are required in most cases and computational efficiency is a key consideration in any operational DA implementation.
+We call the vector spaces containing $\x$ and $\y$ the state space and observation space respectively. In most operational contexts, the dimensions of these spaces are very large: $\x$ has at least one component for each variable involved in the assimilation at each model gridpoint, so typically $n \sim 10^8$. $\y$ has at least one component for each observed variable at each observation location, so $p \sim 10^7$. This means that considerable computational resources are required in most cases and computational efficiency is a key consideration in any operational DA implementation.
 
-In our case, we have three variables on a $181 \times 210$ grid and each forecast window contains 169 timesteps, so the dimension of our state space is approximately $2 \times 10^7$. We have only one observation location measuring the same three variables and we assimilate observations from 73 different timesteps, so the dimension of the observation space here is only 219. Note that these dimsensions are smaller than those seen in operational contexts, so the DA problem is smaller with fewer degrees of freedom. This means that solving it computationally is practical on the hardware accessible in this study. Further details and motivation for these numbers are given in section \ref{sec:DAsetup}.
+In our case, we have three variables on a $181 \times 210$ grid and each forecast window contains 169 timesteps, so the dimension of our state space is approximately $2 \times 10^7$. We have only one observation location measuring the same three variables and we assimilate observations from 73 different timesteps, so the dimension of the observation space here is only 219. Note that these dimsensions are smaller than those seen in operational contexts, so the DA problem is smaller with fewer degrees of freedom. This means that solving it computationally is practical on the hardware accessible in this study. Further details and reasoning for these numbers are given in section \ref{sec:DAsetup}.
 
 In our case $\mathcal{H}$ is linear, that is, there is a matrix $\mat{H} \in \mathbb{R}^{n \times p}$ such that $\mathcal{H}(\x) = \mat{H}\x$, and so the probability distribution of $\y$ given that the system is in state $\x$ is $\prob(\y|\x) = N(\mat{H}\x,\mat{R})$. We can then express the distribution of $\x$ given some set of observations $\y$ using Bayes' theorem:
 
@@ -205,7 +205,7 @@ The first term of \ref{eqn:cost3d} represents the deviation of $\x$ from the bac
 \subsection{Kalman Filters}
 \label{sec:kalmanfilters}
 
-The specific DA method used in this study is based on the ensemble transform Kalman filter, which is part of a broad class of methods called Kalman filters. This section begins with a discussion of the overall properties of Kalman filters, followed by a more specific description of ETKF and the method used in this study.
+The specific DA method used in this study is based on the ensemble transform Kalman filter, which is part of a broad class of methods called Kalman filters. This section begins with a discussion of the overall properties of Kalman filters, followed by a more specific description of the method used in this study and the ensemble transform Kalman filter (ETKF).
 
 The state that minimises the cost function in equation \ref{eqn:cost3d} is called the analysis $\x^a$ and may be expressed as
 
@@ -218,11 +218,11 @@ where $\vect{d}^o_b = \y - \mat{H}\x_b$ is the innovation and $\mat{K} = \mat{B}
 
 Note that the increment $\vect{d}^a_b = \x^a - \x_b$ is given by $ \mat{B}\left(\mat{H}^\top\left(\mat{H}\mat{B}\mat{H}^\top + \mat{R}\right)^{-1} \vect{d}^o_b \right)$, so it always lies in the column space of $\mat{B}$. This means that $\mat{B}$ is crucial to determining how information from the observations is spread around the domain by the DA system. In particular, if $\mat{B}$ is rank deficient, then all possible increments lie within a strict subspace of the state space. This reduces the degrees of freedom in the corrections the DA system can make, which can limit the performance of the system.
 
-One class of DA methods which use equation \ref{eqn:analysisupdate} are called Kalman filters, in which context it is called the analysis step. Kalman filters alternate this analysis step with a forecast step in which a forecast model is used to evolve the state forward to the next observation time. Kalman filters approximate $\mat{B}$ with a flow-dependent error covariance matrix $\mat{P}$ (equations \ref{eqn:ferrorcov} and \ref{eqn:aerrorcov}) which is explicitly part of the DA output and which is evolved forward in time by the model along with the state. Kalman filters are a broad class of methods, with many variants existing \citep{Evensen1992,Bishop2000,Hunt2007,Houtekamer2016}.
+One class of DA methods which use equation \ref{eqn:analysisupdate} are called Kalman filters, in which context it is called the analysis step. Kalman filters alternate this analysis step with a forecast step in which a forecast model is used to evolve the state forward to the next observation time. Kalman filters approximate $\mat{B}$ with a flow-dependent error covariance matrix $\mat{P}$ (equations \ref{eqn:ferrorcov} and \ref{eqn:aerrorcov}) which is explicitly part of the DA output and which is evolved forward in time by the model along with the state. Kalman filters are a diverse class of methods, with many variants existing \citep{Evensen1992,Bishop2000,Hunt2007,Houtekamer2016}.
 
 In this project we borrow the Kalman filter analysis step, also known as the update step, to update the model state. Our method is not strictly speaking a Kalman filter since we do not have access to the forecast model, which means we are unable to perform the forecast step required in a Kalman filter method. This process of using the forecast model to evolve the DA corrections forward to the next assimilation time is called cycling, and is a central part of most DA systems. We view the fact that we are unable to do this as an important limitation of this study.
 
-To get around the lack of cycling, we instead make use of a single analysis step to update an entire 7-day forecast window at once. This requires augmenting the state vector to include components from each leadtime within the window, which brings the dimension of the state space up to $\sim 2 \times 10^7$. We also augment the observation vector to include observations from each observation time. Since we are assimilating observations from the first three days of each window, the dimension of the observation space becomes 219.
+To get around the lack of cycling, we instead make use of a single analysis step to update an entire 7-day forecast window at once. This requires augmenting the state vector to include components from each leadtime within the window, which brings the dimension of the state space to $\sim 2 \times 10^7$. We also augment the observation vector to include observations from each observation time. Since we are assimilating observations from the first three days of each window, the dimension of the observation space is 219.
 
 It is important to note that this process of simultaneously assimilating observations from different times means that the method used in this study is not a filter method, since filter methods by definition assimilate observations sequentially according to the time the observations were taken. Methods in which observations from different times are assimilated simultaneously are called smoothers. The method used here, in which a Kalman filter analysis step is used to assimilate observations from a whole window of times, is quite an unconventional smoother implementation, and more conventional methods such as 4DVar and 4DEnVar are described in \citet{Bannister2017}.
 
@@ -249,7 +249,7 @@ where $\vect{d}^o_b = \y - \mat{H} \overline{\x}^f$. This method is algebraicall
 \label{eqn:ferrorcov}
 \end{equation}
 
-This matrix is rank deficient since its column space has dimension equal to the ensemble size, which limits the degrees of freedom of the increments as discussed earlier. Indeed, this limitation can also be seen directly from equation \ref{eqn:ensspaceupdate}, since the vector $\vect{w}^a$ is in the ensemble space which has dimension equal to the number of ensemble members and much less than the dimension fo the state space. This method was chosen nonetheless since according to \citet{Hunt2007}, working in ensemble space has considerable advantages over working in state space in terms of computational cost.
+This matrix is rank deficient since its column space has dimension equal to the ensemble size, which limits the degrees of freedom of the increments as discussed earlier. Indeed, this limitation can also be seen directly from equation \ref{eqn:ensspaceupdate}, since the vector $\vect{w}^a$ is in the ensemble space which has dimension equal to the number of ensemble members, much less than the dimension of the state space. This method was chosen nonetheless since according to \citet{Hunt2007}, working in ensemble space has considerable advantages over working in state space in terms of computational cost.
 
 Note that this method only gives a single analysis state, where we started with an ensemble. To get a full analysis ensemble, we first define the analysis error covariance matrix, which is prescribed by Kalman theory \citep[section 3.4.3]{Asch2016} to be 
 
@@ -269,12 +269,15 @@ so we define $\mat{X}_a$ as
 
 \begin{equation}
 \mat{X}_a = \mat{X}_f \left( \mat{I}_N - \mat{X}_f^\top \mat{H}^\top \left(\mat{HP}^f\mat{H}^\top + \mat{R} \right)^{-1} \mat{H} \mat{X}_f \right) ^{\frac 1 2}.
+\label{eqn:xaxf}
 \end{equation}
 
 The notation $\mat{A}^{\frac 1 2}$ here refers to the matrix square root, which is defined to be a matrix $\mat{B}$ such that $\mat{B}^\top\mat{B} = \mat{A}$. This definition is ambiguous since for any orthogonal matrix $\mat{U}$, $\mat{UB}$ is also a square root of $\mat{A}$. The method described in \citet{Hunt2007} takes the symmetric square root, which is uniquely defined by \citet{Horn2013}, theorem 7.2.6. A desirable property of this choice is that it leads to an unbiased filter, that is, the mean of the analysis ensemble is equal to the mean of the forecast ensemble \citep{Livings2008}.
 
+The matrix $\mat{X}_a$ can be expressed in a simpler form by rearranging equation \ref{eqn:xaxf} to
+
 \[
-\mat{X}_a = \mat{X}_f \left( \mat{I}_N + \mat{X}_f^\top \mat{H}^\top \mat{R}^{-1} \mat{H} \mat{X}_f \right)^{-\frac 1 2}
+\mat{X}_a = \mat{X}_f \left( \mat{I}_N + \mat{X}_f^\top \mat{H}^\top \mat{R}^{-1} \mat{H} \mat{X}_f \right)^{-\frac 1 2},
 \]
 
 using the Sherman-Morrison-Woodbury identity \citep[p. 50]{Golub1996}. The full analysis ensemble can then be generated from the analysis state derived in equation \ref{eqn:ETKFinc} via
@@ -302,13 +305,13 @@ since the $i^\text{th}$ column of $\mat{X}_a$ is
 
 In this section, we discuss some of the pitfalls that can arise when implementing the ETKF, along with potential solutions. It is important to note that none of the solutions discussed here are implemented in this study, for the sake of computational simplicity and for other reasons discussed later in the section. Description of them is included nonetheless as knowledge of the potential problems helps to explain the results of this study, and the solutions are useful to inform future work.
 
-When calculating $\mat{P}^f$ from the ensemble, spurious covariances may arise at long distances \citep{Hunt2007}, especially when the ensemble size is small. This is problematic as it can lead to large increments far from observation locations, which is physically unrealistic. One way to fix this is called localisation, and involves multiplying each element of the forecast error covariance matrix $\mat{P}^f_{ij}$ by a factor which depends on the distance between gridpoints $i$ and $j$. Representing this distance with $d(i,j)$, we define the matrix $\mat{D}$ by $\mat{D}_{ij} = f(d(i,j))$ for some function $f: \mathbb{R}^+ \rightarrow [0,1]$ of our choosing. We then define the new error covariance matrix $\mat{P}^{f\prime}$ via the following equation:
+When calculating $\mat{P}^f$ from the ensemble, spurious covariances may arise at long distances \citep{Hunt2007}, especially when the ensemble size is small. This is problematic as it can lead to large increments far from observation locations, which is physically unrealistic. One way to fix this is called localisation, and involves multiplying each element of the forecast error covariance matrix $\mat{P}^f_{ij}$ by a factor which depends on the distance between gridpoints $i$ and $j$. Representing this distance with $d(i,j)$, we define the matrix $\mat{D}$ by $\mat{D}_{ij} = f(d(i,j))$ for some function $f: \mathbb{R}^+ \rightarrow [0,1]$ of our choosing. We then define the new error covariance matrix $\mat{P}^{f\prime}$ via the following formula:
 
 \begin{equation}
 \mat{P}^{f\prime} = \mat{P}^f \circ \mat{D}.
 \end{equation}
 
-So the localisation effectively scales the covariance values by a factor between 0 and 1 determined by the function $f$, the aim being to suppress the spurious long-distance covariances. Here $\circ$ denotes the Schur product of the two matrices, that is $\mat{P}^{f\prime}_{ij} = \mat{P}^f_{ij} \mat{D}_{ij}$.
+Here $\circ$ denotes the Schur product of the two matrices, that is $\mat{P}^{f\prime}_{ij} = \mat{P}^f_{ij} \mat{D}_{ij}$. So the localisation effectively scales the covariance values by a factor between 0 and 1 determined by the function $f$, the aim being to suppress the spurious long-distance covariances.
 
 The choice of $f$ is important as it determines the nature of the localisation. In particular, $f$ should be close to 1 when $d(i,j)$ is small and close to 0 when $d(i,j)$ is large, to suppress covariances at long distances while allowing them to exist at short distances. \citet{Hunt2007} gives a detailed description of the local ensemble transform Kalman filter (LETKF) obtained by applying localisation to the ETKF. In that study, $f$ is chosen by setting a cutoff radius $r$ and defining $f$ by
 
@@ -356,6 +359,6 @@ As with localisation, we do not apply any inflation in this study. This choice w
 
 \section{Chapter Summary}
 
-This chapter was intended to give an overview of the theoretical aspects of this study. We have seen details of ocean wave theory, including qualitative descriptions of physical mechanisms affecting waves and quantitative treatments of the linear theory and wave spectra used in WAVEWATCH III. A description of DA theory has been given, from the basic aspects of state vectors and cost functions to a more specific description of Kalman filters and some potential problems that can arise when using these methods.
+This chapter is intended to give an overview of the theoretical aspects of this study. We have seen details of ocean wave theory, including qualitative descriptions of physical mechanisms affecting waves and quantitative treatments of the linear theory and wave spectra used in WAVEWATCH III. A description of DA theory has been given, from the basic aspects of state vectors and cost functions to a more specific description of Kalman filters and some potential problems that can arise when using these methods.
 
 Particular attention has been given throughout to the topics most relevant to this study, such as the ETKF method which is borrowed heavily from. It is hoped that the theory presented in this chapter provides a basis for understanding the methods and results presented in the subsequent chapters of this study.
